@@ -34,6 +34,22 @@
         View Code →
       </a>
     </div>
+    <section className="mb-16">
+  <h2 className="text-3xl font-semibold">Skills</h2>
+
+  <div className="mt-6 flex flex-wrap gap-3">
+
+    <span className="px-4 py-2 bg-gray-200 rounded-full">Python</span>
+    <span className="px-4 py-2 bg-gray-200 rounded-full">Machine Learning</span>
+    <span className="px-4 py-2 bg-gray-200 rounded-full">Deep Learning</span>
+    <span className="px-4 py-2 bg-gray-200 rounded-full">NLP</span>
+    <span className="px-4 py-2 bg-gray-200 rounded-full">TensorFlow</span>
+    <span className="px-4 py-2 bg-gray-200 rounded-full">PyTorch</span>
+    <span className="px-4 py-2 bg-gray-200 rounded-full">React</span>
+    <span className="px-4 py-2 bg-gray-200 rounded-full">Next.js</span>
+
+  </div>
+</section>
 
   </div>
 </section>

@@ -101,3 +101,29 @@ export default function Home() {
     </main>
   );
 }
+<motion.section
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.7 }}
+  className="mb-16 text-center"
+>
+  <h2 className="text-3xl font-semibold">Contact</h2>
+
+  <p className="mt-4 text-gray-600">
+    Feel free to reach out for collaborations or opportunities.
+  </p>
+
+  <div className="mt-6 space-y-2">
+    <p>Email: your-email@example.com</p>
+
+    <p>
+      GitHub:{" "}
+      <a
+        href="https://github.com/dovarikalpanajoyce-coder"
+        className="text-blue-500"
+      >
+        github.com/dovarikalpanajoyce-coder
+      </a>
+    </p>
+  </div>
+</motion.section>

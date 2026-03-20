@@ -114,8 +114,8 @@ export default function Home() {
   </p>
 
   <div className="mt-6 space-y-2">
-    <p>Email: your-email@example.com</p>
-
+    <p>Email: dovarikalpanajoyce@gmail.com</p>
+    
     <p>
       GitHub:{" "}
       <a

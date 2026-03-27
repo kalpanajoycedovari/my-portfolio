@@ -7,6 +7,14 @@ export const metadata: Metadata = {
 
 const PROJECTS = [
   {
+    title: "JoBo (Journalising Book)",
+    desc: "A digital journaling application that uses Optical Character Recognition (OCR) to extract text from handwritten and printed documents. Converts unstructured image data into searchable, editable digital text with AI-driven processing and secure storage.",
+    tags: ["Python", "OpenCV", "Tesseract OCR", "NumPy", "Pandas"],
+    href: "https://github.com/kalpanajoycedovari",
+    year: "2024",
+    status: "Completed",
+  },
+  {
     title: "AI Resume Analyzer",
     desc: "An NLP-powered resume analysis tool that parses resumes, extracts key signals, and provides smart feedback to improve job matching scores.",
     tags: ["NLP", "Python", "Machine Learning", "spaCy"],
@@ -16,13 +24,12 @@ const PROJECTS = [
   },
   {
     title: "Image Classifier",
-    desc: "Deep learning model for image classification built with PyTorch. Trained on custom datasets with data augmentation for improved generalization.",
+    desc: "Deep learning model for image classification built with PyTorch. Trained on custom datasets with data augmentation for improved generalisation.",
     tags: ["PyTorch", "CNN", "Computer Vision", "Python"],
-    href: "https://github.com/dovarikalpanajoyce-coder",
+    href: "https://github.com/kalpanajoycedovari",
     year: "2024",
     status: "Completed",
   },
-  // Add more projects here!
 ];
 
 export default function ProjectsPage() {

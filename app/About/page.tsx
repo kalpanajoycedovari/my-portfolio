@@ -20,10 +20,10 @@ export default function AboutPage() {
             I'm an AI/ML Engineer passionate about building intelligent systems that bridge the gap between cutting-edge research and real-world applications.
           </p>
           <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, marginBottom: "20px" }}>
-            I specialize in NLP, computer vision, and end-to-end ML pipelines — from data wrangling to model deployment. I love turning messy problems into clean, intelligent solutions.
+            I specialize in AI (NLP), Computer vision, and End-to-end ML pipelines — from data wrangling to model deployment. I love turning messy problems into clean, intelligent solutions.
           </p>
           <p style={{ color: "var(--text-secondary)", lineHeight: 1.8 }}>
-            When I'm not training models, I'm probably exploring the latest AI research papers, building side projects, or drinking too much coffee ☕
+            When I'm not training models, I'm probably exploring the latest AI tools,New Tech in Town,Building side projects, or Drinking too much coffee☕and Reading books and exploring cafes
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export default function AboutPage() {
             { label: "Location", value: "UK 🇬🇧" },
             { label: "Focus", value: "AI/ML Engineering" },
             { label: "Currently", value: "Open to opportunities" },
-            { label: "Education", value: "Computer Science with AI Specialization" },
+            { label: "Education", value: "Computer Science" },
           ].map(item => (
             <div key={item.label} className="glass-card" style={{ padding: "16px 20px", display: "flex", justifyContent: "space-between" }}>
               <span style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>{item.label}</span>

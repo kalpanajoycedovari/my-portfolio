@@ -14,7 +14,7 @@ export default function ContactPage() {
         Let's Connect
       </h1>
       <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: "480px", marginBottom: "48px" }}>
-        Whether you have an opportunity, a collaboration idea, or just want to chat AI — my inbox is open.
+        Whether you have an opportunity, a collaboration idea, or just want to chat abput AI, New Tech in Town! or BOOKS AND COFFEE — my inbox is open.
       </p>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", maxWidth: "600px" }}>

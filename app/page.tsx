@@ -1,693 +1,555 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 
-const skills = [
-  { name: "Python", level: 95 },
-  { name: "Machine Learning", level: 90 },
-  { name: "Deep Learning", level: 88 },
-  { name: "NLP", level: 85 },
-  { name: "TensorFlow", level: 82 },
-  { name: "PyTorch", level: 80 },
-  { name: "React", level: 75 },
-  { name: "Next.js", level: 72 },
+const NAV_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
 ];
 
-const projects = [
+const SKILLS = [
+  "Python", "Machine Learning", "Deep Learning",
+  "NLP", "TensorFlow", "PyTorch", "React", "Next.js",
+  "Data Analysis", "Computer Vision",
+];
+
+const PROJECTS = [
   {
-    id: "01",
     title: "AI Resume Analyzer",
-    tag: "NLP · Matching",
-    description:
-      "NLP-based resume analysis tool that semantically parses skills and experience, improving job-candidate matching accuracy.",
-    tech: ["Python", "spaCy", "BERT", "FastAPI"],
-    href: "#",
+    desc: "An NLP-powered resume analysis tool that intelligently matches candidates to job descriptions, improving hiring accuracy and saving time.",
+    tags: ["NLP", "Python", "Machine Learning"],
+    href: "https://github.com/kalpanajoycedovari",
   },
   {
-    id: "02",
     title: "Image Classifier",
-    tag: "CV · Deep Learning",
-    description:
-      "Convolutional neural network for multi-class image classification, trained on custom datasets with transfer learning.",
-    tech: ["PyTorch", "ResNet", "CUDA", "Weights & Biases"],
-    href: "#",
+    desc: "A deep learning model for multi-class image classification using convolutional neural networks, trained on custom datasets.",
+    tags: ["Deep Learning", "PyTorch", "Computer Vision"],
+    href: "https://github.com/kalpanajoycedovari",
   },
 ];
-
-function NeuralBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const nodes: { x: number; y: number; vx: number; vy: number }[] = Array.from(
-      { length: 40 },
-      () => ({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-      })
-    );
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      nodes.forEach((n) => {
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
-        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
-      });
-
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 160) {
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(0,210,150,${0.12 * (1 - dist / 160)})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-
-      nodes.forEach((n) => {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(0,210,150,0.35)";
-        ctx.fill();
-      });
-
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
-    />
-  );
-}
 
 export default function Home() {
-  const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
-
-  const stagger = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.1 } },
-  };
-  const fadeUp = {
-    hidden: { opacity: 0, y: 32 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-          --bg: #080c0f;
-          --surface: #0f1519;
-          --border: rgba(255,255,255,0.07);
-          --accent: #00d296;
-          --accent-dim: rgba(0,210,150,0.12);
-          --accent-glow: rgba(0,210,150,0.25);
-          --text: #e8f0ec;
-          --muted: rgba(232,240,236,0.45);
-          --tag-bg: rgba(0,210,150,0.08);
-          --tag-border: rgba(0,210,150,0.25);
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-          background: var(--bg);
-          color: var(--text);
-          font-family: 'JetBrains Mono', monospace;
-          overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 {
-          font-family: 'Syne', sans-serif;
-        }
-
-        ::selection { background: var(--accent); color: #000; }
-
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
-      `}</style>
-
-      <NeuralBackground />
-
-      {/* NAV */}
-      <nav
+      {/* Ambient background orbs */}
+      <div
         style={{
           position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 50,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "1.25rem 2.5rem",
-          backdropFilter: "blur(16px)",
-          borderBottom: "1px solid var(--border)",
-          background: "rgba(8,12,15,0.7)",
+          top: "-20%",
+          right: "-10%",
+          width: "600px",
+          height: "600px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(160,100,200,0.08) 0%, transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 0,
         }}
-      >
-        <span
-          style={{
-            fontFamily: "Syne, sans-serif",
-            fontWeight: 800,
-            fontSize: "1.1rem",
-            color: "var(--accent)",
-            letterSpacing: "0.04em",
-          }}
-        >
-          JOYCE
-        </span>
-        <div style={{ display: "flex", gap: "2rem" }}>
-          {["Projects", "Skills", "Contact"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              style={{
-                fontSize: "0.75rem",
-                letterSpacing: "0.12em",
-                color: "var(--muted)",
-                textDecoration: "none",
-                textTransform: "uppercase",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--accent)")}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--muted)")}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-      </nav>
+      />
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10%",
+          left: "-15%",
+          width: "500px",
+          height: "500px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(200,130,180,0.06) 0%, transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
-      <main style={{ position: "relative", zIndex: 1 }}>
-        {/* HERO */}
-        <motion.section
-          ref={heroRef}
-          style={{ opacity: heroOpacity, y: heroY }}
-          id="hero"
+      <div style={{ position: "relative", zIndex: 1 }}>
+        {/* ── NAV ─────────────────────────────────────────── */}
+        <nav
+          style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 100,
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            background: "rgba(14,11,20,0.75)",
+            borderBottom: "1px solid var(--border)",
+          }}
         >
           <div
             style={{
-              minHeight: "100vh",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "0 2.5rem",
               maxWidth: "900px",
               margin: "0 auto",
+              padding: "1.1rem 2rem",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              animate="show"
-            >
-              <motion.p
-                variants={fadeUp}
-                style={{
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.2em",
-                  color: "var(--accent)",
-                  textTransform: "uppercase",
-                  marginBottom: "1.25rem",
-                  fontWeight: 500,
-                }}
-              >
-                ◆ AI / ML Engineer
-              </motion.p>
-
-              <motion.h1
-                variants={fadeUp}
-                style={{
-                  fontFamily: "Syne, sans-serif",
-                  fontWeight: 800,
-                  fontSize: "clamp(3.5rem, 10vw, 7.5rem)",
-                  lineHeight: 0.9,
-                  letterSpacing: "-0.03em",
-                  marginBottom: "2rem",
-                }}
-              >
-                Hi,
-                <br />
-                I'm{" "}
-                <span
-                  style={{
-                    color: "var(--accent)",
-                    textShadow: "0 0 60px var(--accent-glow)",
-                  }}
-                >
-                  Joyce
-                </span>
-              </motion.h1>
-
-              <motion.p
-                variants={fadeUp}
-                style={{
-                  fontSize: "1.05rem",
-                  color: "var(--muted)",
-                  maxWidth: "480px",
-                  lineHeight: 1.7,
-                  marginBottom: "2.5rem",
-                }}
-              >
-                I build AI-powered applications and machine learning systems
-                that solve real-world problems — from NLP pipelines to deep
-                vision models.
-              </motion.p>
-
-              <motion.div
-                variants={fadeUp}
-                style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
-              >
-                <a
-                  href="#projects"
-                  style={{
-                    background: "var(--accent)",
-                    color: "#000",
-                    padding: "0.75rem 1.75rem",
-                    borderRadius: "4px",
-                    fontWeight: 600,
-                    fontSize: "0.8rem",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    textDecoration: "none",
-                    transition: "transform 0.2s, box-shadow 0.2s",
-                    display: "inline-block",
-                    fontFamily: "Syne, sans-serif",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 30px var(--accent-glow)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                  }}
-                >
-                  View Projects
-                </a>
-                {[
-                  { label: "GitHub", href: "https://github.com/dovarikalpanajoyce-coder" },
-                  { label: "Resume", href: "/resume.pdf" },
-                ].map(({ label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    style={{
-                      border: "1px solid var(--border)",
-                      color: "var(--text)",
-                      padding: "0.75rem 1.75rem",
-                      borderRadius: "4px",
-                      fontWeight: 500,
-                      fontSize: "0.8rem",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      textDecoration: "none",
-                      transition: "border-color 0.2s, color 0.2s",
-                      display: "inline-block",
-                      fontFamily: "Syne, sans-serif",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "var(--accent)";
-                      (e.currentTarget as HTMLElement).style.color = "var(--accent)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
-                      (e.currentTarget as HTMLElement).style.color = "var(--text)";
-                    }}
-                  >
-                    {label}
-                  </a>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* Scroll indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
+            <span
               style={{
-                position: "absolute",
-                bottom: "2.5rem",
-                left: "50%",
-                transform: "translateX(-50%)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "0.5rem",
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "1.4rem",
+                fontWeight: 400,
+                letterSpacing: "0.08em",
+                color: "var(--accent)",
               }}
             >
-              <span style={{ fontSize: "0.65rem", letterSpacing: "0.2em", color: "var(--muted)", textTransform: "uppercase" }}>
-                scroll
-              </span>
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                style={{ width: "1px", height: "40px", background: "linear-gradient(to bottom, var(--accent), transparent)" }}
-              />
-            </motion.div>
-          </div>
-        </motion.section>
+              Joyce
+            </span>
 
-        {/* PROJECTS */}
+            {/* Desktop nav */}
+            <div style={{ display: "flex", gap: "2.5rem" }}>
+              {NAV_LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  style={{
+                    fontSize: "0.85rem",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "var(--text-muted)",
+                    transition: "color 0.3s",
+                  }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--accent2)")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--text-muted)")}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        {/* ── HERO ────────────────────────────────────────── */}
         <section
-          id="projects"
           style={{
-            padding: "8rem 2.5rem",
             maxWidth: "900px",
             margin: "0 auto",
+            padding: "8rem 2rem 6rem",
           }}
         >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
+          <p
+            style={{
+              fontSize: "0.8rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "var(--accent)",
+              marginBottom: "1.5rem",
+            }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "3.5rem" }}>
-              <span style={{ color: "var(--accent)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                02
-              </span>
-              <h2 style={{ fontFamily: "Syne, sans-serif", fontWeight: 800, fontSize: "2.5rem", letterSpacing: "-0.02em" }}>
-                Projects
-              </h2>
-              <div style={{ flex: 1, height: "1px", background: "var(--border)" }} />
-            </div>
-          </motion.div>
+            AI / ML Engineer
+          </p>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-            {projects.map((p, i) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
+          <h1
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "clamp(3rem, 8vw, 5.5rem)",
+              fontWeight: 300,
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
+              color: "var(--text)",
+              marginBottom: "1.8rem",
+            }}
+          >
+            Hi, I&apos;m Joyce
+            <span style={{ color: "var(--accent)", marginLeft: "0.3em" }}>✦</span>
+          </h1>
+
+          <p
+            style={{
+              fontSize: "1.1rem",
+              color: "var(--text-muted)",
+              maxWidth: "520px",
+              lineHeight: 1.8,
+              marginBottom: "3rem",
+            }}
+          >
+            I build AI-powered applications and machine learning systems that
+            solve real-world problems — blending technical depth with thoughtful
+            design.
+          </p>
+
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+            {[
+              { label: "View Projects", href: "/projects", primary: true },
+              { label: "GitHub", href: "https://github.com/kalpanajoycedovari", primary: false },
+              { label: "Resume", href: "/resume.pdf", primary: false },
+            ].map((btn) => (
+              <a
+                key={btn.label}
+                href={btn.href}
+                target={btn.href.startsWith("http") ? "_blank" : undefined}
+                rel={btn.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 style={{
+                  display: "inline-block",
+                  padding: btn.primary ? "0.8rem 2rem" : "0.75rem 1.8rem",
+                  fontSize: "0.82rem",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  borderRadius: "2px",
+                  transition: "all 0.3s ease",
+                  background: btn.primary
+                    ? "linear-gradient(135deg, rgba(180,120,220,0.25), rgba(200,140,190,0.2))"
+                    : "transparent",
+                  border: btn.primary
+                    ? "1px solid rgba(180,130,210,0.4)"
+                    : "1px solid var(--border)",
+                  color: btn.primary ? "var(--accent)" : "var(--text-muted)",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "var(--accent)";
+                  el.style.color = "var(--text)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = btn.primary
+                    ? "rgba(180,130,210,0.4)"
+                    : "var(--border)";
+                  el.style.color = btn.primary ? "var(--accent)" : "var(--text-muted)";
+                }}
+              >
+                {btn.label}
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* ── DIVIDER ─────────────────────────────────────── */}
+        <div
+          style={{
+            maxWidth: "900px",
+            margin: "0 auto 0",
+            padding: "0 2rem",
+          }}
+        >
+          <div
+            style={{
+              height: "1px",
+              background:
+                "linear-gradient(to right, transparent, var(--border), transparent)",
+            }}
+          />
+        </div>
+
+        {/* ── PROJECTS ────────────────────────────────────── */}
+        <section
+          style={{
+            maxWidth: "900px",
+            margin: "0 auto",
+            padding: "6rem 2rem",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "0.75rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "var(--text-faint)",
+              marginBottom: "0.6rem",
+            }}
+          >
+            Selected Work
+          </p>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+              fontWeight: 300,
+              color: "var(--text)",
+              marginBottom: "3rem",
+            }}
+          >
+            Projects
+          </h2>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
+            {PROJECTS.map((p) => (
+              <a
+                key={p.title}
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "block",
+                  padding: "2rem",
                   background: "var(--surface)",
                   border: "1px solid var(--border)",
-                  borderRadius: "8px",
-                  padding: "2rem",
-                  cursor: "pointer",
-                  transition: "border-color 0.3s, transform 0.3s",
-                  position: "relative",
-                  overflow: "hidden",
+                  borderRadius: "4px",
+                  transition: "all 0.35s ease",
+                  color: "inherit",
+                  textDecoration: "none",
                 }}
-                whileHover={{ borderColor: "var(--accent)", y: -4 }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "var(--border-hover)";
+                  el.style.background = "var(--bg3)";
+                  el.style.transform = "translateY(-3px)";
+                  el.style.boxShadow = "0 12px 40px rgba(140,80,180,0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "var(--border)";
+                  el.style.background = "var(--surface)";
+                  el.style.transform = "translateY(0)";
+                  el.style.boxShadow = "none";
+                }}
               >
-                <div
+                <h3
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: "1px",
-                    background: "linear-gradient(to right, var(--accent), transparent)",
-                    opacity: 0,
-                    transition: "opacity 0.3s",
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "1.4rem",
+                    fontWeight: 400,
+                    color: "var(--text)",
+                    marginBottom: "0.8rem",
                   }}
-                  className="project-topline"
-                />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: "1.25rem" }}>
-                    <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "0.7rem", color: "var(--accent)", opacity: 0.6 }}>
-                      {p.id}
-                    </span>
-                    <h3 style={{ fontFamily: "Syne, sans-serif", fontWeight: 700, fontSize: "1.4rem", letterSpacing: "-0.01em" }}>
-                      {p.title}
-                    </h3>
-                  </div>
-                  <span
-                    style={{
-                      fontSize: "0.7rem",
-                      padding: "0.3rem 0.75rem",
-                      borderRadius: "100px",
-                      background: "var(--tag-bg)",
-                      border: "1px solid var(--tag-border)",
-                      color: "var(--accent)",
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    {p.tag}
-                  </span>
-                </div>
-                <p style={{ color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-                  {p.description}
+                >
+                  {p.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.88rem",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.75,
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  {p.desc}
                 </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                  {p.tech.map((t) => (
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                  {p.tags.map((tag) => (
                     <span
-                      key={t}
+                      key={tag}
                       style={{
-                        fontSize: "0.68rem",
-                        fontFamily: "JetBrains Mono, monospace",
-                        padding: "0.25rem 0.6rem",
-                        borderRadius: "3px",
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid var(--border)",
-                        color: "var(--muted)",
-                        letterSpacing: "0.04em",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        padding: "0.3rem 0.8rem",
+                        background: "rgba(160,100,200,0.1)",
+                        border: "1px solid rgba(160,100,200,0.2)",
+                        borderRadius: "2px",
+                        color: "var(--accent3)",
                       }}
                     >
-                      {t}
+                      {tag}
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </a>
             ))}
           </div>
-        </section>
 
-        {/* SKILLS */}
-        <section
-          id="skills"
-          style={{
-            padding: "4rem 2.5rem 8rem",
-            maxWidth: "900px",
-            margin: "0 auto",
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "3.5rem" }}>
-              <span style={{ color: "var(--accent)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                03
-              </span>
-              <h2 style={{ fontFamily: "Syne, sans-serif", fontWeight: 800, fontSize: "2.5rem", letterSpacing: "-0.02em" }}>
-                Skills
-              </h2>
-              <div style={{ flex: 1, height: "1px", background: "var(--border)" }} />
-            </div>
-          </motion.div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-            {skills.map((skill, i) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                  <span style={{ fontSize: "0.8rem", letterSpacing: "0.06em", color: "var(--text)" }}>
-                    {skill.name}
-                  </span>
-                  <span style={{ fontSize: "0.7rem", color: "var(--accent)", fontFamily: "JetBrains Mono, monospace" }}>
-                    {skill.level}%
-                  </span>
-                </div>
-                <div
-                  style={{
-                    height: "3px",
-                    background: "rgba(255,255,255,0.06)",
-                    borderRadius: "2px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: i * 0.07 + 0.2, ease: "easeOut" }}
-                    style={{
-                      height: "100%",
-                      background: "linear-gradient(to right, var(--accent), rgba(0,210,150,0.5))",
-                      borderRadius: "2px",
-                      boxShadow: "0 0 8px var(--accent-glow)",
-                    }}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* CONTACT */}
-        <section
-          id="contact"
-          style={{
-            padding: "4rem 2.5rem 10rem",
-            maxWidth: "900px",
-            margin: "0 auto",
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "3.5rem" }}>
-              <span style={{ color: "var(--accent)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                04
-              </span>
-              <h2 style={{ fontFamily: "Syne, sans-serif", fontWeight: 800, fontSize: "2.5rem", letterSpacing: "-0.02em" }}>
-                Contact
-              </h2>
-              <div style={{ flex: 1, height: "1px", background: "var(--border)" }} />
-            </div>
-
-            <div
+          <div style={{ marginTop: "2.5rem" }}>
+            <Link
+              href="/projects"
               style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: "8px",
-                padding: "3rem",
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "2rem",
+                fontSize: "0.8rem",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: "var(--text-muted)",
+                borderBottom: "1px solid var(--border)",
+                paddingBottom: "2px",
+                transition: "color 0.3s",
+              }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--accent)")}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--text-muted)")}
+            >
+              View all projects →
+            </Link>
+          </div>
+        </section>
+
+        {/* ── SKILLS ──────────────────────────────────────── */}
+        <section
+          style={{
+            maxWidth: "900px",
+            margin: "0 auto",
+            padding: "0 2rem 6rem",
+          }}
+        >
+          <div
+            style={{
+              height: "1px",
+              background:
+                "linear-gradient(to right, transparent, var(--border), transparent)",
+              marginBottom: "5rem",
+            }}
+          />
+          <p
+            style={{
+              fontSize: "0.75rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "var(--text-faint)",
+              marginBottom: "0.6rem",
+            }}
+          >
+            Expertise
+          </p>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+              fontWeight: 300,
+              color: "var(--text)",
+              marginBottom: "2.5rem",
+            }}
+          >
+            Skills
+          </h2>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem" }}>
+            {SKILLS.map((skill) => (
+              <span
+                key={skill}
+                style={{
+                  padding: "0.55rem 1.2rem",
+                  fontSize: "0.82rem",
+                  letterSpacing: "0.05em",
+                  border: "1px solid var(--border)",
+                  borderRadius: "2px",
+                  color: "var(--text-muted)",
+                  background: "var(--surface)",
+                  transition: "all 0.3s ease",
+                  cursor: "default",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "var(--accent3)";
+                  el.style.color = "var(--accent)";
+                  el.style.background = "rgba(160,100,200,0.08)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "var(--border)";
+                  el.style.color = "var(--text-muted)";
+                  el.style.background = "var(--surface)";
+                }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* ── CONTACT STRIP ───────────────────────────────── */}
+        <section
+          style={{
+            borderTop: "1px solid var(--border)",
+            borderBottom: "1px solid var(--border)",
+            background: "var(--bg2)",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: "900px",
+              margin: "0 auto",
+              padding: "5rem 2rem",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "0.75rem",
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                color: "var(--text-faint)",
+                marginBottom: "1rem",
               }}
             >
-              <div>
-                <p style={{ fontSize: "1.1rem", color: "var(--muted)", lineHeight: 1.7, marginBottom: "2rem" }}>
-                  Open to collaborations, research roles, and ML engineering opportunities.
-                </p>
-                <a
-                  href="mailto:dovarikalpanajoyce@gmail.com"
-                  style={{
-                    display: "inline-block",
-                    background: "var(--accent)",
-                    color: "#000",
-                    padding: "0.75rem 1.75rem",
-                    borderRadius: "4px",
-                    fontWeight: 700,
-                    fontSize: "0.8rem",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    textDecoration: "none",
-                    fontFamily: "Syne, sans-serif",
-                    transition: "box-shadow 0.2s, transform 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px var(--accent-glow)";
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                  }}
-                >
-                  Say Hello →
-                </a>
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                {[
-                  { label: "Email", value: "dovarikalpanajoyce@gmail.com", href: "mailto:dovarikalpanajoyce@gmail.com" },
-                  { label: "GitHub", value: "dovarikalpanajoyce-coder", href: "https://github.com/dovarikalpanajoyce-coder" },
-                ].map(({ label, value, href }) => (
-                  <div key={label}>
-                    <span style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "var(--accent)", textTransform: "uppercase", display: "block", marginBottom: "0.25rem" }}>
-                      {label}
-                    </span>
-                    <a
-                      href={href}
-                      style={{
-                        fontSize: "0.82rem",
-                        color: "var(--muted)",
-                        textDecoration: "none",
-                        fontFamily: "JetBrains Mono, monospace",
-                        transition: "color 0.2s",
-                      }}
-                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--text)")}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--muted)")}
-                    >
-                      {value}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+              Let&apos;s Connect
+            </p>
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                fontWeight: 300,
+                color: "var(--text)",
+                marginBottom: "1.2rem",
+              }}
+            >
+              Open to opportunities
+            </h2>
+            <p
+              style={{
+                color: "var(--text-muted)",
+                fontSize: "0.95rem",
+                marginBottom: "2.5rem",
+              }}
+            >
+              Whether it&apos;s a collaboration, role, or just a chat about AI — I&apos;d love to hear from you.
+            </p>
+            <a
+              href="https://github.com/kalpanajoycedovari"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-block",
+                padding: "0.85rem 2.4rem",
+                fontSize: "0.82rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                border: "1px solid rgba(180,130,210,0.4)",
+                borderRadius: "2px",
+                color: "var(--accent)",
+                background: "linear-gradient(135deg, rgba(160,100,200,0.12), rgba(200,130,180,0.08))",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget;
+                el.style.borderColor = "var(--accent)";
+                el.style.background = "linear-gradient(135deg, rgba(160,100,200,0.22), rgba(200,130,180,0.15))";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget;
+                el.style.borderColor = "rgba(180,130,210,0.4)";
+                el.style.background = "linear-gradient(135deg, rgba(160,100,200,0.12), rgba(200,130,180,0.08))";
+              }}
+            >
+              View GitHub
+            </a>
+          </div>
         </section>
-      </main>
 
-      {/* FOOTER */}
-      <footer
-        style={{
-          borderTop: "1px solid var(--border)",
-          padding: "1.5rem 2.5rem",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        <span style={{ fontSize: "0.7rem", color: "var(--muted)", letterSpacing: "0.1em" }}>
-          © 2025 JOYCE — AI/ML ENGINEER
-        </span>
-        <span style={{ fontSize: "0.7rem", color: "var(--muted)", fontFamily: "JetBrains Mono, monospace" }}>
-          built with next.js
-        </span>
-      </footer>
+        {/* ── FOOTER ──────────────────────────────────────── */}
+        <footer
+          style={{
+            maxWidth: "900px",
+            margin: "0 auto",
+            padding: "2rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "0.5rem",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "0.72rem",
+              color: "var(--text-faint)",
+              letterSpacing: "0.08em",
+            }}
+          >
+            © 2025 Joyce — AI/ML Engineer
+          </span>
+          <span
+            style={{
+              fontSize: "0.72rem",
+              color: "var(--text-faint)",
+              letterSpacing: "0.08em",
+            }}
+          >
+            built with Next.js
+          </span>
+        </footer>
+      </div>
     </>
   );
 }

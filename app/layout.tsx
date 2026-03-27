@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Joyce — AI/ML Engineer",
+  description: "Portfolio of Kalpana Joyce Dovari — AI/ML Engineer building intelligent systems.",
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -5,20 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-white text-black">
-
-        <nav className="flex justify-between items-center p-6 max-w-5xl mx-auto">
-          <h1 className="font-bold text-xl">Joyce</h1>
-
-          <div className="flex gap-6">
-            <a href="/">Home</a>
-            <a href="/projects">Projects</a>
-          </div>
-        </nav>
-
-        {children}
-
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

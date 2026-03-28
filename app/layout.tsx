@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Joyce — AI/ML Engineer",
-  description: "Portfolio of Joyce, AI/ML Engineer Building Intelligent systems.",
+  description: "Portfolio of Joyce, AI/ML Engineer building intelligent systems.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -27,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" style={{ color: "var(--text-secondary)" }}>Home</Link>
             <Link href="/projects" style={{ color: "var(--text-secondary)" }}>Projects</Link>
             <Link href="/about" style={{ color: "var(--text-secondary)" }}>About</Link>
+            <Link href="/blog" style={{ color: "var(--text-secondary)" }}>Blog</Link>
             <Link href="/contact" style={{ color: "var(--text-secondary)" }}>Contact</Link>
           </div>
         </nav>
@@ -50,8 +51,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         }}>
           <span>© 2025 Joyce · Built with Next.js & ☕</span>
           <div style={{ display: "flex", gap: "20px" }}>
-            <a href="https://github.com/kalpanajoycedovari" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://linkedin.com/in/kalpanajoycedovari" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/dovarikalpanajoyce-coder" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </footer>
       </body>

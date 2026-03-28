@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,23 +17,56 @@ export default function HomePage() {
     <div className="section">
 
       {/* ── Hero ── */}
-      <section style={{ paddingTop: "60px", paddingBottom: "80px" }}>
-        <p style={{ color: "var(--accent-lavender)", fontSize: "0.9rem", fontWeight: 500, marginBottom: "12px", letterSpacing: "0.1em" }}>
-          HI THERE, I'M
-        </p>
-        <h1 style={{ fontSize: "clamp(2.8rem, 6vw, 4.5rem)", lineHeight: 1.1, marginBottom: "20px" }}>
-          Kalpana Joyce<br />
-          <span className="gradient-text">Dovari</span>
-        </h1>
-        <p style={{ fontSize: "1.1rem", color: "var(--text-secondary)", maxWidth: "540px", marginBottom: "36px" }}>
-          AI/ML Engineer building intelligent systems that solve real-world problems.
-          I turn data into decisions and ideas into deployed applications.
-        </p>
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          <Link href="/projects" className="btn-primary">View Projects →</Link>
-          <a href="https://github.com/kalpanajoycedovari" target="_blank" rel="noreferrer" className="btn-ghost">GitHub</a>
-          <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn-ghost">Resume ↗</a>
+      <section style={{
+        paddingTop: "60px",
+        paddingBottom: "80px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "48px",
+      }}>
+
+        {/* Left: Text */}
+        <div style={{ flex: 1 }}>
+          <p style={{ color: "var(--accent-lavender)", fontSize: "0.9rem", fontWeight: 500, marginBottom: "12px", letterSpacing: "0.1em" }}>
+            HI THERE, I'M
+          </p>
+          <h1 style={{ fontSize: "clamp(2.8rem, 6vw, 4.5rem)", lineHeight: 1.1, marginBottom: "20px" }}>
+            Kalpana Joyce<br />
+            <span className="gradient-text">Dovari</span>
+          </h1>
+          <p style={{ fontSize: "1.1rem", color: "var(--text-secondary)", maxWidth: "540px", marginBottom: "36px" }}>
+            AI/ML Engineer building intelligent systems that solve real-world problems.
+            I turn data into decisions and ideas into deployed applications.
+          </p>
+          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+            <Link href="/projects" className="btn-primary">View Projects →</Link>
+            <a href="https://github.com/kalpanajoycedovari" target="_blank" rel="noreferrer" className="btn-ghost">GitHub</a>
+            <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn-ghost">Resume ↗</a>
+          </div>
         </div>
+
+        {/* Right: Profile photo */}
+        <div style={{ flexShrink: 0 }}>
+          <div style={{
+            width: "260px",
+            height: "260px",
+            borderRadius: "50%",
+            overflow: "hidden",
+            border: "3px solid rgba(192, 132, 252, 0.4)",
+            boxShadow: "0 0 40px rgba(192, 132, 252, 0.15)",
+          }}>
+            <Image
+              src="/profile.jpg"
+              alt="Kalpana Joyce Dovari"
+              width={260}
+              height={260}
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              priority
+            />
+          </div>
+        </div>
+
       </section>
 
       {/* ── Featured Projects ── */}
@@ -47,7 +81,7 @@ export default function HomePage() {
               title: "JoBo (Journalising Book)",
               desc: "A digital journaling app using OCR to extract text from handwritten documents, converting image data into searchable digital text.",
               tags: ["Python", "OpenCV", "Tesseract OCR"],
-              href: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal",
+              href: "https://github.com/kalpanajoycedovari",
             },
             {
               title: "Image Classifier",

@@ -13,7 +13,7 @@ const SKILLS = [
   {
     label: "Backend & Database",
     icon: "🗄️",
-    items: ["Express.js", "Firebase", "MongoDB", "MySQL", "Flask"],
+    items: ["Python","C","Express.js", "Firebase", "MongoDB", "MySQL", "Flask",],
   },
   {
     label: "AI / ML / Data Science",

@@ -27,7 +27,7 @@ export default function ContactPage() {
           },
           {
             label: "GitHub",
-            value: "dovarikalpanajoyce-coder",
+            value: "kalpanajoycedovari",
             href: "https://github.com/kalpanajoycedovari",
             icon: "🐙",
           },
@@ -36,6 +36,12 @@ export default function ContactPage() {
             value: "Connect with me",
             href: "https://linkedin.com/in/kalpanajoycedovari",  // ← replace
             icon: "💼",
+          },
+          {
+            label: "Phone",
+            value: "+44 7448458944",
+            
+            icon: "",
           },
         ].map(item => (
           <a

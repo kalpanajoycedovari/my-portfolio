@@ -5,8 +5,26 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const SKILLS = [
-  "Python", "Machine Learning", "Deep Learning", "NLP",
-  "TensorFlow", "PyTorch", "React", "Next.js", "TypeScript",
+  {
+    label: "Frontend",
+    icon: "🎨",
+    items: ["CSS", "JavaScript", "TypeScript", "React", "Next.js", "Bootstrap"],
+  },
+  {
+    label: "Backend & Database",
+    icon: "🗄️",
+    items: ["Express.js", "Firebase", "MongoDB", "MySQL", "Flask"],
+  },
+  {
+    label: "AI / ML / Data Science",
+    icon: "🤖",
+    items: ["TensorFlow", "PyTorch", "scikit-learn", "Keras", "OpenCV", "Pandas", "NumPy"],
+  },
+  {
+    label: "Tools & Platforms",
+    icon: "🛠️",
+    items: ["VS Code", "Docker", "Vercel", "GitHub Pages", "Jupyter Notebook", "Google Colab"],
+  },
 ];
 
 const FEATURED = [
@@ -195,10 +213,25 @@ export default function HomePage() {
 
       {/* ── Skills ── */}
       <section>
-        <h2 style={{ fontSize: "1.8rem", marginBottom: "24px" }}>Tech Stack</h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-          {SKILLS.map(s => (
-            <span key={s} className="badge" style={{ fontSize: "0.85rem", padding: "6px 16px" }}>{s}</span>
+        <h2 style={{ fontSize: "1.8rem", marginBottom: "8px" }}>Tech Stack</h2>
+        <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>
+          Everything I work with, organised by domain
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          {SKILLS.map(category => (
+            <div key={category.label} className="glass-card" style={{ padding: "24px 28px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                <span style={{ fontSize: "1.2rem" }}>{category.icon}</span>
+                <h3 style={{ fontSize: "0.85rem", fontFamily: "'Inter', sans-serif", fontWeight: 600, color: "var(--text-secondary)", letterSpacing: "0.08em" }}>
+                  {category.label.toUpperCase()}
+                </h3>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                {category.items.map(skill => (
+                  <span key={skill} className="badge" style={{ fontSize: "0.85rem", padding: "6px 16px" }}>{skill}</span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>

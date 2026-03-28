@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌸 Kalpana Joyce Dovari — Personal Portfolio
 
-## Getting Started
+> *"I turn data into decisions and ideas into deployed applications."*
 
-First, run the development server:
+A personal portfolio website built with **Next.js**, designed with a soft dark aesthetic — deep navy backgrounds, lavender and rose accents, and glassmorphism cards. Built to showcase my work in AI/ML engineering in a way that actually feels like me.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🔗 **Live site:** [my-portfolio-taupe-kappa-13.vercel.app](https://my-portfolio-taupe-kappa-13.vercel.app)
+
+---
+
+## ✨ Features
+
+- **Soft dark aesthetic** — deep navy + lavender/rose gradient palette
+- **Responsive design** — works across desktop and mobile
+- **Featured Projects** — alternating layout with cover images and story descriptions
+- **Projects Page** — full project cards with cover, screenshot, tagline and tech stack
+- **Blog** — write and publish posts from a secret `/admin` page, stored in localStorage
+- **Live date & time widget** — shows local time, date and timezone
+- **Categorised Tech Stack** — skills grouped by Frontend, Backend, AI/ML and Tools
+- **About & Contact pages** — clean, personal, recruiter-friendly
+- **Resume download** — direct PDF link from the hero section
+- **Deployed on Vercel** — auto-deploys on every push to `main`
+
+---
+
+## 🛠️ Built With
+
+| Category | Technologies |
+|---|---|
+| **Framework** | Next.js 14, React, TypeScript |
+| **Styling** | CSS Variables, Glassmorphism, Google Fonts (Inter + Playfair Display) |
+| **Images** | Next.js Image component |
+| **Blog storage** | localStorage |
+| **Deployment** | Vercel |
+| **Version control** | GitHub |
+
+---
+
+## 📁 Project Structure
+
+```
+my-portfolio/
+├── app/
+│   ├── about/
+│   │   └── page.tsx          # About page
+│   ├── admin/
+│   │   └── page.tsx          # Secret blog admin page
+│   ├── blog/
+│   │   ├── page.tsx          # Blog listing page
+│   │   └── [id]/
+│   │       └── page.tsx      # Individual blog post
+│   ├── contact/
+│   │   └── page.tsx          # Contact page
+│   ├── projects/
+│   │   └── page.tsx          # All projects page
+│   ├── globals.css            # Global styles + design tokens
+│   ├── layout.tsx             # Navbar + Footer
+│   └── page.tsx               # Homepage
+├── public/
+│   ├── projects/              # Project cover + screenshot images
+│   └── resume.pdf             # Downloadable CV
+├── next.config.ts
+├── package.json
+└── tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Running Locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Clone the repository
+git clone https://github.com/kalpanajoycedovari/my-portfolio.git
 
-## Learn More
+# Navigate into the project
+cd my-portfolio
 
-To learn more about Next.js, take a look at the following resources:
+# Install dependencies
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Start the development server
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Adding a Blog Post
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Go to `/admin` on the live site
+2. Enter the password
+3. Write your title, pick a tag, write your post
+4. Hit **Publish** — it appears on `/blog` instantly
+
+---
+
+## 🖼️ Projects Featured
+
+| Project | Tech |
+|---|---|
+| **JoBo (Journalising Book)** | Python, OpenCV, Tesseract OCR, NumPy, Pandas |
+| **Solite's Corner** | Firebase, GitHub Pages, Email Auth, JavaScript |
+| **Speech Recognition Mini Pipeline** | Wav2Vec, PyTorch, NumPy, Speech Processing |
+| **AI Resume Analyzer** | NLP, Python, Machine Learning, spaCy |
+
+---
+
+## 🎨 Design System
+
+| Token | Value |
+|---|---|
+| Background | `#0d0f1a` |
+| Card | `rgba(255,255,255,0.04)` |
+| Accent Lavender | `#c084fc` |
+| Accent Rose | `#f472b6` |
+| Accent Mint | `#34d399` |
+| Text Primary | `#f1f5f9` |
+| Text Secondary | `#94a3b8` |
+| Heading Font | Playfair Display |
+| Body Font | Inter |
+
+---
+
+## 📬 Contact
+
+- **GitHub:** [kalpanajoycedovari](https://github.com/kalpanajoycedovari)
+- **Portfolio:** [my-portfolio-taupe-kappa-13.vercel.app](https://my-portfolio-taupe-kappa-13.vercel.app)
+
+---
+
+<p align="center">Designed & built with 💜 by Kalpana Joyce Dovari</p>

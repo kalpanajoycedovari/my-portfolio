@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Joyce — AI/ML Engineer",
-  description: "Portfolio of Joyce, AI/ML Engineer building intelligent systems.",
+  description: "Portfolio of Joyce, AI/ML Engineer Building Intelligent systems.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

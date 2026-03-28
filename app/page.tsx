@@ -25,12 +25,12 @@ export default function HomePage() {
           <span className="gradient-text">Dovari</span>
         </h1>
         <p style={{ fontSize: "1.1rem", color: "var(--text-secondary)", maxWidth: "540px", marginBottom: "36px" }}>
-          AI/ML Engineer building intelligent systems that solve real-world problems. 
+          AI/ML Engineer building intelligent systems that solve real-world problems.
           I turn data into decisions and ideas into deployed applications.
         </p>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <Link href="/projects" className="btn-primary">View Projects →</Link>
-          <a href="https://github.com/dovarikalpanajoyce-coder" target="_blank" rel="noreferrer" className="btn-ghost">GitHub</a>
+          <a href="https://github.com/kalpanajoycedovari" target="_blank" rel="noreferrer" className="btn-ghost">GitHub</a>
           <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn-ghost">Resume ↗</a>
         </div>
       </section>
@@ -44,16 +44,16 @@ export default function HomePage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
           {[
             {
-              title: "AI Resume Analyzer",
-              desc: "NLP-powered tool that analyzes resumes and provides smart, actionable feedback to improve job matching.",
-              tags: ["NLP", "Python", "ML"],
-              href: "https://github.com/dovarikalpanajoyce-coder",
+              title: "JoBo (Journalising Book)",
+              desc: "A digital journaling app using OCR to extract text from handwritten documents, converting image data into searchable digital text.",
+              tags: ["Python", "OpenCV", "Tesseract OCR"],
+              href: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal",
             },
             {
               title: "Image Classifier",
-              desc: "Deep learning model trained to classify images with high accuracy using convolutional neural networks.",
+              desc: "Deep learning model for image classification using convolutional neural networks, trained with data augmentation for high accuracy.",
               tags: ["PyTorch", "CNN", "Computer Vision"],
-              href: "https://github.com/dovarikalpanajoyce-coder",
+              href: "https://github.com/kalpanajoycedovari",
             },
           ].map((p) => (
             <a key={p.title} href={p.href} target="_blank" rel="noreferrer" className="glass-card" style={{ padding: "28px", display: "block", color: "inherit" }}>

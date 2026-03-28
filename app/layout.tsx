@@ -27,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" style={{ color: "var(--text-secondary)" }}>Home</Link>
             <Link href="/projects" style={{ color: "var(--text-secondary)" }}>Projects</Link>
             <Link href="/about" style={{ color: "var(--text-secondary)" }}>About</Link>
+            <Link href="/education" style={{ color: "var(--text-secondary)" }}>Education</Link>
             <Link href="/blog" style={{ color: "var(--text-secondary)" }}>Blog</Link>
             <Link href="/contact" style={{ color: "var(--text-secondary)" }}>Contact</Link>
           </div>

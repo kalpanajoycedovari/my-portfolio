@@ -10,13 +10,25 @@ const PROJECTS = [
   {
     title: "JoBo (Journalising Book)",
     tagline: "What if your handwriting could think?",
-    desc: "I built JoBo after getting tired of losing handwritten notes in the void. It uses OCR to pull text straight from photos of journals and notebooks — turning messy, beautiful handwriting into searchable, organised digital entries. Think of it as a bridge between the Analogue and Digital self. As much as i would like to admit that Analouge is timeless, Dgital can be beautiful too!",
-    details: "The system applies Image Pre-processing with OpenCV before feeding it to Tesseract OCR, which dramatically improves extraction accuracy on real-world handwriting. Extracted entries are stored securely and made fully searchable.",
+    desc: "I built JoBo after getting tired of losing handwritten notes in the void. It uses OCR to pull text straight from photos of journals and notebooks — turning messy, beautiful handwriting into searchable, organised digital entries. Think of it as a bridge between the analogue and digital self.",
+    details: "The system applies image preprocessing with OpenCV before feeding it to Tesseract OCR, which dramatically improves extraction accuracy on real-world handwriting. Extracted entries are stored securely and made fully searchable.",
     tags: ["Python", "OpenCV", "Tesseract OCR", "NumPy", "Pandas"],
     href: "https://github.com/kalpanajoycedovari",
     cover: "/projects/jobo-cover.jpg",
     screenshot: "/projects/jobo-screenshot.jpg",
-    year: "2023",
+    year: "2024",
+    status: "Completed",
+  },
+  {
+    title: "Solite's Corner",
+    tagline: "A cosy corner of the internet, built from scratch.",
+    desc: "A personal website with a full email login system and Firebase-backed storage. Solite's Corner is where design meets functionality — built with care, hosted on GitHub Pages, and engineered to feel like home the moment you land on it.",
+    details: "Implements Firebase Authentication for secure email login and Firebase Storage for user data. Hosted on GitHub Pages with a custom domain setup, it demonstrates a full-stack mindset even in a static site environment.",
+    tags: ["Firebase", "GitHub Pages", "Email Auth", "JavaScript"],
+    href: "https://github.com/kalpanajoycedovari",
+    cover: "/projects/solite-cover.jpg",
+    screenshot: "/projects/solite-screenshot.jpg",
+    year: "2024",
     status: "Completed",
   },
   {
@@ -28,19 +40,7 @@ const PROJECTS = [
     href: "https://github.com/kalpanajoycedovari",
     cover: "/projects/resume-cover.jpg",
     screenshot: "/projects/resume-screenshot.jpg",
-    year: "2025",
-    status: "Completed",
-  },
-  {
-    title: "Image Classifier",
-    tagline: "Teaching machines to see.",
-    desc: "A deep learning model trained to classify images with high accuracy. Built from scratch with PyTorch, it uses convolutional neural networks and data augmentation to generalise well across real-world inputs — not just textbook examples.",
-    details: "Trained on custom datasets with augmentation techniques including random flips, rotations, and colour jitter. Achieved strong validation accuracy while keeping the architecture lightweight enough to run without a GPU.",
-    tags: ["PyTorch", "CNN", "Computer Vision", "Python"],
-    href: "https://github.com/kalpanajoycedovari",
-    cover: "/projects/classifier-cover.jpg",
-    screenshot: "/projects/classifier-screenshot.jpg",
-    year: "2026",
+    year: "2024",
     status: "Completed",
   },
 ];
@@ -77,7 +77,7 @@ export default function ProjectsPage() {
                 style={{ objectFit: "cover" }}
                 unoptimized
               />
-              {/* Screenshot sits in bottom-right corner */}
+              {/* Screenshot floating in bottom-right */}
               <div style={{
                 position: "absolute",
                 bottom: "16px",
@@ -99,8 +99,7 @@ export default function ProjectsPage() {
               </div>
               {/* Gradient overlay */}
               <div style={{
-                position: "absolute",
-                inset: 0,
+                position: "absolute", inset: 0,
                 background: "linear-gradient(to top, rgba(13,15,26,0.85) 0%, transparent 60%)",
               }} />
               {/* Title overlaid on image */}

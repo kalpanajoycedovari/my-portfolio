@@ -23,13 +23,13 @@ const FEATURED = [
     screenshot: "/projects/jobo-screenshot.jpg",
   },
   {
-    title: "Image Classifier",
-    tagline: "Teaching machines to see.",
-    desc: "A deep learning model trained to classify images with high accuracy. Built from scratch with PyTorch, it uses convolutional neural networks and data augmentation to generalise well across real-world image inputs — not just textbook examples.",
-    tags: ["PyTorch", "CNN", "Computer Vision"],
+    title: "Solite's Corner",
+    tagline: "A cosy corner of the internet, built from scratch.",
+    desc: "A personal website with a full email login system and Firebase-backed storage. Solite's Corner is where design meets functionality — built with care, hosted on GitHub Pages, and engineered to feel like home the moment you land on it.",
+    tags: ["Firebase", "GitHub Pages", "Email Auth", "JavaScript"],
     href: "https://github.com/kalpanajoycedovari",
-    cover: "/projects/classifier-cover.jpg",
-    screenshot: "/projects/classifier-screenshot.jpg",
+    cover: "/projects/solite-cover.jpg",
+    screenshot: "/projects/solite-screenshot.jpg",
   },
 ];
 
@@ -82,15 +82,7 @@ export default function HomePage() {
               }}
             >
               {/* Image side */}
-              <div
-                style={{
-                  order: i % 2 === 0 ? 2 : 1,
-                  position: "relative",
-                  minHeight: "220px",
-                  overflow: "hidden",
-                }}
-              >
-                {/* Cover image (base) */}
+              <div style={{ order: i % 2 === 0 ? 2 : 1, position: "relative", minHeight: "220px", overflow: "hidden" }}>
                 <Image
                   src={p.cover}
                   alt={`${p.title} cover`}
@@ -98,15 +90,9 @@ export default function HomePage() {
                   style={{ objectFit: "cover" }}
                   unoptimized
                 />
-                {/* Screenshot overlay on hover */}
                 <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  opacity: 0,
-                  transition: "opacity 0.4s ease",
-                }}
-                  className="screenshot-overlay"
-                >
+                  position: "absolute", inset: 0, opacity: 0, transition: "opacity 0.4s ease",
+                }} className="screenshot-overlay">
                   <Image
                     src={p.screenshot}
                     alt={`${p.title} screenshot`}
@@ -115,10 +101,8 @@ export default function HomePage() {
                     unoptimized
                   />
                 </div>
-                {/* Gradient fade into card */}
                 <div style={{
-                  position: "absolute",
-                  inset: 0,
+                  position: "absolute", inset: 0,
                   background: i % 2 === 0
                     ? "linear-gradient(to left, rgba(13,15,26,0.6), transparent)"
                     : "linear-gradient(to right, rgba(13,15,26,0.6), transparent)",
@@ -126,16 +110,14 @@ export default function HomePage() {
               </div>
 
               {/* Text side */}
-              <div
-                style={{
-                  order: i % 2 === 0 ? 1 : 2,
-                  padding: "32px 36px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  gap: "12px",
-                }}
-              >
+              <div style={{
+                order: i % 2 === 0 ? 1 : 2,
+                padding: "32px 36px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                gap: "12px",
+              }}>
                 <p style={{ color: "var(--accent-lavender)", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.08em" }}>
                   FEATURED PROJECT
                 </p>

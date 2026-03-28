@@ -18,7 +18,7 @@ const SKILLS = [
   {
     label: "AI / ML / Data Science",
     icon: "🤖",
-    items: ["TensorFlow", "PyTorch", "scikit-learn", "Keras", "OpenCV", "Pandas", "NumPy"],
+    items: ["TensorFlow", "PyTorch", "scikit-learn", "Keras", "OpenCV", "Pandas", "NumPy","Wave2Vec"],
   },
   {
     label: "Tools & Platforms",

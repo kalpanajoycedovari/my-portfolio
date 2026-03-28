@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,26 +9,38 @@ export const metadata: Metadata = {
 const PROJECTS = [
   {
     title: "JoBo (Journalising Book)",
-    desc: "A digital journaling application that uses Optical Character Recognition (OCR) to extract text from handwritten and printed documents. Converts unstructured image data into searchable, editable digital text with AI-driven processing and secure storage.",
+    tagline: "What if your handwriting could think?",
+    desc: "I built JoBo after getting tired of losing handwritten notes in the void. It uses OCR to pull text straight from photos of journals and notebooks — turning messy, beautiful handwriting into searchable, organised digital entries. Think of it as a bridge between the Analogue and Digital self. As much as i would like to admit that Analouge is timeless, Dgital can be beautiful too!",
+    details: "The system applies Image Pre-processing with OpenCV before feeding it to Tesseract OCR, which dramatically improves extraction accuracy on real-world handwriting. Extracted entries are stored securely and made fully searchable.",
     tags: ["Python", "OpenCV", "Tesseract OCR", "NumPy", "Pandas"],
     href: "https://github.com/kalpanajoycedovari",
-    year: "2024",
+    cover: "/projects/jobo-cover.jpg",
+    screenshot: "/projects/jobo-screenshot.jpg",
+    year: "2023",
     status: "Completed",
   },
   {
     title: "AI Resume Analyzer",
-    desc: "An NLP-powered resume analysis tool that parses resumes, extracts key signals, and provides smart feedback to improve job matching scores.",
+    tagline: "Your resume, but smarter.",
+    desc: "Built out of frustration with generic job rejections, this NLP-powered tool reads your resume the way a recruiter does — scanning for keywords, structure, and relevance. It gives you actionable feedback instead of leaving you guessing.",
+    details: "Uses spaCy for named entity recognition and keyword extraction, with a scoring system that compares resume content against job description patterns. Designed to be honest, specific, and actually useful.",
     tags: ["NLP", "Python", "Machine Learning", "spaCy"],
     href: "https://github.com/kalpanajoycedovari",
-    year: "2024",
+    cover: "/projects/resume-cover.jpg",
+    screenshot: "/projects/resume-screenshot.jpg",
+    year: "2025",
     status: "Completed",
   },
   {
     title: "Image Classifier",
-    desc: "Deep learning model for image classification built with PyTorch. Trained on custom datasets with data augmentation for improved generalisation.",
+    tagline: "Teaching machines to see.",
+    desc: "A deep learning model trained to classify images with high accuracy. Built from scratch with PyTorch, it uses convolutional neural networks and data augmentation to generalise well across real-world inputs — not just textbook examples.",
+    details: "Trained on custom datasets with augmentation techniques including random flips, rotations, and colour jitter. Achieved strong validation accuracy while keeping the architecture lightweight enough to run without a GPU.",
     tags: ["PyTorch", "CNN", "Computer Vision", "Python"],
     href: "https://github.com/kalpanajoycedovari",
-    year: "2024",
+    cover: "/projects/classifier-cover.jpg",
+    screenshot: "/projects/classifier-screenshot.jpg",
+    year: "2026",
     status: "Completed",
   },
 ];
@@ -35,17 +48,17 @@ const PROJECTS = [
 export default function ProjectsPage() {
   return (
     <div className="section">
-      <div style={{ marginBottom: "48px" }}>
+      <div style={{ marginBottom: "52px" }}>
         <p style={{ color: "var(--accent-lavender)", fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "8px" }}>
           MY WORK
         </p>
         <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", marginBottom: "12px" }}>Projects</h1>
-        <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: "500px" }}>
-          AI and ML projects I've built — from NLP tools to computer vision systems.
+        <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: "520px" }}>
+          Each project started with a problem I couldn't stop thinking about. Here's what happened next.
         </p>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
         {PROJECTS.map((p) => (
           <a
             key={p.title}
@@ -53,22 +66,73 @@ export default function ProjectsPage() {
             target="_blank"
             rel="noreferrer"
             className="glass-card"
-            style={{ padding: "28px 32px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "24px", color: "inherit" }}
+            style={{ overflow: "hidden", display: "block", color: "inherit" }}
           >
-            <div style={{ flex: 1 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "10px" }}>
-                <h2 style={{ fontSize: "1.15rem", fontFamily: "'Inter', sans-serif", fontWeight: 600 }}>{p.title}</h2>
-                <span className="badge" style={{ background: "rgba(52, 211, 153, 0.1)", borderColor: "rgba(52, 211, 153, 0.25)", color: "var(--accent-mint)" }}>
-                  {p.status}
-                </span>
+            {/* Cover + screenshot image */}
+            <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
+              <Image
+                src={p.cover}
+                alt={`${p.title} cover`}
+                fill
+                style={{ objectFit: "cover" }}
+                unoptimized
+              />
+              {/* Screenshot sits in bottom-right corner */}
+              <div style={{
+                position: "absolute",
+                bottom: "16px",
+                right: "16px",
+                width: "160px",
+                height: "100px",
+                borderRadius: "8px",
+                overflow: "hidden",
+                border: "2px solid rgba(255,255,255,0.15)",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+              }}>
+                <Image
+                  src={p.screenshot}
+                  alt={`${p.title} screenshot`}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  unoptimized
+                />
               </div>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", marginBottom: "16px", lineHeight: 1.65 }}>{p.desc}</p>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                {p.tags.map(t => <span key={t} className="badge">{t}</span>)}
+              {/* Gradient overlay */}
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(to top, rgba(13,15,26,0.85) 0%, transparent 60%)",
+              }} />
+              {/* Title overlaid on image */}
+              <div style={{ position: "absolute", bottom: "16px", left: "24px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <h2 style={{ fontSize: "1.2rem", fontFamily: "'Inter', sans-serif", fontWeight: 600, color: "white" }}>
+                    {p.title}
+                  </h2>
+                  <span className="badge" style={{ background: "rgba(52,211,153,0.15)", borderColor: "rgba(52,211,153,0.3)", color: "#34d399" }}>
+                    {p.status}
+                  </span>
+                </div>
+                <p style={{ color: "var(--accent-rose)", fontSize: "0.85rem", fontStyle: "italic", marginTop: "4px" }}>
+                  "{p.tagline}"
+                </p>
               </div>
             </div>
-            <div style={{ color: "var(--text-secondary)", fontSize: "0.85rem", whiteSpace: "nowrap", paddingTop: "4px" }}>
-              {p.year}
+
+            {/* Text content */}
+            <div style={{ padding: "24px 28px 28px" }}>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: 1.75, marginBottom: "12px" }}>
+                {p.desc}
+              </p>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.7, opacity: 0.75, marginBottom: "18px" }}>
+                {p.details}
+              </p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                  {p.tags.map(t => <span key={t} className="badge">{t}</span>)}
+                </div>
+                <span style={{ color: "var(--text-secondary)", fontSize: "0.82rem" }}>{p.year}</span>
+              </div>
             </div>
           </a>
         ))}

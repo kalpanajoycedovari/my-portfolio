@@ -11,7 +11,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        {/* ── Animated aurora background ── */}
+
+        {/* ── Aurora animated background ── */}
         <div className="aurora-bg">
           <div className="aurora-mid" />
         </div>
@@ -75,6 +76,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           color: "var(--text-secondary)",
           maxWidth: "900px",
           margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
         }}>
           <span>© 2025 Joyce · Built with Next.js & ☕</span>
           <div style={{ display: "flex", gap: "20px" }}>

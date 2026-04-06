@@ -45,7 +45,6 @@ const FEATURED = [
   },
 ];
 
-type Post = { id: string; title: string; content: string; date: string; tag: string };
 
 function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
@@ -126,13 +125,10 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
 
 export default function HomePage() {
   const [now, setNow] = useState<Date | null>(null);
-  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     setNow(new Date());
     const timer = setInterval(() => setNow(new Date()), 1000);
-    const stored = localStorage.getItem("blog_posts");
-    if (stored) setPosts(JSON.parse(stored).slice(0, 2));
     return () => clearInterval(timer);
   }, []);
 
@@ -140,7 +136,31 @@ export default function HomePage() {
     <div className="section">
 
       {/* ── Hero ── */}
-      <section style={{ paddingTop: "60px", paddingBottom: "60px" }}>
+      <section style={{ paddingTop: "60px", paddingBottom: "60px", position: "relative" }}>
+
+        {/* Corner clock widget */}
+        <div className="glass-card" style={{
+          position: "absolute",
+          top: "60px",
+          right: "0",
+          padding: "12px 16px",
+          borderRadius: "12px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "4px",
+          minWidth: "160px",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span style={{ fontSize: "0.7rem" }}>📍</span>
+            <span style={{ fontSize: "0.72rem", color: "var(--text-secondary)", letterSpacing: "0.04em" }}>London, United Kingdom</span>
+          </div>
+          <p style={{ fontSize: "1.1rem", fontWeight: 600, fontVariantNumeric: "tabular-nums", color: "var(--accent-lavender)", lineHeight: 1 }}>
+            {now ? now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "--:--:--"}
+          </p>
+          <p style={{ fontSize: "0.7rem", color: "var(--text-secondary)" }}>
+            {now ? now.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }) : "---"}
+          </p>
+        </div>
         <p style={{ color: "var(--accent-lavender)", fontSize: "0.9rem", fontWeight: 500, marginBottom: "12px", letterSpacing: "0.1em" }}>
           HI THERE, I'M
         </p>
@@ -159,41 +179,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Date / Time widget ── */}
-      <section style={{ marginBottom: "60px" }}>
-        <div className="glass-card" style={{
-          padding: "20px 28px", display: "flex", alignItems: "center",
-          justifyContent: "space-between", flexWrap: "wrap", gap: "12px",
-        }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <span style={{ fontSize: "1.4rem" }}>🕐</span>
-            <div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>LOCAL TIME</p>
-              <p style={{ fontSize: "1.4rem", fontWeight: 600, fontVariantNumeric: "tabular-nums", color: "var(--accent-lavender)" }}>
-                {now ? now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "--:--:--"}
-              </p>
-            </div>
-          </div>
-          <div style={{ display: "flex", gap: "32px", flexWrap: "wrap" }}>
-            <div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>DATE</p>
-              <p style={{ fontSize: "1rem", fontWeight: 500 }}>
-                {now ? now.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }) : "---"}
-              </p>
-            </div>
-            <div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>YEAR</p>
-              <p style={{ fontSize: "1rem", fontWeight: 500 }}>{now ? now.getFullYear() : "----"}</p>
-            </div>
-            <div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>TIMEZONE</p>
-              <p style={{ fontSize: "1rem", fontWeight: 500 }}>
-                {now ? Intl.DateTimeFormat().resolvedOptions().timeZone : "---"}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* ── Featured Projects ── */}
       <section style={{ marginBottom: "80px" }}>
@@ -213,39 +199,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Blog preview ── */}
-      <section style={{ marginBottom: "80px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "8px" }}>
-          <h2 style={{ fontSize: "1.8rem" }}>From the Blog</h2>
-          <Link href="/blog" style={{ color: "var(--accent-lavender)", fontSize: "0.9rem" }}>All posts →</Link>
-        </div>
-        <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>
-          Fun bits about tech and whatever's living rent-free in my head
-        </p>
-        {posts.length === 0 ? (
-          <div className="glass-card" style={{ padding: "36px", textAlign: "center" }}>
-            <p style={{ fontSize: "1.5rem", marginBottom: "8px" }}>✍️</p>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>No posts yet — coming soon!</p>
-          </div>
-        ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
-            {posts.map(post => (
-              <Link key={post.id} href={`/blog/${post.id}`} className="glass-card" style={{ padding: "24px 28px", display: "block", color: "inherit" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
-                  <span className="badge">{post.tag}</span>
-                  <span style={{ color: "var(--text-secondary)", fontSize: "0.78rem", opacity: 0.6 }}>
-                    {new Date(post.date).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
-                  </span>
-                </div>
-                <h3 style={{ fontSize: "1rem", fontFamily: "'Inter', sans-serif", fontWeight: 600, marginBottom: "8px" }}>{post.title}</h3>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.6 }}>
-                  {post.content.slice(0, 100)}...
-                </p>
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
+
 
       {/* ── Skills ── */}
       <section>

@@ -31,11 +31,6 @@ body {
   font-family: 'Inter', sans-serif;
   line-height: 1.7;
   min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(192, 132, 252, 0.1), transparent),
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-  background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
 h1, h2, h3 {
@@ -161,11 +156,11 @@ a:hover {
 .aurora-bg::before {
   content: "";
   position: absolute;
-  width: 70vw;
-  height: 70vw;
-  top: -20%;
-  left: -10%;
-  background: radial-gradient(ellipse, rgba(192, 132, 252, 0.12) 0%, transparent 70%);
+  width: 80vw;
+  height: 80vw;
+  top: -30%;
+  left: -15%;
+  background: radial-gradient(ellipse, rgba(192, 132, 252, 0.25) 0%, rgba(192, 132, 252, 0.08) 40%, transparent 70%);
   animation: aurora-1 14s ease-in-out infinite;
   border-radius: 50%;
 }
@@ -173,22 +168,22 @@ a:hover {
 .aurora-bg::after {
   content: "";
   position: absolute;
-  width: 60vw;
-  height: 60vw;
-  bottom: -10%;
-  right: -10%;
-  background: radial-gradient(ellipse, rgba(244, 114, 182, 0.1) 0%, transparent 70%);
+  width: 70vw;
+  height: 70vw;
+  bottom: -15%;
+  right: -15%;
+  background: radial-gradient(ellipse, rgba(244, 114, 182, 0.2) 0%, rgba(244, 114, 182, 0.07) 40%, transparent 70%);
   animation: aurora-2 18s ease-in-out infinite;
   border-radius: 50%;
 }
 
 .aurora-mid {
   position: absolute;
-  width: 50vw;
-  height: 50vw;
-  top: 40%;
-  left: 40%;
-  background: radial-gradient(ellipse, rgba(129, 140, 248, 0.08) 0%, transparent 70%);
+  width: 60vw;
+  height: 60vw;
+  top: 35%;
+  left: 35%;
+  background: radial-gradient(ellipse, rgba(129, 140, 248, 0.18) 0%, rgba(129, 140, 248, 0.06) 40%, transparent 70%);
   animation: aurora-3 22s ease-in-out infinite;
   border-radius: 50%;
 }

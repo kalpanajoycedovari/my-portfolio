@@ -1,81 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
-const PROJECTS = [
-  {
-    title: "JoBo (Journalising Book)",
-    tagline: "What if your handwriting could think?",
-    desc: "Uses OCR to pull text from photos of journals and notebooks — turning messy handwriting into searchable digital entries. A bridge between the analogue and digital self.",
-    tags: ["Python", "OpenCV", "Tesseract OCR"],
-    href: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal",
-    year: "2024",
-    status: "Completed",
-  },
-  {
-    title: "Solite's Corner",
-    tagline: "A cosy corner of the internet, built from scratch.",
-    desc: "A personal website with full email login and Firebase-backed storage. Hosted on GitHub Pages, engineered to feel like home the moment you land on it.",
-    tags: ["Firebase", "GitHub Pages", "JavaScript"],
-    href: "https://github.com/kalpanajoycedovari/My-Website",
-    year: "2024",
-    status: "Completed",
-  },
-  {
-    title: "Speech Recognition Pipeline",
-    tagline: "Teaching machines to listen.",
-    desc: "A lightweight pipeline built around Wav2Vec 2.0. Takes raw audio and transcribes it — clean, accurate speech-to-text that actually works.",
-    tags: ["Wav2Vec", "PyTorch", "NumPy"],
-    href: "https://github.com/kalpanajoycedovari/Speech-Recognition-Mini-Pipeline",
-    year: "2024",
-    status: "Completed",
-  },
-  {
-    title: "AI Resume Analyzer",
-    tagline: "Your resume, but smarter.",
-    desc: "NLP-powered tool that reads your resume the way a recruiter does — scanning for keywords, structure, and relevance. Gives actionable feedback instead of leaving you guessing.",
-    tags: ["NLP", "Python", "spaCy"],
-    href: "https://github.com/kalpanajoycedovari/AI-resume-screener",
-    year: "2024",
-    status: "Completed",
-  },
-  {
-    title: "ScamScan",
-    tagline: "Because not everything with 5 stars deserves your money.",
-    desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and a custom red flag keyword engine, and scores each entry on a 0–100 trust scale.",
-    tags: ["Python", "TextBlob", "SQLite", "Streamlit"],
-    href: "https://github.com/kalpanajoycedovari/scamscan",
-    year: "2025",
-    status: "Completed",
-  },
-  {
-    title: "Commit Roaster",
-    tagline: "Your code is fine. Your commit messages? Not so much.",
-    desc: "A Streamlit app that reads your Git commit history and roasts it — mercilessly, specifically, and with love. Because 'fixed stuff' is not a commit message.",
-    tags: ["Python", "Streamlit", "Claude API"],
-    href: "https://github.com/kalpanajoycedovari/commit-roaster",
-    year: "2025",
-    status: "Live",
-  },
-  {
-    title: "UK Job Market Dashboard",
-    tagline: "1.6 million job postings walked so this dashboard could run.",
-    desc: "Interactive Tableau dashboard analysing the UK job market — top hiring companies, work type distribution, and experience level requirements.",
-    tags: ["Tableau", "Data Analytics", "SQL"],
-    href: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard",
-    year: "2025",
-    status: "Completed",
-  },
-  {
-    title: "Zig Playground",
-    tagline: "Learning at 5am like a nerd. No regrets.",
-    desc: "A personal sandbox for Zig — a systems programming language I picked up out of pure curiosity. The commit messages alone tell the story.",
-    tags: ["Zig", "Systems Programming"],
-    href: "https://github.com/kalpanajoycedovari/zig-playground",
-    year: "2025",
-    status: "In Progress",
-  },
-];
+import Link from "next/link";
+import { PROJECTS } from "./data";
 
 const STATUS_STYLES: Record<string, { bg: string; border: string; color: string }> = {
   "Completed":   { bg: "rgba(52,211,153,0.1)",  border: "rgba(52,211,153,0.3)",  color: "#34d399" },
@@ -88,10 +15,8 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
   const s = STATUS_STYLES[p.status] ?? STATUS_STYLES["Completed"];
 
   return (
-    <a
-      href={p.href}
-      target="_blank"
-      rel="noreferrer"
+    <Link
+      href={`/projects/${p.id}`}
       className="glass-card"
       style={{
         display: "block",
@@ -213,7 +138,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
           <p style={{ color: "var(--accent-rose)", fontSize: "0.75rem" }}>View on GitHub →</p>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 

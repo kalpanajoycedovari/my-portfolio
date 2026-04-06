@@ -4,13 +4,14 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Joyce — AI/ML Engineer",
-  description: "Portfolio of Joyce, AI/ML Engineer building Intelligent Systems.",
+description: "Portfolio of Joyce, AI/ML Engineer building intelligent systems.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+
         {/* ── Navbar ── */}
         <nav style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
@@ -20,16 +21,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           backdropFilter: "blur(20px)",
           borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}>
-          <Link href="/" style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: "var(--text-primary)", fontWeight: 600 }}>
+          <Link href="/" style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "1.2rem",
+            color: "var(--text-primary)",
+            fontWeight: 600,
+            textDecoration: "none",
+          }}>
             joyce<span style={{ color: "var(--accent-lavender)" }}>.</span>
           </Link>
+
           <div style={{ display: "flex", gap: "32px", fontSize: "0.9rem" }}>
-            <Link href="/" style={{ color: "var(--text-secondary)" }}>Home</Link>
-            <Link href="/projects" style={{ color: "var(--text-secondary)" }}>Projects</Link>
-            <Link href="/about" style={{ color: "var(--text-secondary)" }}>About</Link>
-            <Link href="/education" style={{ color: "var(--text-secondary)" }}>Education</Link>
-            <Link href="/blog" style={{ color: "var(--text-secondary)" }}>Blog</Link>
-            <Link href="/contact" style={{ color: "var(--text-secondary)" }}>Contact</Link>
+            {[
+              { label: "Home", href: "/" },
+              { label: "Projects", href: "/projects" },
+              { label: "About", href: "/about" },
+              { label: "Education", href: "/education" },
+              { label: "Blog", href: "/blog" },
+              { label: "Contact", href: "/contact" },
+            ].map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  color: "var(--text-secondary)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </nav>
 
@@ -56,6 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="https://linkedin.com/in/kalpanajoycedovari" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </footer>
+
       </body>
     </html>
   );

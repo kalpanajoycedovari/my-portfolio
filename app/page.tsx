@@ -13,12 +13,12 @@ const SKILLS = [
   {
     label: "Backend & Database",
     icon: "🗄️",
-    items: ["Python","C","Express.js", "Firebase", "MongoDB", "MySQL", "Flask",],
+    items: ["Express.js", "Firebase", "MongoDB", "MySQL", "Flask"],
   },
   {
     label: "AI / ML / Data Science",
     icon: "🤖",
-    items: ["TensorFlow", "PyTorch", "scikit-learn", "Keras", "OpenCV", "Pandas", "NumPy","Wave2Vec"],
+    items: ["TensorFlow", "PyTorch", "scikit-learn", "Keras", "OpenCV", "Pandas", "NumPy"],
   },
   {
     label: "Tools & Platforms",
@@ -35,7 +35,6 @@ const FEATURED = [
     tags: ["Python", "OpenCV", "Tesseract OCR"],
     href: "https://github.com/kalpanajoycedovari",
     cover: "/projects/jobo-cover.jpg",
-    screenshot: "/projects/jobo-screenshot.jpg",
   },
   {
     title: "Solite's Corner",
@@ -44,11 +43,81 @@ const FEATURED = [
     tags: ["Firebase", "GitHub Pages", "Email Auth", "JavaScript"],
     href: "https://github.com/kalpanajoycedovari",
     cover: "/projects/solite-cover.jpg",
-    screenshot: "/projects/solite-screenshot.jpg",
   },
 ];
 
 type Post = { id: string; title: string; content: string; date: string; tag: string };
+
+function BookCard({ p }: { p: typeof FEATURED[0] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <a
+      href={p.href}
+      target="_blank"
+      rel="noreferrer"
+      className="glass-card"
+      style={{ display: "block", overflow: "hidden", position: "relative", height: "220px", color: "inherit", textDecoration: "none" }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <Image src={p.cover} alt={p.title} fill style={{ objectFit: "cover" }} unoptimized />
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "linear-gradient(to right, rgba(13,15,26,0.95) 0%, rgba(13,15,26,0.6) 60%, rgba(13,15,26,0.3) 100%)",
+      }} />
+
+      {/* Title panel */}
+      <div style={{
+        position: "absolute", top: 0, left: 0, bottom: 0,
+        width: open ? "42%" : "100%",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        padding: "28px 32px",
+        transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        zIndex: 2,
+      }}>
+        <p style={{ color: "var(--accent-lavender)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "10px", opacity: open ? 0 : 1, transition: "opacity 0.2s ease" }}>
+          FEATURED PROJECT
+        </p>
+        <h3 style={{ fontSize: "1.3rem", fontFamily: "'Inter', sans-serif", fontWeight: 700, marginBottom: "8px", lineHeight: 1.3, color: "white" }}>
+          {p.title}
+        </h3>
+        <p style={{ color: "var(--accent-rose)", fontSize: "0.88rem", fontStyle: "italic", opacity: open ? 0 : 1, transition: "opacity 0.2s ease" }}>
+          "{p.tagline}"
+        </p>
+      </div>
+
+      {/* Description panel */}
+      <div style={{
+        position: "absolute", top: 0, right: 0, bottom: 0,
+        width: open ? "58%" : "0%",
+        overflow: "hidden",
+        background: "rgba(13,15,26,0.92)",
+        backdropFilter: "blur(12px)",
+        borderLeft: "1px solid rgba(192,132,252,0.2)",
+        transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        zIndex: 3,
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        padding: open ? "28px 28px" : "28px 0",
+      }}>
+        <div style={{
+          opacity: open ? 1 : 0,
+          transform: open ? "translateX(0)" : "translateX(20px)",
+          transition: "opacity 0.35s ease 0.2s, transform 0.35s ease 0.2s",
+          minWidth: "280px",
+        }}>
+          <p style={{ color: "var(--accent-lavender)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "10px" }}>
+            ABOUT THIS PROJECT
+          </p>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.75, marginBottom: "14px" }}>{p.desc}</p>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            {p.tags.map(t => <span key={t} className="badge" style={{ fontSize: "0.75rem", padding: "3px 10px" }}>{t}</span>)}
+          </div>
+          <p style={{ color: "var(--accent-rose)", fontSize: "0.8rem", marginTop: "14px" }}>View on GitHub →</p>
+        </div>
+      </div>
+    </a>
+  );
+}
 
 export default function HomePage() {
   const [now, setNow] = useState<Date | null>(null);
@@ -88,19 +157,13 @@ export default function HomePage() {
       {/* ── Date / Time widget ── */}
       <section style={{ marginBottom: "60px" }}>
         <div className="glass-card" style={{
-          padding: "20px 28px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "12px",
+          padding: "20px 28px", display: "flex", alignItems: "center",
+          justifyContent: "space-between", flexWrap: "wrap", gap: "12px",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <span style={{ fontSize: "1.4rem" }}>🕐</span>
             <div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>
-                LOCAL TIME
-              </p>
+              <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>LOCAL TIME</p>
               <p style={{ fontSize: "1.4rem", fontWeight: 600, fontVariantNumeric: "tabular-nums", color: "var(--accent-lavender)" }}>
                 {now ? now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "--:--:--"}
               </p>
@@ -115,9 +178,7 @@ export default function HomePage() {
             </div>
             <div>
               <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>YEAR</p>
-              <p style={{ fontSize: "1rem", fontWeight: 500 }}>
-                {now ? now.getFullYear() : "----"}
-              </p>
+              <p style={{ fontSize: "1rem", fontWeight: 500 }}>{now ? now.getFullYear() : "----"}</p>
             </div>
             <div>
               <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "2px" }}>TIMEZONE</p>
@@ -132,45 +193,11 @@ export default function HomePage() {
       {/* ── Featured Projects ── */}
       <section style={{ marginBottom: "80px" }}>
         <h2 style={{ fontSize: "1.8rem", marginBottom: "8px" }}>Featured Projects</h2>
-        <p style={{ color: "var(--text-secondary)", marginBottom: "36px" }}>
-          A selection of things I've built — and the stories behind them
+        <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>
+          Hover over a project to open it ✨
         </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-          {FEATURED.map((p, i) => (
-            <a
-              key={p.title}
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              className="glass-card"
-              style={{
-                display: "grid",
-                gridTemplateColumns: i % 2 === 0 ? "1fr 1.2fr" : "1.2fr 1fr",
-                overflow: "hidden",
-                color: "inherit",
-                minHeight: "260px",
-              }}
-            >
-              <div style={{ order: i % 2 === 0 ? 2 : 1, position: "relative", minHeight: "220px", overflow: "hidden" }}>
-                <Image src={p.cover} alt={`${p.title} cover`} fill style={{ objectFit: "cover" }} unoptimized />
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: i % 2 === 0
-                    ? "linear-gradient(to left, rgba(13,15,26,0.6), transparent)"
-                    : "linear-gradient(to right, rgba(13,15,26,0.6), transparent)",
-                }} />
-              </div>
-              <div style={{ order: i % 2 === 0 ? 1 : 2, padding: "32px 36px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "12px" }}>
-                <p style={{ color: "var(--accent-lavender)", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.08em" }}>FEATURED PROJECT</p>
-                <h3 style={{ fontSize: "1.3rem", lineHeight: 1.2 }}>{p.title}</h3>
-                <p style={{ color: "var(--accent-rose)", fontSize: "0.95rem", fontStyle: "italic", fontWeight: 500 }}>"{p.tagline}"</p>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.7 }}>{p.desc}</p>
-                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "4px" }}>
-                  {p.tags.map(t => <span key={t} className="badge">{t}</span>)}
-                </div>
-              </div>
-            </a>
-          ))}
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {FEATURED.map(p => <BookCard key={p.title} p={p} />)}
         </div>
         <div style={{ marginTop: "28px" }}>
           <Link href="/projects" style={{ color: "var(--accent-lavender)", fontSize: "0.9rem" }}>View all projects →</Link>
@@ -214,9 +241,7 @@ export default function HomePage() {
       {/* ── Skills ── */}
       <section>
         <h2 style={{ fontSize: "1.8rem", marginBottom: "8px" }}>Tech Stack</h2>
-        <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>
-          Everything I work with, organised by domain
-        </p>
+        <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>Everything I work with, organised by domain</p>
         <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
           {SKILLS.map(category => (
             <div key={category.label} className="glass-card" style={{ padding: "24px 28px" }}>

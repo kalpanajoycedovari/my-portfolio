@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const SKILLS = [
@@ -56,63 +55,69 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
       target="_blank"
       rel="noreferrer"
       className="glass-card"
-      style={{ display: "block", overflow: "hidden", position: "relative", height: "220px", color: "inherit", textDecoration: "none" }}
+      style={{
+        display: "block", overflow: "hidden", position: "relative",
+        aspectRatio: "1 / 1", color: "inherit", textDecoration: "none",
+        background: "var(--bg-card)",
+      }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <Image src={p.cover} alt={p.title} fill style={{ objectFit: "cover" }} unoptimized />
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "linear-gradient(to right, rgba(13,15,26,0.95) 0%, rgba(13,15,26,0.6) 60%, rgba(13,15,26,0.3) 100%)",
-      }} />
-
       {/* Title panel */}
       <div style={{
         position: "absolute", top: 0, left: 0, bottom: 0,
-        width: open ? "42%" : "100%",
+        width: open ? "38%" : "100%",
         display: "flex", flexDirection: "column", justifyContent: "center",
-        padding: "28px 32px",
+        padding: "24px",
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 2,
+        background: "var(--bg-secondary)",
       }}>
-        <p style={{ color: "var(--accent-lavender)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "10px", opacity: open ? 0 : 1, transition: "opacity 0.2s ease" }}>
-          FEATURED PROJECT
+        <p style={{ color: "var(--accent-lavender)", fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "10px", opacity: open ? 0 : 1, transition: "opacity 0.2s ease" }}>
+          FEATURED
         </p>
-        <h3 style={{ fontSize: "1.3rem", fontFamily: "'Inter', sans-serif", fontWeight: 700, marginBottom: "8px", lineHeight: 1.3, color: "white" }}>
+        <h3 style={{ fontSize: "1rem", fontFamily: "'Inter', sans-serif", fontWeight: 700, lineHeight: 1.3, marginBottom: "8px", color: "var(--text-primary)" }}>
           {p.title}
         </h3>
-        <p style={{ color: "var(--accent-rose)", fontSize: "0.88rem", fontStyle: "italic", opacity: open ? 0 : 1, transition: "opacity 0.2s ease" }}>
+        <p style={{ color: "var(--accent-rose)", fontSize: "0.78rem", fontStyle: "italic", lineHeight: 1.5, opacity: open ? 0 : 1, transition: "opacity 0.2s ease" }}>
           "{p.tagline}"
         </p>
       </div>
 
+      {/* Divider */}
+      <div style={{
+        position: "absolute", top: 0, bottom: 0,
+        left: open ? "38%" : "100%",
+        width: "1px",
+        background: "rgba(192,132,252,0.3)",
+        transition: "left 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        zIndex: 4,
+      }} />
+
       {/* Description panel */}
       <div style={{
         position: "absolute", top: 0, right: 0, bottom: 0,
-        width: open ? "58%" : "0%",
+        width: open ? "62%" : "0%",
         overflow: "hidden",
-        background: "rgba(13,15,26,0.92)",
+        background: "rgba(13,15,26,0.96)",
         backdropFilter: "blur(12px)",
-        borderLeft: "1px solid rgba(192,132,252,0.2)",
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 3,
         display: "flex", flexDirection: "column", justifyContent: "center",
-        padding: open ? "28px 28px" : "28px 0",
+        padding: open ? "24px 20px" : "24px 0",
       }}>
         <div style={{
           opacity: open ? 1 : 0,
-          transform: open ? "translateX(0)" : "translateX(20px)",
-          transition: "opacity 0.35s ease 0.2s, transform 0.35s ease 0.2s",
-          minWidth: "280px",
+          transform: open ? "translateX(0)" : "translateX(16px)",
+          transition: "opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s",
+          minWidth: "180px",
         }}>
-          <p style={{ color: "var(--accent-lavender)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "10px" }}>
-            ABOUT THIS PROJECT
-          </p>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.75, marginBottom: "14px" }}>{p.desc}</p>
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-            {p.tags.map(t => <span key={t} className="badge" style={{ fontSize: "0.75rem", padding: "3px 10px" }}>{t}</span>)}
+          <p style={{ color: "var(--accent-lavender)", fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "8px" }}>ABOUT</p>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.82rem", lineHeight: 1.7, marginBottom: "12px" }}>{p.desc}</p>
+          <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "12px" }}>
+            {p.tags.map(t => <span key={t} className="badge" style={{ fontSize: "0.68rem", padding: "2px 8px" }}>{t}</span>)}
           </div>
-          <p style={{ color: "var(--accent-rose)", fontSize: "0.8rem", marginTop: "14px" }}>View on GitHub →</p>
+          <p style={{ color: "var(--accent-rose)", fontSize: "0.75rem" }}>View on GitHub →</p>
         </div>
       </div>
     </a>
@@ -196,7 +201,11 @@ export default function HomePage() {
         <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>
           Hover over a project to open it ✨
         </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "16px",
+        }}>
           {FEATURED.map(p => <BookCard key={p.title} p={p} />)}
         </div>
         <div style={{ marginTop: "28px" }}>

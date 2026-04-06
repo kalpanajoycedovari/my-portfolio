@@ -32,27 +32,24 @@ const FEATURED = [
     tagline: "What if your handwriting could think?",
     desc: "I built JoBo after getting tired of losing handwritten notes in the void. It uses OCR to pull text straight from photos of journals and notebooks — turning messy, beautiful handwriting into searchable, organised digital entries.",
     tags: ["Python", "OpenCV", "Tesseract OCR"],
-    href: "https://github.com/kalpanajoycedovari",
-    cover: "/projects/jobo-cover.jpg",
+    href: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal",
+    id: "jobo",
   },
   {
     title: "Solite's Corner",
     tagline: "A cosy corner of the internet, built from scratch.",
     desc: "A personal website with a full email login system and Firebase-backed storage — built with care, hosted on GitHub Pages, and engineered to feel like home the moment you land on it.",
     tags: ["Firebase", "GitHub Pages", "Email Auth", "JavaScript"],
-    href: "https://github.com/kalpanajoycedovari",
-    cover: "/projects/solite-cover.jpg",
+    href: "https://github.com/kalpanajoycedovari/My-Website",
+    id: "solites-corner",
   },
 ];
-
 
 function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
   return (
-    <a
-      href={p.href}
-      target="_blank"
-      rel="noreferrer"
+    <Link
+      href={`/projects/${p.id}`}
       className="glass-card"
       style={{
         display: "block", overflow: "hidden", position: "relative",
@@ -116,10 +113,10 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
           <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "12px" }}>
             {p.tags.map(t => <span key={t} className="badge" style={{ fontSize: "0.68rem", padding: "2px 8px" }}>{t}</span>)}
           </div>
-          <p style={{ color: "var(--accent-rose)", fontSize: "0.75rem" }}>View on GitHub →</p>
+          <p style={{ color: "var(--accent-rose)", fontSize: "0.75rem" }}>Click to view →</p>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -161,6 +158,7 @@ export default function HomePage() {
             {now ? now.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }) : "---"}
           </p>
         </div>
+
         <p style={{ color: "var(--accent-lavender)", fontSize: "0.9rem", fontWeight: 500, marginBottom: "12px", letterSpacing: "0.1em" }}>
           HI THERE, I'M
         </p>
@@ -179,27 +177,19 @@ export default function HomePage() {
         </div>
       </section>
 
-
-
       {/* ── Featured Projects ── */}
       <section style={{ marginBottom: "80px" }}>
         <h2 style={{ fontSize: "1.8rem", marginBottom: "8px" }}>Featured Projects</h2>
         <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>
-          Hover over a project to open it ✨
+          Hover to preview, click to explore ✨
         </p>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: "16px",
-        }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
           {FEATURED.map(p => <BookCard key={p.title} p={p} />)}
         </div>
         <div style={{ marginTop: "28px" }}>
           <Link href="/projects" style={{ color: "var(--accent-lavender)", fontSize: "0.9rem" }}>View all projects →</Link>
         </div>
       </section>
-
-
 
       {/* ── Skills ── */}
       <section>

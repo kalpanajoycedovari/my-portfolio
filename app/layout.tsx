@@ -4,13 +4,17 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Joyce — AI/ML Engineer",
-description: "Portfolio of Joyce, AI/ML Engineer building intelligent systems.",
+  description: "Portfolio of Joyce, AI/ML Engineer building intelligent systems.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        {/* ── Animated aurora background ── */}
+        <div className="aurora-bg">
+          <div className="aurora-mid" />
+        </div>
 
         {/* ── Navbar ── */}
         <nav style={{
@@ -56,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </nav>
 
         {/* ── Page content ── */}
-        <main style={{ paddingTop: "80px" }}>
+        <main style={{ paddingTop: "80px", position: "relative", zIndex: 1 }}>
           {children}
         </main>
 

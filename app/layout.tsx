@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             fontWeight: 600,
             textDecoration: "none",
           }}>
-            joyce<span style={{ color: "var(--accent-lavender)" }}>.</span>
+            Joyce<span style={{ color: "var(--accent-lavender)" }}>.</span>
           </Link>
 
           <div style={{ display: "flex", gap: "32px", fontSize: "0.9rem" }}>

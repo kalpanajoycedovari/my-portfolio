@@ -236,7 +236,7 @@ export default function HomePage() {
     <div className="section">
 
       {/* ── Hero ── */}
-      <section style={{ paddingTop: "60px", paddingBottom: "60px", position: "relative" }}>
+      <section style={{ paddingTop: "20px", paddingBottom: "60px", position: "relative" }}>
 
         {/* Corner clock */}
         <div className="glass-card" style={{

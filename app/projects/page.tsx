@@ -30,6 +30,24 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
+      {/* Cover image */}
+      <img
+        src={p.cover}
+        alt={p.title}
+        style={{
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          objectFit: "cover",
+          opacity: open ? 0.25 : 0.55,
+          transition: "opacity 0.4s ease",
+        }}
+      />
+      {/* Dark overlay */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "linear-gradient(to top, rgba(13,15,26,0.95) 0%, rgba(13,15,26,0.5) 100%)",
+      }} />
+
       {/* Title panel — slides left */}
       <div style={{
         position: "absolute",
@@ -41,7 +59,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         padding: "24px",
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 2,
-        background: "var(--bg-secondary)",
+        background: open ? "rgba(13,15,26,0.85)" : "transparent",
       }}>
         <span style={{
           display: "inline-block",

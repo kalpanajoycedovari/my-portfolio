@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import SolarBackground from "./components/SolarBackground";
 
 export const metadata: Metadata = {
   title: "Joyce — AI/ML Engineer",
@@ -12,10 +13,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
 
-        {/* ── Aurora animated background ── */}
-        <div className="aurora-bg">
-          <div className="aurora-mid" />
-        </div>
+        {/* ── Solar system canvas background ── */}
+        <SolarBackground />
 
         {/* ── Navbar ── */}
         <nav style={{
@@ -45,15 +44,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               { label: "Blog", href: "/blog" },
               { label: "Contact", href: "/contact" },
             ].map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                style={{
-                  color: "var(--text-secondary)",
-                  textDecoration: "none",
-                  transition: "color 0.2s ease",
-                }}
-              >
+              <Link key={link.href} href={link.href} style={{
+                color: "var(--text-secondary)",
+                textDecoration: "none",
+                transition: "color 0.2s ease",
+              }}>
                 {link.label}
               </Link>
             ))}

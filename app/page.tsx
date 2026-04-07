@@ -66,7 +66,6 @@ function TechOrbit() {
     ctx.scale(dpr, dpr);
     const cx = W / 2, cy = H / 2 - 30;
 
-    // Build nodes: evenly space items around each orbit
     type Node = { label: string; color: string; angle: number; orbitR: number; tilt: number; speed: number };
     const nodes: Node[] = [];
     SKILL_ORBITS.forEach(orbit => {
@@ -92,15 +91,13 @@ function TechOrbit() {
         ctx.strokeStyle = o.color + "28";
         ctx.lineWidth = 1.2;
         ctx.stroke();
-
-        // Orbit label — right side
         ctx.font = "500 11px Inter, sans-serif";
         ctx.fillStyle = o.color + "99";
         ctx.textAlign = "left";
         ctx.fillText(o.label, cx + o.radius + 8, cy + 4);
       });
 
-      // Central core glow
+      // Core glow
       const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, 52);
       glow.addColorStop(0, "rgba(192,132,252,0.7)");
       glow.addColorStop(0.5, "rgba(192,132,252,0.2)");
@@ -130,11 +127,9 @@ function TechOrbit() {
         const angle = n.angle + t * n.speed;
         const px = cx + Math.cos(angle) * n.orbitR;
         const py = cy + Math.sin(angle) * n.orbitR * n.tilt;
-
         const isHov = hoveredRef.current === n.label;
         const nodeR = isHov ? 9 : 6;
 
-        // Glow
         const ng = ctx.createRadialGradient(px, py, 0, px, py, nodeR * 3.5);
         ng.addColorStop(0, n.color + (isHov ? "ee" : "99"));
         ng.addColorStop(1, "transparent");
@@ -143,38 +138,33 @@ function TechOrbit() {
         ctx.fillStyle = ng;
         ctx.fill();
 
-        // Node dot
         ctx.beginPath();
         ctx.arc(px, py, nodeR, 0, Math.PI * 2);
         ctx.fillStyle = isHov ? "#fff" : n.color;
         ctx.fill();
 
-        // Label — crisp, above or below
         const above = py < cy;
-        const lx = px;
         const ly = above ? py - nodeR - 6 : py + nodeR + 14;
         ctx.font = isHov ? "700 12px Inter, sans-serif" : "400 10.5px Inter, sans-serif";
         ctx.fillStyle = isHov ? "#fff" : n.color + "dd";
         ctx.textAlign = "center";
-        ctx.fillText(n.label, lx, ly);
+        ctx.fillText(n.label, px, ly);
       });
 
       t++;
       animId = requestAnimationFrame(draw);
     };
 
-    // Mouse hover detection
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      const mx = (e.clientX - rect.left) * (700 / rect.width);
-      const my = (e.clientY - rect.top) * (700 / rect.height);
+      const mx = (e.clientX - rect.left) * (W / rect.width);
+      const my = (e.clientY - rect.top) * (H / rect.height);
       let found: string | null = null;
       nodes.forEach(n => {
         const angle = n.angle + t * n.speed;
         const px = cx + Math.cos(angle) * n.orbitR;
         const py = cy + Math.sin(angle) * n.orbitR * n.tilt;
-        const dist = Math.hypot(mx - px, my - py);
-        if (dist < 14) found = n.label;
+        if (Math.hypot(mx - px, my - py) < 14) found = n.label;
       });
       hoveredRef.current = found;
       setHovered(found);
@@ -190,10 +180,10 @@ function TechOrbit() {
   }, []);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", position: "relative", width: "100%", overflow: "hidden" }}>
+    <div style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
       <canvas
         ref={canvasRef}
-        style={{ width: "100%", maxWidth: "900px", height: "auto", cursor: hovered ? "pointer" : "default", imageRendering: "crisp-edges" }}
+        style={{ width: "100%", maxWidth: "900px", height: "auto", cursor: hovered ? "pointer" : "default" }}
       />
     </div>
   );
@@ -212,15 +202,28 @@ const FEATURED = [
 function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
   return (
-    <Link href={`/projects/${p.id}`} className="glass-card"
-      style={{ display: "block", overflow: "hidden", position: "relative", aspectRatio: "1/1", color: "inherit", textDecoration: "none", border: `1px solid ${p.accent}22` }}
-      onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}
+    <Link
+      href={`/projects/${p.id}`}
+      className="glass-card"
+      style={{ display: "block", overflow: "hidden", position: "relative", aspectRatio: "1/1", color: "inherit", textDecoration: "none" }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
     >
-      <div style={{ position: "absolute", inset: 0, background: p.gradient, opacity: open ? 0.4 : 1, transition: "opacity 0.4s" }} />
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 50%, ${p.accent}20 0%, transparent 65%)` }} />
+      {/* Cover image */}
+      <img src={p.cover} alt={p.title} style={{
+        position: "absolute", inset: 0, width: "100%", height: "100%",
+        objectFit: "cover", opacity: open ? 0.2 : 0.5, transition: "opacity 0.4s ease",
+      }} />
+      <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, rgba(13,15,26,0.97) 0%, rgba(13,15,26,0.5) 100%)` }} />
+      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 50%, ${p.accent}18 0%, transparent 65%)` }} />
 
       {/* Title panel */}
-      <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: open ? "36%" : "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "18px", transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 2 }}>
+      <div style={{
+        position: "absolute", top: 0, left: 0, bottom: 0,
+        width: open ? "36%" : "100%",
+        display: "flex", flexDirection: "column", justifyContent: "flex-end",
+        padding: "18px", transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 2,
+      }}>
         <p style={{ color: p.accent, fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "5px", opacity: open ? 0 : 1, transition: "opacity 0.15s" }}>FEATURED</p>
         <h3 style={{ fontSize: "0.9rem", fontFamily: "'Inter',sans-serif", fontWeight: 700, lineHeight: 1.3, marginBottom: "5px", color: "var(--text-primary)" }}>{p.title}</h3>
         <p style={{ color: p.accent, fontSize: "0.7rem", fontStyle: "italic", lineHeight: 1.4, opacity: open ? 0 : 1, transition: "opacity 0.15s" }}>"{p.tagline}"</p>
@@ -230,8 +233,18 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
       <div style={{ position: "absolute", top: 0, bottom: 0, left: open ? "36%" : "100%", width: "1px", background: `${p.accent}55`, transition: "left 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 4 }} />
 
       {/* Description panel */}
-      <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: open ? "64%" : "0%", overflow: "hidden", background: "rgba(13,15,26,0.97)", backdropFilter: "blur(16px)", transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 3 }}>
-        <div style={{ padding: "18px 14px", opacity: open ? 1 : 0, transform: open ? "translateX(0)" : "translateX(12px)", transition: "opacity 0.3s ease 0.18s, transform 0.3s ease 0.18s", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: "8px" }}>
+      <div style={{
+        position: "absolute", top: 0, right: 0, bottom: 0,
+        width: open ? "64%" : "0%", overflow: "hidden",
+        background: "rgba(13,15,26,0.97)", backdropFilter: "blur(16px)",
+        transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 3,
+      }}>
+        <div style={{
+          padding: "18px 14px", opacity: open ? 1 : 0,
+          transform: open ? "translateX(0)" : "translateX(12px)",
+          transition: "opacity 0.3s ease 0.18s, transform 0.3s ease 0.18s",
+          height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: "8px",
+        }}>
           <p style={{ color: p.accent, fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em" }}>ABOUT</p>
           <p style={{ color: "var(--text-secondary)", fontSize: "0.76rem", lineHeight: 1.65 }}>{p.desc}</p>
           <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
@@ -246,10 +259,10 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 function GithubIcon() {
-  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>;
+  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>;
 }
 function LinkedInIcon() {
-  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>;
+  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>;
 }
 
 // ── Page ─────────────────────────────────────────────────────────────────────
@@ -267,6 +280,7 @@ export default function HomePage() {
 
       {/* ── Hero ── */}
       <section style={{ paddingTop: "20px", paddingBottom: "60px", position: "relative", minHeight: "85vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+
         {/* Clock */}
         <div className="glass-card" style={{ position: "absolute", top: "20px", right: "0", padding: "12px 16px", borderRadius: "12px", display: "flex", flexDirection: "column", gap: "4px", minWidth: "165px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>

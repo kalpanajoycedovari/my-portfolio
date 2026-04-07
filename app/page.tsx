@@ -212,10 +212,10 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
       {/* Cover image */}
       <img src={p.cover} alt={p.title} style={{
         position: "absolute", inset: 0, width: "100%", height: "100%",
-        objectFit: "cover", opacity: open ? 0.2 : 0.5, transition: "opacity 0.4s ease",
+        objectFit: "cover", opacity: open ? 0.4 : 0.85, transition: "opacity 0.4s ease",
       }} />
-      <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, rgba(13,15,26,0.97) 0%, rgba(13,15,26,0.5) 100%)` }} />
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 50%, ${p.accent}18 0%, transparent 65%)` }} />
+      <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, rgba(13,15,26,0.88) 0%, rgba(13,15,26,0.15) 60%, transparent 100%)` }} />
+      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 50%, ${p.accent}10 0%, transparent 65%)` }} />
 
       {/* Title panel */}
       <div style={{

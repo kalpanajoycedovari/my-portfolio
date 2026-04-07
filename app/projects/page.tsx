@@ -38,14 +38,14 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
           position: "absolute", inset: 0,
           width: "100%", height: "100%",
           objectFit: "cover",
-          opacity: open ? 0.25 : 0.55,
+          opacity: open ? 0.35 : 0.85,
           transition: "opacity 0.4s ease",
         }}
       />
-      {/* Dark overlay */}
+      {/* Dark overlay — only at bottom for text readability */}
       <div style={{
         position: "absolute", inset: 0,
-        background: "linear-gradient(to top, rgba(13,15,26,0.95) 0%, rgba(13,15,26,0.5) 100%)",
+        background: "linear-gradient(to top, rgba(13,15,26,0.92) 0%, rgba(13,15,26,0.2) 50%, transparent 100%)",
       }} />
 
       {/* Title panel — slides left */}

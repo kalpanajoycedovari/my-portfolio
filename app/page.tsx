@@ -8,38 +8,38 @@ const SKILL_ORBITS = [
   {
     label: "AI / ML",
     color: "#34d399",
-    radius: 110,
+    radius: 130,
     speed: 0.004,
-    tilt: 0.38,
+    tilt: 0.42,
     phase: 0,
     items: ["PyTorch", "TensorFlow", "scikit-learn", "Keras", "OpenCV", "NumPy", "Pandas", "Wav2Vec"],
   },
   {
     label: "Frontend",
     color: "#c084fc",
-    radius: 190,
+    radius: 220,
     speed: 0.0028,
-    tilt: 0.32,
+    tilt: 0.36,
     phase: 1.1,
     items: ["React", "Next.js", "TypeScript", "JavaScript", "CSS", "Bootstrap"],
   },
   {
     label: "Backend",
     color: "#f472b6",
-    radius: 270,
+    radius: 310,
     speed: 0.0018,
     tilt: 0.28,
     phase: 2.4,
-    items: ["Flask", "Firebase", "MongoDB", "MySQL", "Express.js"],
+    items: ["Flask", "Firebase", "MongoDB", "MySQL", "Express.js", "Web Scraping"],
   },
   {
-    label: "Tools",
-    color: "#818cf8",
-    radius: 350,
+    label: "Data & Tools",
+    color: "#fbbf24",
+    radius: 400,
     speed: 0.0012,
     tilt: 0.22,
     phase: 3.8,
-    items: ["Docker", "Vercel", "GitHub Pages", "Jupyter", "Google Colab", "VS Code"],
+    items: ["Tableau", "Power BI", "Docker", "Vercel", "Jupyter", "Google Colab", "VS Code", "GitHub Pages"],
   },
 ];
 
@@ -57,10 +57,14 @@ function TechOrbit() {
     let animId: number;
     let t = 0;
 
-    const W = 700, H = 700;
-    canvas.width = W;
-    canvas.height = H;
-    const cx = W / 2, cy = H / 2;
+    const dpr = window.devicePixelRatio || 1;
+    const W = 900, H = 820;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.scale(dpr, dpr);
+    const cx = W / 2, cy = H / 2 - 30;
 
     // Build nodes: evenly space items around each orbit
     type Node = { label: string; color: string; angle: number; orbitR: number; tilt: number; speed: number };
@@ -85,41 +89,41 @@ function TechOrbit() {
       SKILL_ORBITS.forEach(o => {
         ctx.beginPath();
         ctx.ellipse(cx, cy, o.radius, o.radius * o.tilt, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = o.color + "22";
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = o.color + "28";
+        ctx.lineWidth = 1.2;
         ctx.stroke();
 
-        // Orbit label
-        ctx.font = "500 10px Inter, sans-serif";
-        ctx.fillStyle = o.color + "88";
+        // Orbit label — right side
+        ctx.font = "500 11px Inter, sans-serif";
+        ctx.fillStyle = o.color + "99";
         ctx.textAlign = "left";
-        ctx.fillText(o.label, cx + o.radius + 6, cy + 4);
+        ctx.fillText(o.label, cx + o.radius + 8, cy + 4);
       });
 
-      // Central "core"
-      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, 40);
-      glow.addColorStop(0, "rgba(192,132,252,0.6)");
-      glow.addColorStop(0.5, "rgba(192,132,252,0.15)");
+      // Central core glow
+      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, 52);
+      glow.addColorStop(0, "rgba(192,132,252,0.7)");
+      glow.addColorStop(0.5, "rgba(192,132,252,0.2)");
       glow.addColorStop(1, "transparent");
       ctx.beginPath();
-      ctx.arc(cx, cy, 40, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 52, 0, Math.PI * 2);
       ctx.fillStyle = glow;
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(cx, cy, 14, 0, Math.PI * 2);
-      const core = ctx.createRadialGradient(cx - 4, cy - 4, 0, cx, cy, 14);
+      ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+      const core = ctx.createRadialGradient(cx - 5, cy - 5, 0, cx, cy, 18);
       core.addColorStop(0, "#fdf4ff");
       core.addColorStop(0.5, "#c084fc");
       core.addColorStop(1, "#7c3aed");
       ctx.fillStyle = core;
       ctx.fill();
 
-      ctx.font = "600 8px Inter, sans-serif";
+      ctx.font = "700 9px Inter, sans-serif";
       ctx.fillStyle = "#fff";
       ctx.textAlign = "center";
-      ctx.fillText("TECH", cx, cy - 1);
-      ctx.fillText("STACK", cx, cy + 8);
+      ctx.fillText("TECH", cx, cy - 2);
+      ctx.fillText("STACK", cx, cy + 9);
 
       // Nodes
       nodes.forEach(n => {
@@ -128,29 +132,31 @@ function TechOrbit() {
         const py = cy + Math.sin(angle) * n.orbitR * n.tilt;
 
         const isHov = hoveredRef.current === n.label;
-        const nodeR = isHov ? 7 : 5;
+        const nodeR = isHov ? 9 : 6;
 
         // Glow
         const ng = ctx.createRadialGradient(px, py, 0, px, py, nodeR * 3.5);
-        ng.addColorStop(0, n.color + (isHov ? "cc" : "88"));
+        ng.addColorStop(0, n.color + (isHov ? "ee" : "99"));
         ng.addColorStop(1, "transparent");
         ctx.beginPath();
         ctx.arc(px, py, nodeR * 3.5, 0, Math.PI * 2);
         ctx.fillStyle = ng;
         ctx.fill();
 
-        // Node
+        // Node dot
         ctx.beginPath();
         ctx.arc(px, py, nodeR, 0, Math.PI * 2);
         ctx.fillStyle = isHov ? "#fff" : n.color;
         ctx.fill();
 
-        // Label
-        const labelY = py < cy ? py - 12 : py + 18;
-        ctx.font = isHov ? "600 11px Inter, sans-serif" : "400 9.5px Inter, sans-serif";
-        ctx.fillStyle = isHov ? "#fff" : n.color + "cc";
+        // Label — crisp, above or below
+        const above = py < cy;
+        const lx = px;
+        const ly = above ? py - nodeR - 6 : py + nodeR + 14;
+        ctx.font = isHov ? "700 12px Inter, sans-serif" : "400 10.5px Inter, sans-serif";
+        ctx.fillStyle = isHov ? "#fff" : n.color + "dd";
         ctx.textAlign = "center";
-        ctx.fillText(n.label, px, labelY);
+        ctx.fillText(n.label, lx, ly);
       });
 
       t++;
@@ -184,10 +190,10 @@ function TechOrbit() {
   }, []);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", position: "relative" }}>
+    <div style={{ display: "flex", justifyContent: "center", position: "relative", width: "100%", overflow: "hidden" }}>
       <canvas
         ref={canvasRef}
-        style={{ width: "100%", maxWidth: "700px", height: "auto", cursor: hovered ? "pointer" : "default" }}
+        style={{ width: "100%", maxWidth: "900px", height: "auto", cursor: hovered ? "pointer" : "default", imageRendering: "crisp-edges" }}
       />
     </div>
   );
@@ -195,8 +201,8 @@ function TechOrbit() {
 
 // ── Featured projects ────────────────────────────────────────────────────────
 const FEATURED = [
-  { title: "JoBo (Journalising Book)", tagline: "What if your handwriting could think?", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", gradient: "linear-gradient(135deg,#1a0533,#2d1b4e,#0d1b2a)", accent: "#c084fc" },
-  { title: "Solite's Corner", tagline: "A cosy corner of the internet.", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", gradient: "linear-gradient(135deg,#0a1628,#1a2744,#0d2137)", accent: "#34d399" },
+  { title: "JoBo (Journalising Book)", tagline: "Witten in these pages are the stories you have penned down!", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", gradient: "linear-gradient(135deg,#1a0533,#2d1b4e,#0d1b2a)", accent: "#c084fc" },
+  { title: "Solite's Corner", tagline: "A cosy corner on the internet....For you and just YOU!", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", gradient: "linear-gradient(135deg,#0a1628,#1a2744,#0d2137)", accent: "#34d399" },
   { title: "Speech Recognition Pipeline", tagline: "Teaching machines to listen.", desc: "Lightweight pipeline around Wav2Vec 2.0 — clean, accurate speech-to-text that actually works.", tags: ["Wav2Vec", "PyTorch", "NumPy"], id: "speech-recognition", gradient: "linear-gradient(135deg,#0f1923,#1a2d3a,#0a1f2e)", accent: "#818cf8" },
   { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", gradient: "linear-gradient(135deg,#1a0a1e,#2a1535,#150d2a)", accent: "#f472b6" },
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", gradient: "linear-gradient(135deg,#0a1a0f,#142a1a,#0d2010)", accent: "#34d399" },
@@ -311,9 +317,9 @@ export default function HomePage() {
 
       {/* ── Orbiting Tech Stack ── */}
       <section style={{ marginBottom: "80px" }}>
-        <p style={{ color: "var(--accent-lavender)", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "8px" }}>MY UNIVERSE</p>
-        <h2 style={{ fontSize: "2rem", marginBottom: "8px" }}>Tech Stack</h2>
-        <p style={{ color: "var(--text-secondary)", marginBottom: "40px" }}>Every tool in orbit — hover a node to highlight it</p>
+        <p style={{ color: "var(--accent-lavender)", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "6px" }}>MY UNIVERSE</p>
+        <h2 style={{ fontSize: "2rem", marginBottom: "6px" }}>Tech Stack</h2>
+        <p style={{ color: "var(--text-secondary)", marginBottom: "16px" }}>Every tool in orbit — hover a node to highlight it</p>
         <TechOrbit />
       </section>
 

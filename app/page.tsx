@@ -316,6 +316,14 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Orbiting Tech Stack ── */}
+      <section style={{ marginBottom: "80px" }}>
+        <p style={{ color: "var(--accent-lavender)", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "6px" }}>MY UNIVERSE</p>
+        <h2 style={{ fontSize: "2rem", marginBottom: "6px" }}>Tech Stack</h2>
+        <p style={{ color: "var(--text-secondary)", marginBottom: "16px" }}>Every tool in orbit — hover a node to highlight it</p>
+        <TechOrbit />
+      </section>
+
       {/* ── Featured Projects ── */}
       <section style={{ marginBottom: "100px" }}>
         <p style={{ color: "var(--accent-lavender)", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "8px" }}>WHAT I'VE BUILT</p>
@@ -327,14 +335,6 @@ export default function HomePage() {
         <div style={{ marginTop: "28px" }}>
           <Link href="/projects" style={{ color: "var(--accent-lavender)", fontSize: "0.9rem" }}>View all projects →</Link>
         </div>
-      </section>
-
-      {/* ── Orbiting Tech Stack ── */}
-      <section style={{ marginBottom: "80px" }}>
-        <p style={{ color: "var(--accent-lavender)", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "6px" }}>MY UNIVERSE</p>
-        <h2 style={{ fontSize: "2rem", marginBottom: "6px" }}>Tech Stack</h2>
-        <p style={{ color: "var(--text-secondary)", marginBottom: "16px" }}>Every tool in orbit — hover a node to highlight it</p>
-        <TechOrbit />
       </section>
 
     </div>

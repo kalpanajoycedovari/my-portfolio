@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import FadeIn from "./components/FadeIn";
+import TiltCard from "./components/TiltCard";
 
 // ── Orbiting tech stack ──────────────────────────────────────────────────────
 const SKILL_ORBITS = [
@@ -179,24 +182,28 @@ export default function HomePage() {
         </div>
 
         {/* Giant name */}
-        <div style={{ marginBottom: "32px" }}>
+        <motion.div
+          style={{ marginBottom: "32px" }}
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        >
           <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 400, letterSpacing: "0.2em", marginBottom: "16px", textTransform: "uppercase" }}>
             Kalpana Joyce Dovari
           </p>
-          <h1 style={{
-            fontSize: "clamp(5rem, 14vw, 11rem)",
-            lineHeight: 0.9,
-            fontFamily: "'Playfair Display', serif",
-            fontWeight: 700,
-            letterSpacing: "-0.03em",
-          }}>
+          <h1 style={{ fontSize: "clamp(5rem, 14vw, 11rem)", lineHeight: 0.9, fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "-0.03em" }}>
             <span className="gradient-text">Joyce</span>
             <span style={{ display: "block", color: "rgba(254,243,226,0.08)", fontSize: "0.55em", letterSpacing: "0.02em" }}>———</span>
           </h1>
-        </div>
+        </motion.div>
 
         {/* Role + description */}
-        <div style={{ display: "flex", alignItems: "flex-start", gap: "40px", marginBottom: "48px", flexWrap: "wrap" }}>
+        <motion.div
+          style={{ display: "flex", alignItems: "flex-start", gap: "40px", marginBottom: "48px", flexWrap: "wrap" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+        >
           <div style={{ flex: 1, minWidth: "280px" }}>
             <p style={{ fontSize: "1.15rem", color: "var(--text-primary)", fontWeight: 500, marginBottom: "12px" }}>
               AI/ML Engineer · MSc Artificial Intelligence
@@ -213,48 +220,72 @@ export default function HomePage() {
               </span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Buttons */}
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "60px" }}>
+        <motion.div
+          style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "60px" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        >
           <Link href="/projects" className="btn-primary">View Projects →</Link>
           <a href="https://github.com/kalpanajoycedovari" target="_blank" rel="noreferrer" className="btn-ghost" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><GithubIcon /> GitHub</a>
           <a href="https://linkedin.com/in/kalpanajoycedovari" target="_blank" rel="noreferrer" className="btn-ghost" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><LinkedInIcon /> LinkedIn</a>
           <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn-ghost">Resume ↗</a>
-        </div>
+        </motion.div>
 
         {/* Scroll hint */}
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", opacity: 0.4 }}>
+        <motion.div
+          style={{ display: "flex", alignItems: "center", gap: "12px", opacity: 0.4 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ duration: 1, delay: 0.8 }}
+        >
           <div style={{ width: "32px", height: "1px", background: "var(--accent-amber)" }} />
           <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)", letterSpacing: "0.15em" }}>SCROLL TO EXPLORE</p>
-        </div>
+        </motion.div>
       </section>
 
       <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 32px 80px" }}>
 
         {/* ── Tech Stack ── */}
         <section style={{ marginBottom: "80px" }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-            <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>01</p>
-            <h2 style={{ fontSize: "2.2rem" }}>Tech Stack</h2>
-          </div>
-          <p style={{ color: "var(--text-secondary)", marginBottom: "16px", paddingLeft: "32px" }}>Every tool in orbit — hover a node to highlight it</p>
-          <TechOrbit />
+          <FadeIn>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
+              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>01</p>
+              <h2 style={{ fontSize: "2.2rem" }}>Tech Stack</h2>
+            </div>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "16px", paddingLeft: "32px" }}>Every tool in orbit — hover a node to highlight it</p>
+          </FadeIn>
+          <FadeIn delay={0.15}>
+            <TechOrbit />
+          </FadeIn>
         </section>
 
         {/* ── Featured Projects ── */}
         <section style={{ marginBottom: "80px" }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-            <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>02</p>
-            <h2 style={{ fontSize: "2.2rem" }}>Featured Projects</h2>
-          </div>
-          <p style={{ color: "var(--text-secondary)", marginBottom: "32px", paddingLeft: "32px" }}>Hover to preview · Click to explore ✨</p>
+          <FadeIn>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
+              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>02</p>
+              <h2 style={{ fontSize: "2.2rem" }}>Featured Projects</h2>
+            </div>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "32px", paddingLeft: "32px" }}>Hover to preview · Click to explore ✨</p>
+          </FadeIn>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-            {FEATURED.map(p => <BookCard key={p.id} p={p} />)}
+            {FEATURED.map((p, i) => (
+              <FadeIn key={p.id} delay={i * 0.08}>
+                <TiltCard style={{ height: "100%" }}>
+                  <BookCard p={p} />
+                </TiltCard>
+              </FadeIn>
+            ))}
           </div>
-          <div style={{ marginTop: "24px", paddingLeft: "32px" }}>
-            <Link href="/projects" style={{ color: "var(--accent-amber)", fontSize: "0.9rem" }}>View all projects →</Link>
-          </div>
+          <FadeIn delay={0.2}>
+            <div style={{ marginTop: "24px", paddingLeft: "32px" }}>
+              <Link href="/projects" style={{ color: "var(--accent-amber)", fontSize: "0.9rem" }}>View all projects →</Link>
+            </div>
+          </FadeIn>
         </section>
 
       </div>

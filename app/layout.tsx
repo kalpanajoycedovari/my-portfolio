@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
 import SolarBackground from "./components/SolarBackground";
+import PageTransition from "./components/PageTransition";
 
 export const metadata: Metadata = {
   title: "Joyce — AI/ML Engineer",
@@ -57,7 +58,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* ── Page content ── */}
         <main style={{ paddingTop: "80px", position: "relative", zIndex: 1 }}>
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
         </main>
 
         {/* ── Footer ── */}

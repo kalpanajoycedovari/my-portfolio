@@ -5,8 +5,11 @@ import PageTransition from "./components/PageTransition";
 import Navbar from "./components/Navbar";
 import CustomCursor from "./components/CustomCursor";
 import ScrollProgress from "./components/ScrollProgress";
+import LoadingScreen from "./components/LoadingScreen";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://my-portfolio-taupe-kappa-13.vercel.app"),
   title: "Joyce Dovari — AI/ML Engineer",
   description: "Portfolio of Kalpana Joyce Dovari — AI/ML Engineer and MSc Artificial Intelligence student at Northumbria University London. Building intelligent systems that solve real-world problems.",
   keywords: ["AI Engineer", "ML Engineer", "Data Analyst", "Portfolio", "London", "NLP", "PyTorch", "Next.js"],
@@ -33,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body style={{ cursor: "none" }}>
 
         <SolarBackground />
+        <LoadingScreen />
         <CustomCursor />
         <ScrollProgress />
         <Navbar />
@@ -63,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
 
+        <Analytics />
       </body>
     </html>
   );

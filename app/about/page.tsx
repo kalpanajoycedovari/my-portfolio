@@ -1,215 +1,121 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "About — Joyce",
-};
+import { useState } from "react";
 
-const HOBBIES = [
-  { emoji: "📚", label: "Reading" },
-  { emoji: "✍️", label: "Writing" },
-  { emoji: "📓", label: "Journaling" },
-  { emoji: "🎵", label: "Music" },
-  { emoji: "🗺️", label: "Exploring new places" },
-  { emoji: "🔬", label: "Researching" },
+const LINKS = [
+  {
+    label: "GitHub",
+    href: "https://github.com/kalpanajoycedovari",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+      </svg>
+    ),
+  },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/kalpanajoycedovari",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </svg>
+    ),
+  },
+  {
+    label: "Resume",
+    href: "/resume.pdf",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+      </svg>
+    ),
+  },
 ];
 
-const TRAITS = [
-  { emoji: "🧠", label: "Strong theoretical foundation" },
-  { emoji: "📋", label: "Excellent at organising & planning" },
-  { emoji: "🔍", label: "Research-driven mindset" },
-  { emoji: "💡", label: "AI/ML enthusiast" },
-];
+const EMAIL = "dovarikalpanajoyce@gmail.com";
 
-export default function AboutPage() {
+export default function ContactPage() {
+  const [copied, setCopied] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(EMAIL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <div className="section">
+      <p style={{ color: "var(--accent-amber)", fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "8px" }}>
+        GET IN TOUCH
+      </p>
+      <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", marginBottom: "12px" }}>Let's Connect</h1>
+      <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: "480px", marginBottom: "48px" }}>
+        Whether you have an opportunity, a collaboration idea, or just want to chat AI — my inbox is open.
+      </p>
 
-      {/* ── Header ── */}
-      <div style={{ marginBottom: "52px" }}>
-        <p style={{ color: "var(--accent-lavender)", fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "8px" }}>
-          ABOUT ME
-        </p>
-        <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", marginBottom: "4px" }}>
-          Hi, I'm Joyce 👋
-        </h1>
+      {/* Email copy card */}
+      <div className="glass-card" style={{ padding: "24px 28px", marginBottom: "24px", maxWidth: "460px" }}>
+        <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)", letterSpacing: "0.08em", marginBottom: "8px" }}>EMAIL</p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+          <p style={{ fontSize: "1rem", color: "var(--text-primary)", fontWeight: 500 }}>{EMAIL}</p>
+          <button
+            onClick={copyEmail}
+            style={{
+              padding: "8px 16px", borderRadius: "8px", fontSize: "0.8rem",
+              fontWeight: 500, cursor: "pointer", flexShrink: 0,
+              background: copied ? "rgba(52,211,153,0.15)" : "rgba(245,158,11,0.12)",
+              border: copied ? "1px solid rgba(52,211,153,0.3)" : "1px solid rgba(245,158,11,0.3)",
+              color: copied ? "#34d399" : "var(--accent-amber)",
+              transition: "all 0.2s ease",
+            }}
+          >
+            {copied ? "✓ Copied!" : "Copy"}
+          </button>
+        </div>
       </div>
 
-      {/* ── Bio ── */}
-      <section style={{ marginBottom: "64px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: "40px", alignItems: "start" }}>
-          <div>
-            <h2 style={{ fontSize: "1.4rem", marginBottom: "20px" }}>Who I am</h2>
-            <p style={{ color: "var(--text-secondary)", lineHeight: 1.9, marginBottom: "16px", fontSize: "0.95rem" }}>
-              I'm Kalpana Joyce Dovari — an AI/ML Engineer with a deep passion for
-              building intelligent systems that actually make a difference. Currently
-              pursuing my MSc in Artificial Intelligence at Northumbria University's
-              London Campus, I bring a strong theoretical foundation paired with
-              hands-on engineering experience.
-            </p>
-            <p style={{ color: "var(--text-secondary)", lineHeight: 1.9, marginBottom: "16px", fontSize: "0.95rem" }}>
-              I thrive at the intersection of research and implementation — equally
-              comfortable diving into academic papers and translating those ideas into
-               working code. I have a natural talent for organising complex problems
-              into clear, structured solutions, and I bring that same precision to
-              everything I build.
-            </p>
-            <p style={{ color: "var(--text-secondary)", lineHeight: 1.9, fontSize: "0.95rem" }}>
-              When I'm not training models or debugging pipelines, you'll find me
-              journaling, getting lost in a good book, or planning my next adventure
-              somewhere new. I believe the best engineers are also curious humans —
-              and I try to be both. ✨
-            </p>
-          </div>
+      {/* Icon link buttons */}
+      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "48px" }}>
+        {LINKS.map(link => (
+          <a
+            key={link.label}
+            href={link.href}
+            target={link.href.startsWith("mailto") ? undefined : "_blank"}
+            rel="noreferrer"
+            onMouseEnter={() => setHoveredLink(link.label)}
+            onMouseLeave={() => setHoveredLink(null)}
+            style={{
+              display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
+              padding: "20px 24px", borderRadius: "14px",
+              border: hoveredLink === link.label ? "1px solid rgba(245,158,11,0.4)" : "1px solid var(--border)",
+              background: hoveredLink === link.label ? "rgba(245,158,11,0.06)" : "var(--bg-card)",
+              color: hoveredLink === link.label ? "var(--accent-amber)" : "var(--text-secondary)",
+              textDecoration: "none", minWidth: "80px",
+              transform: hoveredLink === link.label ? "translateY(-3px)" : "translateY(0)",
+              boxShadow: hoveredLink === link.label ? "0 8px 24px rgba(245,158,11,0.1)" : "none",
+              transition: "all 0.2s ease",
+            }}
+          >
+            {link.icon}
+            <span style={{ fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.05em" }}>
+              {link.label.toUpperCase()}
+            </span>
+          </a>
+        ))}
+      </div>
 
-          {/* Traits */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <h2 style={{ fontSize: "1.4rem", marginBottom: "8px" }}>What defines me</h2>
-            {TRAITS.map(t => (
-              <div key={t.label} className="glass-card" style={{ padding: "16px 20px", display: "flex", alignItems: "center", gap: "14px" }}>
-                <span style={{ fontSize: "1.3rem" }}>{t.emoji}</span>
-                <span style={{ color: "var(--text-primary)", fontSize: "0.9rem", fontWeight: 500 }}>{t.label}</span>
-              </div>
-            ))}
-            <div className="glass-card" style={{ padding: "16px 20px", display: "flex", alignItems: "center", gap: "14px" }}>
-              <span style={{ fontSize: "1.3rem" }}>📍</span>
-              <div>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.75rem", marginBottom: "2px" }}>BASED IN</p>
-                <p style={{ color: "var(--text-primary)", fontSize: "0.9rem", fontWeight: 500 }}>London, UK 🇬🇧</p>
-              </div>
-            </div>
-            <div className="glass-card" style={{ padding: "16px 20px", display: "flex", alignItems: "center", gap: "14px" }}>
-              <span style={{ fontSize: "1.3rem" }}>💼</span>
-              <div>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.75rem", marginBottom: "2px" }}>STATUS</p>
-                <p style={{ color: "var(--accent-mint)", fontSize: "0.9rem", fontWeight: 500 }}>Open to opportunities</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Work Experience ── */}
-      <section style={{ marginBottom: "64px" }}>
-        <h2 style={{ fontSize: "1.4rem", marginBottom: "24px" }}>Experience</h2>
-        <div className="glass-card" style={{ padding: "24px 28px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "16px", flexWrap: "wrap" }}>
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
-                <span style={{ fontSize: "1.2rem" }}>💼</span>
-                <h3 style={{ fontSize: "1rem", fontFamily: "'Inter', sans-serif", fontWeight: 600 }}>Data Analyst Intern</h3>
-              </div>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", marginBottom: "6px" }}>Levitica Technologies · Hyderabad, India</p>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.75, maxWidth: "520px" }}>
-                Worked on data analysis pipelines, built dashboards and reports to support business decisions, and applied ML techniques to extract insights from structured datasets. Gained hands-on experience with real-world data engineering workflows.
-              </p>
-              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "12px" }}>
-                {["Python", "Pandas", "Data Analysis", "SQL", "Dashboards"].map(t => (
-                  <span key={t} className="badge" style={{ fontSize: "0.75rem" }}>{t}</span>
-                ))}
-              </div>
-            </div>
-            <div style={{ textAlign: "right", flexShrink: 0 }}>
-              <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "6px" }}>2023 — 2024</p>
-              <span className="badge" style={{ background: "rgba(245,158,11,0.1)", borderColor: "rgba(245,158,11,0.25)", color: "var(--accent-amber)" }}>
-                Internship
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Education Timeline ── */}
-      <section style={{ marginBottom: "64px" }}>
-        <h2 style={{ fontSize: "1.4rem", marginBottom: "32px" }}>Education</h2>
-        <div style={{ position: "relative", paddingLeft: "28px", borderLeft: "1px solid var(--border)" }}>
-          {[
-            {
-              degree: "MSc in Artificial Intelligence",
-              institution: "Northumbria University, London Campus",
-              years: "2025 — Present",
-              grade: "In progress",
-              icon: "🎓",
-              current: true,
-            },
-            {
-              degree: "B.Tech in Computer Science Engineering",
-              institution: "Parul University",
-              years: "2020 — 2024",
-              grade: "7.71 CGPA",
-              major: "AI Specialization",
-              icon: "🎓",
-            },
-            {
-              degree: "Sr Secondary (Class XII)",
-              institution: "Narayana Education Institute",
-              years: "2018 — 2020",
-              grade: "9.34 CGPA",
-              icon: "🏫",
-            },
-            {
-              degree: "Hr Secondary (Class X)",
-              institution: "VS St. Johns Hr. Sec School",
-              years: "2012 — 2018",
-              grade: "440 / 500",
-              icon: "🏫",
-            },
-          ].map((e, i) => (
-            <div key={i} style={{ position: "relative", marginBottom: "32px", paddingLeft: "24px" }}>
-              {/* Timeline dot */}
-              <div style={{
-                position: "absolute",
-                left: "-34px",
-                top: "4px",
-                width: "12px",
-                height: "12px",
-                borderRadius: "50%",
-                background: e.current ? "linear-gradient(135deg, var(--accent-lavender), var(--accent-rose))" : "var(--border)",
-                border: "2px solid var(--bg-primary)",
-              }} />
-              <div className="glass-card" style={{ padding: "20px 24px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px", flexWrap: "wrap" }}>
-                  <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-                      <span>{e.icon}</span>
-                      <h3 style={{ fontSize: "1rem", fontFamily: "'Inter', sans-serif", fontWeight: 600 }}>{e.degree}</h3>
-                      {e.current && (
-                        <span className="badge" style={{ background: "rgba(192,132,252,0.12)", borderColor: "rgba(192,132,252,0.3)", color: "var(--accent-lavender)", fontSize: "0.7rem" }}>
-                          Current
-                        </span>
-                      )}
-                    </div>
-                    <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", marginBottom: "4px" }}>{e.institution}</p>
-                    {e.major && <p style={{ color: "var(--accent-lavender)", fontSize: "0.82rem" }}>Major: {e.major}</p>}
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "4px" }}>{e.years}</p>
-                    <span className="badge" style={{ background: "rgba(52,211,153,0.1)", borderColor: "rgba(52,211,153,0.25)", color: "var(--accent-mint)" }}>
-                      {e.grade}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Hobbies ── */}
-      <section>
-        <h2 style={{ fontSize: "1.4rem", marginBottom: "8px" }}>Outside of code</h2>
-        <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", marginBottom: "24px" }}>
-          Things that keep me inspired, grounded, and human ✨
+      {/* Info card */}
+      <div className="glass-card" style={{ padding: "24px 28px", maxWidth: "460px" }}>
+        <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.8 }}>
+          Based in <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>London, UK 🇬🇧</span> — open to full-time, internship, and freelance opportunities in AI/ML and data analytics. Response time: usually within 24 hours ☕
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "14px" }}>
-          {HOBBIES.map(h => (
-            <div key={h.label} className="glass-card" style={{ padding: "20px", textAlign: "center" }}>
-              <div style={{ fontSize: "1.8rem", marginBottom: "8px" }}>{h.emoji}</div>
-              <p style={{ fontSize: "0.88rem", fontWeight: 500 }}>{h.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
+      </div>
     </div>
   );
 }

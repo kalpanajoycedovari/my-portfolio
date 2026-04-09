@@ -188,34 +188,6 @@ export default function HomePage() {
           <StatsAndBuilding />
         </section>
 
-        {/* ── GitHub Graph ── */}
-        <section style={{ marginBottom: "80px" }}>
-          <FadeIn>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>02</p>
-              <h2 style={{ fontSize: "2.2rem" }}>Coding Activity</h2>
-            </div>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "24px", paddingLeft: "32px" }}>
-              Proof that I actually show up
-            </p>
-          </FadeIn>
-          <GitHubGraph />
-        </section>
-
-        {/* ── Tech Stack ── */}
-        <section style={{ marginBottom: "80px" }}>
-          <FadeIn>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>03</p>
-              <h2 style={{ fontSize: "2.2rem" }}>Tech Stack</h2>
-            </div>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "24px", paddingLeft: "32px" }}>
-              Everything I work with — click a category to filter
-            </p>
-          </FadeIn>
-          <TechStack />
-        </section>
-
         {/* ── Featured Projects ── */}
         <section style={{ marginBottom: "80px" }}>
           <FadeIn>
@@ -239,6 +211,20 @@ export default function HomePage() {
               <Link href="/projects" style={{ color: "var(--accent-amber)", fontSize: "0.9rem" }}>View all projects →</Link>
             </div>
           </FadeIn>
+        </section>
+
+        {/* ── GitHub Graph ── */}
+        <section style={{ marginBottom: "80px" }}>
+          <FadeIn>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
+              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>05</p>
+              <h2 style={{ fontSize: "2.2rem" }}>Coding Activity</h2>
+            </div>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "24px", paddingLeft: "32px" }}>
+              Proof that I actually show up
+            </p>
+          </FadeIn>
+          <GitHubGraph />
         </section>
 
       </div>

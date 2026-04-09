@@ -1,107 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import FadeIn from "./components/FadeIn";
 import TiltCard from "./components/TiltCard";
-
-// ── Orbiting tech stack ──────────────────────────────────────────────────────
-const SKILL_ORBITS = [
-  { label: "AI / ML",     color: "#f59e0b", radius: 130, speed: 0.004,  tilt: 0.42, phase: 0,   items: ["PyTorch", "TensorFlow", "scikit-learn", "Keras", "OpenCV", "NumPy", "Pandas", "Wav2Vec"] },
-  { label: "Frontend",    color: "#fb923c", radius: 220, speed: 0.0028, tilt: 0.36, phase: 1.1, items: ["React", "Next.js", "TypeScript", "JavaScript", "CSS", "Bootstrap"] },
-  { label: "Backend",     color: "#f43f5e", radius: 310, speed: 0.0018, tilt: 0.28, phase: 2.4, items: ["Flask", "Firebase", "MongoDB", "MySQL", "Express.js", "Web Scraping"] },
-  { label: "Data & Tools",color: "#fcd34d", radius: 400, speed: 0.0012, tilt: 0.22, phase: 3.8, items: ["Tableau", "Power BI", "Docker", "Vercel", "Jupyter", "Google Colab", "VS Code", "GitHub Pages"] },
-];
-
-function TechOrbit() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [hovered, setHovered] = useState<string | null>(null);
-  const hoveredRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    let animId: number, t = 0;
-    const dpr = window.devicePixelRatio || 1;
-    const W = 900, H = 820;
-    canvas.width = W * dpr; canvas.height = H * dpr;
-    canvas.style.width = W + "px"; canvas.style.height = H + "px";
-    ctx.scale(dpr, dpr);
-    const cx = W / 2, cy = H / 2 - 30;
-
-    type Node = { label: string; color: string; angle: number; orbitR: number; tilt: number; speed: number };
-    const nodes: Node[] = [];
-    SKILL_ORBITS.forEach(o => o.items.forEach((item, i) => nodes.push({
-      label: item, color: o.color,
-      angle: o.phase + (i / o.items.length) * Math.PI * 2,
-      orbitR: o.radius, tilt: o.tilt, speed: o.speed,
-    })));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-      SKILL_ORBITS.forEach(o => {
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, o.radius, o.radius * o.tilt, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = o.color + "22"; ctx.lineWidth = 1.2; ctx.stroke();
-        ctx.font = "500 11px Inter, sans-serif";
-        ctx.fillStyle = o.color + "88"; ctx.textAlign = "left";
-        ctx.fillText(o.label, cx + o.radius + 8, cy + 4);
-      });
-
-      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, 52);
-      glow.addColorStop(0, "rgba(245,158,11,0.8)"); glow.addColorStop(0.5, "rgba(251,146,60,0.3)"); glow.addColorStop(1, "transparent");
-      ctx.beginPath(); ctx.arc(cx, cy, 52, 0, Math.PI * 2); ctx.fillStyle = glow; ctx.fill();
-      const core = ctx.createRadialGradient(cx - 5, cy - 5, 0, cx, cy, 18);
-      core.addColorStop(0, "#fef3e2"); core.addColorStop(0.5, "#f59e0b"); core.addColorStop(1, "#d97706");
-      ctx.beginPath(); ctx.arc(cx, cy, 18, 0, Math.PI * 2); ctx.fillStyle = core; ctx.fill();
-      ctx.font = "700 9px Inter, sans-serif"; ctx.fillStyle = "#0e0a07"; ctx.textAlign = "center";
-      ctx.fillText("TECH", cx, cy - 2); ctx.fillText("STACK", cx, cy + 9);
-
-      nodes.forEach(n => {
-        const angle = n.angle + t * n.speed;
-        const px = cx + Math.cos(angle) * n.orbitR;
-        const py = cy + Math.sin(angle) * n.orbitR * n.tilt;
-        const isHov = hoveredRef.current === n.label;
-        const nodeR = isHov ? 9 : 6;
-        const ng = ctx.createRadialGradient(px, py, 0, px, py, nodeR * 3.5);
-        ng.addColorStop(0, n.color + (isHov ? "ee" : "88")); ng.addColorStop(1, "transparent");
-        ctx.beginPath(); ctx.arc(px, py, nodeR * 3.5, 0, Math.PI * 2); ctx.fillStyle = ng; ctx.fill();
-        ctx.beginPath(); ctx.arc(px, py, nodeR, 0, Math.PI * 2); ctx.fillStyle = isHov ? "#fef3e2" : n.color; ctx.fill();
-        const ly = py < cy ? py - nodeR - 6 : py + nodeR + 14;
-        ctx.font = isHov ? "700 12px Inter, sans-serif" : "400 10.5px Inter, sans-serif";
-        ctx.fillStyle = isHov ? "#fef3e2" : n.color + "cc"; ctx.textAlign = "center";
-        ctx.fillText(n.label, px, ly);
-      });
-      t++; animId = requestAnimationFrame(draw);
-    };
-
-    const onMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = (e.clientX - rect.left) * (W / rect.width);
-      const my = (e.clientY - rect.top) * (H / rect.height);
-      let found: string | null = null;
-      nodes.forEach(n => {
-        const angle = n.angle + t * n.speed;
-        const px = cx + Math.cos(angle) * n.orbitR;
-        const py = cy + Math.sin(angle) * n.orbitR * n.tilt;
-        if (Math.hypot(mx - px, my - py) < 14) found = n.label;
-      });
-      hoveredRef.current = found; setHovered(found);
-    };
-    canvas.addEventListener("mousemove", onMove);
-    draw();
-    return () => { cancelAnimationFrame(animId); canvas.removeEventListener("mousemove", onMove); };
-  }, []);
-
-  return (
-    <div style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
-      <canvas ref={canvasRef} style={{ width: "100%", maxWidth: "900px", height: "auto", cursor: hovered ? "pointer" : "default" }} />
-    </div>
-  );
-}
+import TechStack from "./components/TechStack";
 
 // ── Featured projects ────────────────────────────────────────────────────────
 const FEATURED = [
@@ -164,10 +68,10 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* ── HERO — full screen statement ── */}
+      {/* ── HERO ── */}
       <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 32px", maxWidth: "1000px", margin: "0 auto", position: "relative" }}>
 
-        {/* Clock — top right corner */}
+        {/* Clock */}
         <div style={{ position: "absolute", top: "100px", right: "0", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "10px 14px", display: "flex", flexDirection: "column", gap: "3px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <span style={{ fontSize: "0.65rem" }}>📍</span>
@@ -182,10 +86,8 @@ export default function HomePage() {
         </div>
 
         {/* Giant name */}
-        <motion.div
-          style={{ marginBottom: "32px" }}
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
+        <motion.div style={{ marginBottom: "32px" }}
+          initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
           <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 400, letterSpacing: "0.2em", marginBottom: "16px", textTransform: "uppercase" }}>
@@ -198,10 +100,8 @@ export default function HomePage() {
         </motion.div>
 
         {/* Role + description */}
-        <motion.div
-          style={{ display: "flex", alignItems: "flex-start", gap: "40px", marginBottom: "48px", flexWrap: "wrap" }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+        <motion.div style={{ display: "flex", alignItems: "flex-start", gap: "40px", marginBottom: "48px", flexWrap: "wrap" }}
+          initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
         >
           <div style={{ flex: 1, minWidth: "280px" }}>
@@ -223,10 +123,8 @@ export default function HomePage() {
         </motion.div>
 
         {/* Buttons */}
-        <motion.div
-          style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "60px" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+        <motion.div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "60px" }}
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
         >
           <Link href="/projects" className="btn-primary">View Projects →</Link>
@@ -236,10 +134,8 @@ export default function HomePage() {
         </motion.div>
 
         {/* Scroll hint */}
-        <motion.div
-          style={{ display: "flex", alignItems: "center", gap: "12px", opacity: 0.4 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
+        <motion.div style={{ display: "flex", alignItems: "center", gap: "12px" }}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.4 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
           <div style={{ width: "32px", height: "1px", background: "var(--accent-amber)" }} />
@@ -256,11 +152,11 @@ export default function HomePage() {
               <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>01</p>
               <h2 style={{ fontSize: "2.2rem" }}>Tech Stack</h2>
             </div>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "16px", paddingLeft: "32px" }}>Every tool in orbit — hover a node to highlight it</p>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "24px", paddingLeft: "32px" }}>
+              Everything I work with — click a category to filter
+            </p>
           </FadeIn>
-          <FadeIn delay={0.15}>
-            <TechOrbit />
-          </FadeIn>
+          <TechStack />
         </section>
 
         {/* ── Featured Projects ── */}

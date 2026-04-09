@@ -7,11 +7,13 @@ import { TypeAnimation } from "react-type-animation";
 import FadeIn from "./components/FadeIn";
 import TiltCard from "./components/TiltCard";
 import TechStack from "./components/TechStack";
+import StatsAndBuilding from "./components/StatsAndBuilding";
+import GitHubGraph from "./components/GitHubGraph";
 
 // ── Featured projects ────────────────────────────────────────────────────────
 const FEATURED = [
-  { title: "JoBo (Journalising Book)", tagline: "Written in these pages are the stroies you have pen down!", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
-  { title: "Solite's Corner", tagline: "A cosy corner on the internet...for you and just YOU!", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
+  { title: "JoBo (Journalising Book)", tagline: "What if your handwriting could think?", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
+  { title: "Solite's Corner", tagline: "A cosy corner of the internet.", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
   { title: "Speech Recognition Pipeline", tagline: "Teaching machines to listen.", desc: "Lightweight pipeline around Wav2Vec 2.0 — clean, accurate speech-to-text that actually works.", tags: ["Wav2Vec", "PyTorch", "NumPy"], id: "speech-recognition", cover: "/projects/speech-cover.jpg", accent: "#fcd34d" },
   { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", cover: "/projects/resume-cover.jpg", accent: "#f43f5e" },
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
@@ -172,11 +174,39 @@ export default function HomePage() {
 
       <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 32px 80px" }}>
 
-        {/* ── Tech Stack ── */}
+        {/* ── Stats + Currently Building ── */}
         <section style={{ marginBottom: "80px" }}>
           <FadeIn>
             <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
               <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>01</p>
+              <h2 style={{ fontSize: "2.2rem" }}>At a Glance</h2>
+            </div>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "32px", paddingLeft: "32px" }}>
+              Numbers, momentum, and what's keeping me busy right now
+            </p>
+          </FadeIn>
+          <StatsAndBuilding />
+        </section>
+
+        {/* ── GitHub Graph ── */}
+        <section style={{ marginBottom: "80px" }}>
+          <FadeIn>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
+              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>02</p>
+              <h2 style={{ fontSize: "2.2rem" }}>Coding Activity</h2>
+            </div>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "24px", paddingLeft: "32px" }}>
+              Proof that I actually show up
+            </p>
+          </FadeIn>
+          <GitHubGraph />
+        </section>
+
+        {/* ── Tech Stack ── */}
+        <section style={{ marginBottom: "80px" }}>
+          <FadeIn>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
+              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>03</p>
               <h2 style={{ fontSize: "2.2rem" }}>Tech Stack</h2>
             </div>
             <p style={{ color: "var(--text-secondary)", marginBottom: "24px", paddingLeft: "32px" }}>
@@ -190,7 +220,7 @@ export default function HomePage() {
         <section style={{ marginBottom: "80px" }}>
           <FadeIn>
             <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>02</p>
+              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>04</p>
               <h2 style={{ fontSize: "2.2rem" }}>Featured Projects</h2>
             </div>
             <p style={{ color: "var(--text-secondary)", marginBottom: "32px", paddingLeft: "32px" }}>Hover to preview · Click to explore ✨</p>

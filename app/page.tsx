@@ -9,6 +9,7 @@ import TiltCard from "./components/TiltCard";
 import TechStack from "./components/TechStack";
 import StatsAndBuilding from "./components/StatsAndBuilding";
 import GitHubGraph from "./components/GitHubGraph";
+import TimelineLayout from "./components/TimelineLayout";
 
 // ── Featured projects ────────────────────────────────────────────────────────
 const FEATURED = [
@@ -30,15 +31,12 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
       <img src={p.cover} alt={p.title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: open ? 0.3 : 0.8, transition: "opacity 0.4s ease" }} />
       <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, rgba(14,10,7,0.95) 0%, rgba(14,10,7,0.15) 60%, transparent 100%)` }} />
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 50%, ${p.accent}12 0%, transparent 65%)` }} />
-
       <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: open ? "36%" : "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "18px", transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 2 }}>
         <p style={{ color: p.accent, fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "5px", opacity: open ? 0 : 1, transition: "opacity 0.15s" }}>FEATURED</p>
         <h3 style={{ fontSize: "0.9rem", fontFamily: "'Inter',sans-serif", fontWeight: 700, lineHeight: 1.3, marginBottom: "5px", color: "var(--text-primary)" }}>{p.title}</h3>
         <p style={{ color: p.accent, fontSize: "0.7rem", fontStyle: "italic", opacity: open ? 0 : 1, transition: "opacity 0.15s" }}>"{p.tagline}"</p>
       </div>
-
       <div style={{ position: "absolute", top: 0, bottom: 0, left: open ? "36%" : "100%", width: "1px", background: `${p.accent}66`, transition: "left 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 4 }} />
-
       <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: open ? "64%" : "0%", overflow: "hidden", background: "rgba(14,10,7,0.97)", backdropFilter: "blur(16px)", transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 3 }}>
         <div style={{ padding: "18px 14px", opacity: open ? 1 : 0, transform: open ? "translateX(0)" : "translateX(12px)", transition: "opacity 0.3s ease 0.18s, transform 0.3s ease 0.18s", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: "8px" }}>
           <p style={{ color: p.accent, fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.12em" }}>ABOUT</p>
@@ -69,6 +67,64 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
+  const SECTIONS = [
+    {
+      number: "01",
+      title: "At a Glance",
+      subtitle: "Numbers, momentum, and what's keeping me busy right now",
+      color: "#f59e0b",
+      children: <StatsAndBuilding />,
+    },
+    {
+      number: "02",
+      title: "Tech Stack",
+      subtitle: "Everything I work with — click a category to filter",
+      color: "#fb923c",
+      children: <TechStack />,
+    },
+    {
+      number: "03",
+      title: "Featured Projects",
+      subtitle: "Hover to preview · Click to explore ✨",
+      color: "#fcd34d",
+      children: (
+        <div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+            {FEATURED.map((p, i) => (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+              >
+                <TiltCard style={{ height: "100%" }}>
+                  <BookCard p={p} />
+                </TiltCard>
+              </motion.div>
+            ))}
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            style={{ marginTop: "24px" }}
+          >
+            <Link href="/projects" style={{ color: "#fcd34d", fontSize: "0.9rem" }}>View all projects →</Link>
+          </motion.div>
+        </div>
+      ),
+    },
+    {
+      number: "04",
+      title: "Coding Activity",
+      subtitle: "Proof that I actually show up",
+      color: "#f43f5e",
+      children: <GitHubGraph />,
+    },
+  ];
+
   return (
     <div>
       {/* ── HERO ── */}
@@ -95,10 +151,9 @@ export default function HomePage() {
         >
           {/* Open to work badge */}
           <div style={{ display: "inline-flex", alignItems: "center", gap: "7px", marginBottom: "20px", padding: "6px 14px", borderRadius: "999px", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)" }}>
-            <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#34d399", boxShadow: "0 0 0 0 rgba(52,211,153,0.4)", animation: "pulse-green 2s infinite" }} />
+            <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#34d399", animation: "pulse-green 2s infinite" }} />
             <span style={{ fontSize: "0.75rem", color: "#34d399", fontWeight: 500 }}>Open to opportunities</span>
           </div>
-
           <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 400, letterSpacing: "0.2em", marginBottom: "16px", textTransform: "uppercase" }}>
             Kalpana Joyce Dovari
           </p>
@@ -108,7 +163,7 @@ export default function HomePage() {
           </h1>
         </motion.div>
 
-        {/* Role with typing animation + description */}
+        {/* Role + description */}
         <motion.div style={{ display: "flex", alignItems: "flex-start", gap: "40px", marginBottom: "48px", flexWrap: "wrap" }}
           initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
@@ -116,17 +171,8 @@ export default function HomePage() {
           <div style={{ flex: 1, minWidth: "280px" }}>
             <div style={{ fontSize: "1.15rem", color: "var(--accent-amber)", fontWeight: 600, marginBottom: "12px", minHeight: "1.8rem" }}>
               <TypeAnimation
-                sequence={[
-                  "AI/ML Engineer", 2000,
-                  "Data Analyst", 2000,
-                  "MSc AI Student", 2000,
-                  "Problem Solver", 2000,
-                  "Builder of Things", 2000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-                cursor={true}
+                sequence={["AI/ML Engineer", 2000, "Data Analyst", 2000, "MSc AI Student", 2000, "Problem Solver", 2000, "Builder of Things", 2000]}
+                wrapper="span" speed={50} repeat={Infinity} cursor={true}
               />
             </div>
             <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.8, maxWidth: "480px" }}>
@@ -142,14 +188,6 @@ export default function HomePage() {
             ))}
           </div>
         </motion.div>
-
-        <style>{`
-          @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
-            100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
-          }
-        `}</style>
 
         {/* Buttons */}
         <motion.div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "60px" }}
@@ -170,63 +208,19 @@ export default function HomePage() {
           <div style={{ width: "32px", height: "1px", background: "var(--accent-amber)" }} />
           <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)", letterSpacing: "0.15em" }}>SCROLL TO EXPLORE</p>
         </motion.div>
+
+        <style>{`
+          @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+            100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+          }
+        `}</style>
       </section>
 
+      {/* ── Timeline connected sections ── */}
       <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 32px 80px" }}>
-
-        {/* ── Stats + Currently Building ── */}
-        <section style={{ marginBottom: "80px" }}>
-          <FadeIn>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>01</p>
-              <h2 style={{ fontSize: "2.2rem" }}>At a Glance</h2>
-            </div>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "32px", paddingLeft: "32px" }}>
-              Numbers, momentum, and what's keeping me busy right now
-            </p>
-          </FadeIn>
-          <StatsAndBuilding />
-        </section>
-
-        {/* ── Featured Projects ── */}
-        <section style={{ marginBottom: "80px" }}>
-          <FadeIn>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>04</p>
-              <h2 style={{ fontSize: "2.2rem" }}>Featured Projects</h2>
-            </div>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "32px", paddingLeft: "32px" }}>Hover to preview · Click to explore ✨</p>
-          </FadeIn>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-            {FEATURED.map((p, i) => (
-              <FadeIn key={p.id} delay={i * 0.08}>
-                <TiltCard style={{ height: "100%" }}>
-                  <BookCard p={p} />
-                </TiltCard>
-              </FadeIn>
-            ))}
-          </div>
-          <FadeIn delay={0.2}>
-            <div style={{ marginTop: "24px", paddingLeft: "32px" }}>
-              <Link href="/projects" style={{ color: "var(--accent-amber)", fontSize: "0.9rem" }}>View all projects →</Link>
-            </div>
-          </FadeIn>
-        </section>
-
-        {/* ── GitHub Graph ── */}
-        <section style={{ marginBottom: "80px" }}>
-          <FadeIn>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "6px" }}>
-              <p style={{ color: "var(--accent-amber)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.15em" }}>05</p>
-              <h2 style={{ fontSize: "2.2rem" }}>Coding Activity</h2>
-            </div>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "24px", paddingLeft: "32px" }}>
-              Proof that I actually show up
-            </p>
-          </FadeIn>
-          <GitHubGraph />
-        </section>
-
+        <TimelineLayout sections={SECTIONS} />
       </div>
     </div>
   );

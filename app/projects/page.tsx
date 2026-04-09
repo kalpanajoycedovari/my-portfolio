@@ -153,7 +153,44 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
               <span key={t} className="badge" style={{ fontSize: "0.68rem", padding: "2px 8px" }}>{t}</span>
             ))}
           </div>
-          <p style={{ color: "var(--accent-rose)", fontSize: "0.75rem" }}>View on GitHub →</p>
+          {/* Action buttons */}
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "auto" }}>
+            <a
+              href={p.github}
+              target="_blank"
+              rel="noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{
+                padding: "5px 12px", borderRadius: "999px", fontSize: "0.7rem",
+                fontWeight: 500, textDecoration: "none",
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                color: "var(--text-primary)",
+                display: "inline-flex", alignItems: "center", gap: "4px",
+              }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              Code
+            </a>
+            {p.demo && (
+              <a
+                href={p.demo}
+                target="_blank"
+                rel="noreferrer"
+                onClick={e => e.stopPropagation()}
+                style={{
+                  padding: "5px 12px", borderRadius: "999px", fontSize: "0.7rem",
+                  fontWeight: 500, textDecoration: "none",
+                  background: "linear-gradient(135deg, var(--accent-amber), var(--accent-orange))",
+                  border: "none", color: "#0e0a07",
+                  display: "inline-flex", alignItems: "center", gap: "4px",
+                }}
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live Demo
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </Link>

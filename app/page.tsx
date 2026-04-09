@@ -13,13 +13,23 @@ import TimelineLayout from "./components/TimelineLayout";
 
 // ── Featured projects ────────────────────────────────────────────────────────
 const FEATURED = [
-  { title: "JoBo (Journalising Book)", tagline: "What if your handwriting could think?", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
-  { title: "Solite's Corner", tagline: "A cosy corner of the internet.", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
+  { title: "JoBo (Journalising Book)", tagline: "Written in these pages are the stories that you have penned down!", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
+  { title: "Solite's Corner", tagline: "A cozy safe space on the internet, for you....& just YOU!", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
   { title: "Speech Recognition Pipeline", tagline: "Teaching machines to listen.", desc: "Lightweight pipeline around Wav2Vec 2.0 — clean, accurate speech-to-text that actually works.", tags: ["Wav2Vec", "PyTorch", "NumPy"], id: "speech-recognition", cover: "/projects/speech-cover.jpg", accent: "#fcd34d" },
   { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", cover: "/projects/resume-cover.jpg", accent: "#f43f5e" },
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
   { title: "UK Job Market Dashboard", tagline: "1.6M job postings. One dashboard.", desc: "Interactive Tableau dashboard analysing hiring companies, work types, and experience levels.", tags: ["Tableau", "SQL", "Data Analytics"], id: "uk-job-market", cover: "/projects/tableau-cover.jpg", accent: "#fb923c" },
 ];
+
+// GitHub + demo links for featured cards
+const FEATURED_DATA: Record<string, { github: string; demo?: string }> = {
+  "jobo":                 { github: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal" },
+  "solites-corner":       { github: "https://github.com/kalpanajoycedovari/My-Website", demo: "https://kalpanajoycedovari.github.io/My-Website/" },
+  "speech-recognition":   { github: "https://github.com/kalpanajoycedovari/Speech-Recognition-Mini-Pipeline" },
+  "ai-resume-analyzer":   { github: "https://github.com/kalpanajoycedovari/AI-resume-screener", demo: "https://ai-resume-screener-x5c1.onrender.com/" },
+  "scamscan":             { github: "https://github.com/kalpanajoycedovari/scamscan" },
+  "uk-job-market":        { github: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard", demo: "https://public.tableau.com/app/profile/kalpana.joyce.dovari/viz/UKJobMarketDashboard/UKJobMarketDashboard?publish=yes" },
+};
 
 function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
@@ -44,7 +54,22 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
           <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
             {p.tags.map(t => <span key={t} style={{ padding: "2px 7px", borderRadius: "999px", fontSize: "0.62rem", fontWeight: 500, border: `1px solid ${p.accent}44`, color: p.accent, background: `${p.accent}12` }}>{t}</span>)}
           </div>
-          <p style={{ color: p.accent, fontSize: "0.7rem", marginTop: "auto" }}>Click to explore →</p>
+          <div style={{ display: "flex", gap: "6px", marginTop: "auto", paddingTop: "8px" }}>
+            <a href={FEATURED_DATA[p.id]?.github ?? "#"} target="_blank" rel="noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{ padding: "4px 10px", borderRadius: "999px", fontSize: "0.65rem", fontWeight: 500, textDecoration: "none", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "var(--text-primary)", display: "inline-flex", alignItems: "center", gap: "3px" }}>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              Code
+            </a>
+            {FEATURED_DATA[p.id]?.demo && (
+              <a href={FEATURED_DATA[p.id]?.demo} target="_blank" rel="noreferrer"
+                onClick={e => e.stopPropagation()}
+                style={{ padding: "4px 10px", borderRadius: "999px", fontSize: "0.65rem", fontWeight: 500, textDecoration: "none", background: `linear-gradient(135deg, ${p.accent}, ${p.accent}cc)`, border: "none", color: "#0e0a07", display: "inline-flex", alignItems: "center", gap: "3px" }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Demo
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </Link>

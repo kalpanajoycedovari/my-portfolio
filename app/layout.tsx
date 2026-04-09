@@ -3,7 +3,6 @@ import "./globals.css";
 import SolarBackground from "./components/SolarBackground";
 import PageTransition from "./components/PageTransition";
 import Navbar from "./components/Navbar";
-import CustomCursor from "./components/CustomCursor";
 import ScrollProgress from "./components/ScrollProgress";
 import LoadingScreen from "./components/LoadingScreen";
 import { Analytics } from "@vercel/analytics/react";
@@ -33,11 +32,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ cursor: "none" }}>
+      <body>
 
         <SolarBackground />
         <LoadingScreen />
-        <CustomCursor />
         <ScrollProgress />
         <Navbar />
 

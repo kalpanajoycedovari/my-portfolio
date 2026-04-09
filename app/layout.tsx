@@ -1,69 +1,48 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from "next/link";
 import SolarBackground from "./components/SolarBackground";
 import PageTransition from "./components/PageTransition";
+import Navbar from "./components/Navbar";
+import CustomCursor from "./components/CustomCursor";
+import ScrollProgress from "./components/ScrollProgress";
 
 export const metadata: Metadata = {
-  title: "Joyce — AI/ML Engineer",
-  description: "Portfolio of Joyce, AI/ML Engineer building intelligent systems.",
+  title: "Joyce Dovari — AI/ML Engineer",
+  description: "Portfolio of Kalpana Joyce Dovari — AI/ML Engineer and MSc Artificial Intelligence student at Northumbria University London. Building intelligent systems that solve real-world problems.",
+  keywords: ["AI Engineer", "ML Engineer", "Data Analyst", "Portfolio", "London", "NLP", "PyTorch", "Next.js"],
+  authors: [{ name: "Kalpana Joyce Dovari" }],
+  openGraph: {
+    title: "Joyce Dovari — AI/ML Engineer",
+    description: "Building intelligent systems that solve real-world problems. AI/ML Engineer based in London.",
+    url: "https://my-portfolio-taupe-kappa-13.vercel.app",
+    siteName: "Joyce Dovari Portfolio",
+    type: "website",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Joyce Dovari Portfolio" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Joyce Dovari — AI/ML Engineer",
+    description: "Building intelligent systems that solve real-world problems.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body style={{ cursor: "none" }}>
 
-        {/* ── Solar system canvas background ── */}
         <SolarBackground />
+        <CustomCursor />
+        <ScrollProgress />
+        <Navbar />
 
-        {/* ── Navbar ── */}
-        <nav style={{
-          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: "16px 40px",
-          background: "rgba(14, 10, 7, 0.85)",
-          backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-        }}>
-          <Link href="/" style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "1.2rem",
-            color: "var(--text-primary)",
-            fontWeight: 600,
-            textDecoration: "none",
-          }}>
-            Joyce<span style={{ color: "var(--accent-lavender)" }}>.</span>
-          </Link>
-
-          <div style={{ display: "flex", gap: "32px", fontSize: "0.9rem" }}>
-            {[
-              { label: "Home", href: "/" },
-              { label: "Projects", href: "/projects" },
-              { label: "About", href: "/about" },
-              { label: "Education", href: "/education" },
-              { label: "Blog", href: "/blog" },
-              { label: "Contact", href: "/contact" },
-            ].map(link => (
-              <Link key={link.href} href={link.href} style={{
-                color: "var(--text-secondary)",
-                textDecoration: "none",
-                transition: "color 0.2s ease",
-              }}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </nav>
-
-        {/* ── Page content ── */}
         <main style={{ paddingTop: "80px", position: "relative", zIndex: 1 }}>
           <PageTransition>
             {children}
           </PageTransition>
         </main>
 
-        {/* ── Footer ── */}
         <footer style={{
           borderTop: "1px solid var(--border)",
           padding: "32px 40px",
@@ -72,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           alignItems: "center",
           fontSize: "0.85rem",
           color: "var(--text-secondary)",
-          maxWidth: "900px",
+          maxWidth: "1000px",
           margin: "0 auto",
           position: "relative",
           zIndex: 1,

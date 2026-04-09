@@ -88,6 +88,36 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── Work Experience ── */}
+      <section style={{ marginBottom: "64px" }}>
+        <h2 style={{ fontSize: "1.4rem", marginBottom: "24px" }}>Experience</h2>
+        <div className="glass-card" style={{ padding: "24px 28px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "16px", flexWrap: "wrap" }}>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                <span style={{ fontSize: "1.2rem" }}>💼</span>
+                <h3 style={{ fontSize: "1rem", fontFamily: "'Inter', sans-serif", fontWeight: 600 }}>Data Analyst Intern</h3>
+              </div>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", marginBottom: "6px" }}>Levitica Technologies · Hyderabad, India</p>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", lineHeight: 1.75, maxWidth: "520px" }}>
+                Worked on data analysis pipelines, built dashboards and reports to support business decisions, and applied ML techniques to extract insights from structured datasets. Gained hands-on experience with real-world data engineering workflows.
+              </p>
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "12px" }}>
+                {["Python", "Pandas", "Data Analysis", "SQL", "Dashboards"].map(t => (
+                  <span key={t} className="badge" style={{ fontSize: "0.75rem" }}>{t}</span>
+                ))}
+              </div>
+            </div>
+            <div style={{ textAlign: "right", flexShrink: 0 }}>
+              <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "6px" }}>2023 — 2024</p>
+              <span className="badge" style={{ background: "rgba(245,158,11,0.1)", borderColor: "rgba(245,158,11,0.25)", color: "var(--accent-amber)" }}>
+                Internship
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Education Timeline ── */}
       <section style={{ marginBottom: "64px" }}>
         <h2 style={{ fontSize: "1.4rem", marginBottom: "32px" }}>Education</h2>

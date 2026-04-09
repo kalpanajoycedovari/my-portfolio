@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { TypeAnimation } from "react-type-animation";
 import FadeIn from "./components/FadeIn";
 import TiltCard from "./components/TiltCard";
 import TechStack from "./components/TechStack";
 
 // ── Featured projects ────────────────────────────────────────────────────────
 const FEATURED = [
-  { title: "JoBo (Journalising Book)", tagline: "What if your handwriting could think?", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
-  { title: "Solite's Corner", tagline: "A cosy corner of the internet.", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
+  { title: "JoBo (Journalising Book)", tagline: "Written in these pages are the stroies you have pen down!", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
+  { title: "Solite's Corner", tagline: "A cosy corner on the internet...for you and just YOU!", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
   { title: "Speech Recognition Pipeline", tagline: "Teaching machines to listen.", desc: "Lightweight pipeline around Wav2Vec 2.0 — clean, accurate speech-to-text that actually works.", tags: ["Wav2Vec", "PyTorch", "NumPy"], id: "speech-recognition", cover: "/projects/speech-cover.jpg", accent: "#fcd34d" },
   { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", cover: "/projects/resume-cover.jpg", accent: "#f43f5e" },
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
@@ -90,6 +91,12 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
+          {/* Open to work badge */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "7px", marginBottom: "20px", padding: "6px 14px", borderRadius: "999px", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)" }}>
+            <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#34d399", boxShadow: "0 0 0 0 rgba(52,211,153,0.4)", animation: "pulse-green 2s infinite" }} />
+            <span style={{ fontSize: "0.75rem", color: "#34d399", fontWeight: 500 }}>Open to opportunities</span>
+          </div>
+
           <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 400, letterSpacing: "0.2em", marginBottom: "16px", textTransform: "uppercase" }}>
             Kalpana Joyce Dovari
           </p>
@@ -99,21 +106,33 @@ export default function HomePage() {
           </h1>
         </motion.div>
 
-        {/* Role + description */}
+        {/* Role with typing animation + description */}
         <motion.div style={{ display: "flex", alignItems: "flex-start", gap: "40px", marginBottom: "48px", flexWrap: "wrap" }}
           initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
         >
           <div style={{ flex: 1, minWidth: "280px" }}>
-            <p style={{ fontSize: "1.15rem", color: "var(--text-primary)", fontWeight: 500, marginBottom: "12px" }}>
-              AI/ML Engineer · MSc Artificial Intelligence
-            </p>
+            <div style={{ fontSize: "1.15rem", color: "var(--accent-amber)", fontWeight: 600, marginBottom: "12px", minHeight: "1.8rem" }}>
+              <TypeAnimation
+                sequence={[
+                  "AI/ML Engineer", 2000,
+                  "Data Analyst", 2000,
+                  "MSc AI Student", 2000,
+                  "Problem Solver", 2000,
+                  "Builder of Things", 2000,
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+                cursor={true}
+              />
+            </div>
             <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.8, maxWidth: "480px" }}>
               Building intelligent systems that solve real-world problems. I turn data into decisions and ideas into deployed applications.
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "4px" }}>
-            {["Open to opportunities", "Based in London 🇬🇧", "Currently — MSc AI"].map(t => (
+            {["Based in London 🇬🇧", "Currently — MSc AI", "Available from Summer 2025"].map(t => (
               <span key={t} style={{ fontSize: "0.78rem", color: "var(--text-secondary)", display: "flex", alignItems: "center", gap: "8px" }}>
                 <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--accent-amber)", flexShrink: 0 }} />
                 {t}
@@ -121,6 +140,14 @@ export default function HomePage() {
             ))}
           </div>
         </motion.div>
+
+        <style>{`
+          @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+            100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+          }
+        `}</style>
 
         {/* Buttons */}
         <motion.div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "60px" }}

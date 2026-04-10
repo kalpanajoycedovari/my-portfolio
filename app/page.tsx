@@ -12,96 +12,101 @@ import GitHubGraph from "./components/GitHubGraph";
 import TimelineLayout from "./components/TimelineLayout";
 import CaseStudies from "./components/CaseStudies";
 
-// ── Featured projects ────────────────────────────────────────────────────────
+// ── Featured projects data ───────────────────────────────────────────────────
 const FEATURED = [
   { title: "JoBo (Journalising Book)", tagline: "Written in these pages are the stories that you have penned down!", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
   { title: "Solite's Corner", tagline: "A cozy safe space on the internet, for you....& just YOU!", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
   { title: "Speech Recognition Pipeline", tagline: "Teaching machines to listen.", desc: "Lightweight pipeline around Wav2Vec 2.0 — clean, accurate speech-to-text that actually works.", tags: ["Wav2Vec", "PyTorch", "NumPy"], id: "speech-recognition", cover: "/projects/speech-cover.jpg", accent: "#fcd34d" },
   { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", cover: "/projects/resume-cover.jpg", accent: "#f43f5e" },
-  { title: "ScamCheck Agent", tagline: "Because 'it looked legit' is not a fraud prevention strategy.", desc: "Intelligent scam detection on Cloudflare's edge. Paste a URL — it runs page analysis, Reddit scan, and Llama 3.1 AI verdict in parallel with live WebSocket updates.", tags: ["Cloudflare Workers", "Llama 3.1", "WebSockets"], id: "scamcheck-agent", cover: "/projects/scamcheck-cover.jpg", accent: "#34d399" },
+  { title: "ScamCheck Agent", tagline: "Because 'it looked legit' is not a fraud prevention strategy.", desc: "Intelligent scam detection on Cloudflare's edge. Paste a URL — it runs page analysis, Reddit scan, and Llama 3.1 AI verdict in parallel.", tags: ["Cloudflare Workers", "Llama 3.1", "WebSockets"], id: "scamcheck-agent", cover: "/projects/scamcheck-cover.jpg", accent: "#34d399" },
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
-  { title: "UK Job Market Dashboard", tagline: "1.6M job postings. One dashboard.", desc: "Interactive Tableau dashboard analysing hiring companies, work types, and experience levels.", tags: ["Tableau", "SQL", "Data Analytics"], id: "uk-job-market", cover: "/projects/tableau-cover.jpg", accent: "#fb923c" },
 ];
 
-// GitHub + demo links for featured cards
 const FEATURED_DATA: Record<string, { github: string; demo?: string }> = {
-  "scamcheck-agent":     { github: "https://github.com/kalpanajoycedovari/cf_ai_scamcheck_agent", demo: "https://cf-ai-scamcheck-agent.dovarikalpanajoyce.workers.dev/" },
-  "jobo":                 { github: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal" },
-  "solites-corner":       { github: "https://github.com/kalpanajoycedovari/My-Website", demo: "https://kalpanajoycedovari.github.io/My-Website/" },
-  "speech-recognition":   { github: "https://github.com/kalpanajoycedovari/Speech-Recognition-Mini-Pipeline" },
-  "ai-resume-analyzer":   { github: "https://github.com/kalpanajoycedovari/AI-resume-screener", demo: "https://ai-resume-screener-x5c1.onrender.com/" },
-  "scamscan":             { github: "https://github.com/kalpanajoycedovari/scamscan" },
-  "uk-job-market":        { github: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard", demo: "https://public.tableau.com/app/profile/kalpana.joyce.dovari/viz/UKJobMarketDashboard/UKJobMarketDashboard?publish=yes" },
+  "scamcheck-agent":    { github: "https://github.com/kalpanajoycedovari/cf_ai_scamcheck_agent", demo: "https://cf-ai-scamcheck-agent.dovarikalpanajoyce.workers.dev/" },
+  "jobo":               { github: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal" },
+  "solites-corner":     { github: "https://github.com/kalpanajoycedovari/My-Website", demo: "https://kalpanajoycedovari.github.io/My-Website/" },
+  "speech-recognition": { github: "https://github.com/kalpanajoycedovari/Speech-Recognition-Mini-Pipeline" },
+  "ai-resume-analyzer": { github: "https://github.com/kalpanajoycedovari/AI-resume-screener", demo: "https://ai-resume-screener-x5c1.onrender.com/" },
+  "scamscan":           { github: "https://github.com/kalpanajoycedovari/scamscan" },
+  "uk-job-market":      { github: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard", demo: "https://public.tableau.com/app/profile/kalpana.joyce.dovari/viz/UKJobMarketDashboard/UKJobMarketDashboard?publish=yes" },
 };
 
+// ── Book card — cinematic, no dark overlay ───────────────────────────────────
 function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
   return (
-    <Link href={`/projects/${p.id}`} className="glass-card"
+    <Link
+      href={`/projects/${p.id}`}
       style={{
         display: "block", overflow: "hidden", position: "relative",
         aspectRatio: "4/3", color: "inherit", textDecoration: "none",
-        border: `1px solid ${p.accent}22`,
+        borderRadius: "16px", border: `1px solid ${p.accent}22`,
       }}
-      onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
     >
-      {/* Full image — no dark overlay */}
-      <img src={p.cover} alt={p.title} style={{
-        position: "absolute", inset: 0, width: "100%", height: "100%",
-        objectFit: "cover",
-        transform: open ? "scale(1.04)" : "scale(1)",
-        transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
-      }} />
+      {/* Full image — zooms on hover */}
+      <img
+        src={p.cover} alt={p.title}
+        style={{
+          position: "absolute", inset: 0, width: "100%", height: "100%",
+          objectFit: "cover",
+          transform: open ? "scale(1.06)" : "scale(1)",
+          transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)",
+        }}
+      />
 
-      {/* Subtle gradient only at bottom for text */}
+      {/* Gradient — only at bottom, for text legibility */}
       <div style={{
         position: "absolute", inset: 0,
         background: open
-          ? "rgba(14,10,7,0.75)"
-          : "linear-gradient(to top, rgba(14,10,7,0.85) 0%, rgba(14,10,7,0.1) 50%, transparent 100%)",
-        transition: "background 0.4s ease",
+          ? "rgba(14,10,7,0.72)"
+          : "linear-gradient(to top, rgba(14,10,7,0.88) 0%, rgba(14,10,7,0.2) 45%, transparent 100%)",
+        transition: "background 0.5s ease",
       }} />
 
-      {/* Title — always visible at bottom */}
+      {/* Title — bottom, fades out on hover */}
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0,
-        padding: "20px",
-        transform: open ? "translateY(-8px)" : "translateY(0)",
-        transition: "transform 0.4s ease",
-        zIndex: 2,
+        padding: "22px 24px", zIndex: 2,
         opacity: open ? 0 : 1,
+        transform: open ? "translateY(6px)" : "translateY(0)",
+        transition: "opacity 0.3s ease, transform 0.3s ease",
       }}>
         <p style={{ color: p.accent, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "4px" }}>FEATURED</p>
-        <h3 style={{ fontSize: "1.05rem", fontFamily: "'Inter',sans-serif", fontWeight: 700, lineHeight: 1.3, color: "white" }}>{p.title}</h3>
-        <p style={{ color: p.accent, fontSize: "0.72rem", fontStyle: "italic", marginTop: "3px", opacity: 0.9 }}>"{p.tagline}"</p>
+        <h3 style={{ fontSize: "1.1rem", fontFamily: "'Inter',sans-serif", fontWeight: 700, lineHeight: 1.3, color: "white", marginBottom: "3px" }}>{p.title}</h3>
+        <p style={{ color: p.accent, fontSize: "0.75rem", fontStyle: "italic", opacity: 0.9 }}>"{p.tagline}"</p>
       </div>
 
-      {/* Hover overlay — description */}
+      {/* Hover content — fades in over the image */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 3,
-        padding: "24px",
+        padding: "28px",
         display: "flex", flexDirection: "column", justifyContent: "center",
         opacity: open ? 1 : 0,
-        transform: open ? "translateY(0)" : "translateY(10px)",
-        transition: "opacity 0.35s ease, transform 0.35s ease",
+        transform: open ? "translateY(0)" : "translateY(12px)",
+        transition: "opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s",
       }}>
-        <p style={{ color: p.accent, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "10px" }}>ABOUT</p>
-        <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.88rem", lineHeight: 1.7, marginBottom: "14px" }}>{p.desc}</p>
-        <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "14px" }}>
-          {p.tags.map(t => <span key={t} style={{ padding: "3px 9px", borderRadius: "999px", fontSize: "0.68rem", fontWeight: 500, border: `1px solid ${p.accent}55`, color: p.accent, background: `${p.accent}15` }}>{t}</span>)}
+        <p style={{ color: p.accent, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "12px" }}>ABOUT</p>
+        <p style={{ color: "rgba(255,255,255,0.92)", fontSize: "0.92rem", lineHeight: 1.75, marginBottom: "16px" }}>{p.desc}</p>
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "18px" }}>
+          {p.tags.map(t => (
+            <span key={t} style={{ padding: "4px 10px", borderRadius: "999px", fontSize: "0.72rem", fontWeight: 500, border: `1px solid ${p.accent}55`, color: p.accent, background: `${p.accent}15` }}>{t}</span>
+          ))}
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
           <a href={FEATURED_DATA[p.id]?.github ?? "#"} target="_blank" rel="noreferrer"
             onClick={e => e.stopPropagation()}
-            style={{ padding: "6px 14px", borderRadius: "999px", fontSize: "0.72rem", fontWeight: 500, textDecoration: "none", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "white", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            style={{ padding: "7px 16px", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 500, textDecoration: "none", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "white", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             Code
           </a>
           {FEATURED_DATA[p.id]?.demo && (
             <a href={FEATURED_DATA[p.id]?.demo} target="_blank" rel="noreferrer"
               onClick={e => e.stopPropagation()}
-              style={{ padding: "6px 14px", borderRadius: "999px", fontSize: "0.72rem", fontWeight: 600, textDecoration: "none", background: `linear-gradient(135deg, ${p.accent}, ${p.accent}bb)`, border: "none", color: "#0e0a07", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              style={{ padding: "7px 16px", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 600, textDecoration: "none", background: `linear-gradient(135deg, ${p.accent}, ${p.accent}bb)`, border: "none", color: "#0e0a07", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               Live Demo
             </a>
           )}
@@ -111,6 +116,7 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
   );
 }
 
+// ── Icons ────────────────────────────────────────────────────────────────────
 function GithubIcon() {
   return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>;
 }
@@ -118,6 +124,7 @@ function LinkedInIcon() {
   return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>;
 }
 
+// ── Page ─────────────────────────────────────────────────────────────────────
 export default function HomePage() {
   const [now, setNow] = useState<Date | null>(null);
 
@@ -144,19 +151,26 @@ export default function HomePage() {
     },
     {
       number: "03",
+      title: "Case Studies",
+      subtitle: "UX/UI research and redesign — click a card to flip it",
+      color: "#c084fc",
+      children: <CaseStudies />,
+    },
+    {
+      number: "04",
       title: "Featured Projects",
       subtitle: "Hover to preview · Click to explore ✨",
       color: "#fcd34d",
       children: (
         <div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
             {FEATURED.map((p, i) => (
               <motion.div
                 key={p.id}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ duration: 0.5, delay: i * 0.06 }}
               >
                 <TiltCard style={{ height: "100%" }}>
                   <BookCard p={p} />
@@ -168,7 +182,7 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.3 }}
             style={{ marginTop: "24px" }}
           >
             <Link href="/projects" style={{ color: "#fcd34d", fontSize: "0.9rem" }}>View all projects →</Link>
@@ -177,15 +191,8 @@ export default function HomePage() {
       ),
     },
     {
-      number: "04",
-      title: "Case Studies",
-      subtitle: "UX/UI research and redesign — click a card to flip it",
-      color: "#c084fc",
-      children: <CaseStudies />,
-    },
-    {
       number: "05",
-      title: "Featured Projects",
+      title: "Coding Activity",
       subtitle: "Proof that I actually show up",
       color: "#f43f5e",
       children: <GitHubGraph />,
@@ -216,7 +223,6 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
-          {/* Open to work badge */}
           <div style={{ display: "inline-flex", alignItems: "center", gap: "7px", marginBottom: "20px", padding: "6px 14px", borderRadius: "999px", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)" }}>
             <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#34d399", animation: "pulse-green 2s infinite" }} />
             <span style={{ fontSize: "0.75rem", color: "#34d399", fontWeight: 500 }}>Open to opportunities</span>

@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef } from "react";
@@ -13,17 +13,17 @@ type Props = {
 
 export default function FadeIn({ children, delay = 0, direction = "up", style, className }: Props) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   const variants: Variants = {
     hidden: {
       opacity: 0,
-      y: direction === "up" ? 40 : 0,
-      x: direction === "left" ? -40 : direction === "right" ? 40 : 0,
+      y: direction === "up" ? 20 : 0,
+      x: direction === "left" ? -20 : direction === "right" ? 20 : 0,
     },
     visible: {
       opacity: 1, y: 0, x: 0,
-      transition: { duration: 0.6, delay, ease: "easeOut" },
+      transition: { duration: 0.4, delay, ease: "easeOut" },
     },
   };
 
@@ -33,7 +33,7 @@ export default function FadeIn({ children, delay = 0, direction = "up", style, c
       variants={variants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      style={style}
+      style={{ willChange: "transform, opacity", ...style }}
       className={className}
     >
       {children}

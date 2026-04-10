@@ -11,31 +11,25 @@ type Section = {
   children: React.ReactNode;
 };
 
-function TimelineNode({ color, number }: { color: string; number: string }) {
+function TimelineNode({ color }: { color: string; number: string }) {
   return (
     <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-      {/* Outer pulse ring */}
       <motion.div
-        animate={{ scale: [1, 1.6, 1], opacity: [0.4, 0, 0.4] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0, 0.3] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
         style={{
-          position: "absolute", width: "32px", height: "32px",
+          position: "absolute", width: "28px", height: "28px",
           borderRadius: "50%", border: `1px solid ${color}`,
           top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-          pointerEvents: "none",
+          pointerEvents: "none", willChange: "transform, opacity",
         }}
       />
-      {/* Node */}
-      <motion.div
-        whileHover={{ scale: 1.2 }}
-        style={{
-          width: "18px", height: "18px", borderRadius: "50%",
-          background: color, border: "3px solid #0e0a07",
-          boxShadow: `0 0 16px ${color}88`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 2, flexShrink: 0,
-        }}
-      />
+      <div style={{
+        width: "16px", height: "16px", borderRadius: "50%",
+        background: color, border: "3px solid #0e0a07",
+        boxShadow: `0 0 10px ${color}66`,
+        zIndex: 2, flexShrink: 0,
+      }} />
     </div>
   );
 }

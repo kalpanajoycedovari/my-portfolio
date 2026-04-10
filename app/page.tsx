@@ -10,6 +10,7 @@ import TechStack from "./components/TechStack";
 import StatsAndBuilding from "./components/StatsAndBuilding";
 import GitHubGraph from "./components/GitHubGraph";
 import TimelineLayout from "./components/TimelineLayout";
+import CaseStudies from "./components/CaseStudies";
 
 // ── Featured projects ────────────────────────────────────────────────────────
 const FEATURED = [
@@ -143,7 +144,14 @@ export default function HomePage() {
     },
     {
       number: "04",
-      title: "Coding Activity",
+      title: "Case Studies",
+      subtitle: "UX/UI research and redesign — click a card to flip it",
+      color: "#c084fc",
+      children: <CaseStudies />,
+    },
+    {
+      number: "05",
+      title: "Featured Projects",
       subtitle: "Proof that I actually show up",
       color: "#f43f5e",
       children: <GitHubGraph />,

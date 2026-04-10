@@ -38,41 +38,73 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
   return (
     <Link href={`/projects/${p.id}`} className="glass-card"
-      style={{ display: "block", overflow: "hidden", position: "relative", aspectRatio: "1/1", color: "inherit", textDecoration: "none", border: `1px solid ${p.accent}18` }}
+      style={{
+        display: "block", overflow: "hidden", position: "relative",
+        aspectRatio: "4/3", color: "inherit", textDecoration: "none",
+        border: `1px solid ${p.accent}22`,
+      }}
       onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}
     >
-      <img src={p.cover} alt={p.title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: open ? 0.3 : 0.8, transition: "opacity 0.4s ease" }} />
-      <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, rgba(14,10,7,0.95) 0%, rgba(14,10,7,0.15) 60%, transparent 100%)` }} />
-      <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 50%, ${p.accent}12 0%, transparent 65%)` }} />
-      <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: open ? "36%" : "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "18px", transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 2 }}>
-        <p style={{ color: p.accent, fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "5px", opacity: open ? 0 : 1, transition: "opacity 0.15s" }}>FEATURED</p>
-        <h3 style={{ fontSize: "0.9rem", fontFamily: "'Inter',sans-serif", fontWeight: 700, lineHeight: 1.3, marginBottom: "5px", color: "var(--text-primary)" }}>{p.title}</h3>
-        <p style={{ color: p.accent, fontSize: "0.7rem", fontStyle: "italic", opacity: open ? 0 : 1, transition: "opacity 0.15s" }}>"{p.tagline}"</p>
+      {/* Full image — no dark overlay */}
+      <img src={p.cover} alt={p.title} style={{
+        position: "absolute", inset: 0, width: "100%", height: "100%",
+        objectFit: "cover",
+        transform: open ? "scale(1.04)" : "scale(1)",
+        transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
+      }} />
+
+      {/* Subtle gradient only at bottom for text */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: open
+          ? "rgba(14,10,7,0.75)"
+          : "linear-gradient(to top, rgba(14,10,7,0.85) 0%, rgba(14,10,7,0.1) 50%, transparent 100%)",
+        transition: "background 0.4s ease",
+      }} />
+
+      {/* Title — always visible at bottom */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0,
+        padding: "20px",
+        transform: open ? "translateY(-8px)" : "translateY(0)",
+        transition: "transform 0.4s ease",
+        zIndex: 2,
+        opacity: open ? 0 : 1,
+      }}>
+        <p style={{ color: p.accent, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "4px" }}>FEATURED</p>
+        <h3 style={{ fontSize: "1.05rem", fontFamily: "'Inter',sans-serif", fontWeight: 700, lineHeight: 1.3, color: "white" }}>{p.title}</h3>
+        <p style={{ color: p.accent, fontSize: "0.72rem", fontStyle: "italic", marginTop: "3px", opacity: 0.9 }}>"{p.tagline}"</p>
       </div>
-      <div style={{ position: "absolute", top: 0, bottom: 0, left: open ? "36%" : "100%", width: "1px", background: `${p.accent}66`, transition: "left 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 4 }} />
-      <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: open ? "64%" : "0%", overflow: "hidden", background: "rgba(14,10,7,0.97)", backdropFilter: "blur(16px)", transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)", zIndex: 3 }}>
-        <div style={{ padding: "18px 14px", opacity: open ? 1 : 0, transform: open ? "translateX(0)" : "translateX(12px)", transition: "opacity 0.3s ease 0.18s, transform 0.3s ease 0.18s", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: "8px" }}>
-          <p style={{ color: p.accent, fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.12em" }}>ABOUT</p>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.76rem", lineHeight: 1.65 }}>{p.desc}</p>
-          <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-            {p.tags.map(t => <span key={t} style={{ padding: "2px 7px", borderRadius: "999px", fontSize: "0.62rem", fontWeight: 500, border: `1px solid ${p.accent}44`, color: p.accent, background: `${p.accent}12` }}>{t}</span>)}
-          </div>
-          <div style={{ display: "flex", gap: "6px", marginTop: "auto", paddingTop: "8px" }}>
-            <a href={FEATURED_DATA[p.id]?.github ?? "#"} target="_blank" rel="noreferrer"
+
+      {/* Hover overlay — description */}
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 3,
+        padding: "24px",
+        display: "flex", flexDirection: "column", justifyContent: "center",
+        opacity: open ? 1 : 0,
+        transform: open ? "translateY(0)" : "translateY(10px)",
+        transition: "opacity 0.35s ease, transform 0.35s ease",
+      }}>
+        <p style={{ color: p.accent, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "10px" }}>ABOUT</p>
+        <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.88rem", lineHeight: 1.7, marginBottom: "14px" }}>{p.desc}</p>
+        <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "14px" }}>
+          {p.tags.map(t => <span key={t} style={{ padding: "3px 9px", borderRadius: "999px", fontSize: "0.68rem", fontWeight: 500, border: `1px solid ${p.accent}55`, color: p.accent, background: `${p.accent}15` }}>{t}</span>)}
+        </div>
+        <div style={{ display: "flex", gap: "8px" }}>
+          <a href={FEATURED_DATA[p.id]?.github ?? "#"} target="_blank" rel="noreferrer"
+            onClick={e => e.stopPropagation()}
+            style={{ padding: "6px 14px", borderRadius: "999px", fontSize: "0.72rem", fontWeight: 500, textDecoration: "none", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "white", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            Code
+          </a>
+          {FEATURED_DATA[p.id]?.demo && (
+            <a href={FEATURED_DATA[p.id]?.demo} target="_blank" rel="noreferrer"
               onClick={e => e.stopPropagation()}
-              style={{ padding: "4px 10px", borderRadius: "999px", fontSize: "0.65rem", fontWeight: 500, textDecoration: "none", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "var(--text-primary)", display: "inline-flex", alignItems: "center", gap: "3px" }}>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              Code
+              style={{ padding: "6px 14px", borderRadius: "999px", fontSize: "0.72rem", fontWeight: 600, textDecoration: "none", background: `linear-gradient(135deg, ${p.accent}, ${p.accent}bb)`, border: "none", color: "#0e0a07", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Live Demo
             </a>
-            {FEATURED_DATA[p.id]?.demo && (
-              <a href={FEATURED_DATA[p.id]?.demo} target="_blank" rel="noreferrer"
-                onClick={e => e.stopPropagation()}
-                style={{ padding: "4px 10px", borderRadius: "999px", fontSize: "0.65rem", fontWeight: 500, textDecoration: "none", background: `linear-gradient(135deg, ${p.accent}, ${p.accent}cc)`, border: "none", color: "#0e0a07", display: "inline-flex", alignItems: "center", gap: "3px" }}>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Demo
-              </a>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </Link>

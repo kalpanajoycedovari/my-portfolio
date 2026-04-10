@@ -19,6 +19,12 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
 
   // What I learned — per project
   const learned: Record<string, string[]> = {
+    "scamcheck-agent": [
+      "Cloudflare Durable Objects give you persistent session memory across WebSocket connections — genuinely different from stateless Workers",
+      "Workers AI in local dev mode lies to you. Deploy first, debug second — the free tier rate limits hit hard locally but work fine on actual infrastructure",
+      "WebSockets transform a frustrating loading spinner into a live 'watching it think' experience — incremental status updates change the entire feel of a slow pipeline",
+      "Accessibility-first typography (Atkinson Hyperlegible) isn't just ethical — it makes everything more readable for everyone, not just users who need it",
+    ],
     "jobo": [
       "How image preprocessing dramatically improves OCR accuracy on real-world handwriting",
       "Working with OpenCV pipelines for noise reduction, thresholding and deskewing",

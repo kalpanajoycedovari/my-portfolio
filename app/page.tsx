@@ -20,9 +20,10 @@ const FEATURED = [
   { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", cover: "/projects/resume-cover.jpg", accent: "#f43f5e" },
   { title: "ScamCheck Agent", tagline: "Because 'it looked legit' is not a fraud prevention strategy.", desc: "Intelligent scam detection on Cloudflare's edge. Paste a URL — it runs page analysis, Reddit scan, and Llama 3.1 AI verdict in parallel.", tags: ["Cloudflare Workers", "Llama 3.1", "WebSockets"], id: "scamcheck-agent", cover: "/projects/scamcheck-cover.jpg", accent: "#34d399" },
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
+  { title: "Komiso", tagline: "Set it, forget it — let the agents do the hustle.", desc: "Multi-agent affiliate automation in N8N that autonomously scouts programs, generates AI content, tracks performance metrics, and delivers weekly reports via Gmail. Built on a fully free stack: Groq LLaMA 3.3, SerpAPI, and Google Sheets.", tags: ["N8N", "Groq LLaMA 3.3", "SerpAPI", "Google Sheets"], id: "komiso", cover: "/projects/komiso-cover.jpg", accent: "#a78bfa" },
 ];
 
-const FEATURED_DATA: Record<string, { github: string; demo?: string }> = {
+const FEATURED_DATA: Record<string, { github?: string; demo?: string }> = {
   "scamcheck-agent":    { github: "https://github.com/kalpanajoycedovari/cf_ai_scamcheck_agent", demo: "https://cf-ai-scamcheck-agent.dovarikalpanajoyce.workers.dev/" },
   "jobo":               { github: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal" },
   "solites-corner":     { github: "https://github.com/kalpanajoycedovari/My-Website", demo: "https://kalpanajoycedovari.github.io/My-Website/" },
@@ -30,11 +31,79 @@ const FEATURED_DATA: Record<string, { github: string; demo?: string }> = {
   "ai-resume-analyzer": { github: "https://github.com/kalpanajoycedovari/AI-resume-screener", demo: "https://ai-resume-screener-x5c1.onrender.com/" },
   "scamscan":           { github: "https://github.com/kalpanajoycedovari/scamscan" },
   "uk-job-market":      { github: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard", demo: "https://public.tableau.com/app/profile/kalpana.joyce.dovari/viz/UKJobMarketDashboard/UKJobMarketDashboard?publish=yes" },
+  "komiso":             {},
 };
+
+// ── Komiso highlight card for homepage ──────────────────────────────────────
+function KomisoSpotlight() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.6 }}
+      style={{
+        position: "relative",
+        borderRadius: "20px",
+        padding: "36px 40px",
+        background: "linear-gradient(135deg, rgba(167,139,250,0.12) 0%, rgba(167,139,250,0.04) 100%)",
+        border: "1px solid rgba(167,139,250,0.3)",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background glow */}
+      <div style={{
+        position: "absolute", top: "-60px", right: "-60px",
+        width: "260px", height: "260px", borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
+
+      {/* Top row */}
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "16px", marginBottom: "20px" }}>
+        <div>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "7px", marginBottom: "10px", padding: "4px 12px", borderRadius: "999px", background: "rgba(167,139,250,0.15)", border: "1px solid rgba(167,139,250,0.35)" }}>
+            <span style={{ fontSize: "0.68rem", color: "#a78bfa", fontWeight: 600, letterSpacing: "0.1em" }}>✦ LATEST BUILD</span>
+          </div>
+          <h3 style={{ fontSize: "1.9rem", fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "white", marginBottom: "6px", lineHeight: 1.1 }}>Komiso</h3>
+          <p style={{ fontSize: "0.88rem", color: "#a78bfa", fontStyle: "italic" }}>"Set it, forget it — let the agents do the hustle."</p>
+        </div>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "flex-start" }}>
+          {["N8N", "Groq LLaMA 3.3", "SerpAPI", "Google Sheets"].map(t => (
+            <span key={t} style={{ padding: "5px 12px", borderRadius: "999px", fontSize: "0.72rem", fontWeight: 500, border: "1px solid rgba(167,139,250,0.4)", color: "#a78bfa", background: "rgba(167,139,250,0.1)" }}>{t}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Description */}
+      <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.8, maxWidth: "680px", marginBottom: "28px" }}>
+        A multi-agent affiliate automation system built in N8N that autonomously scouts affiliate programs, generates AI-written content, tracks performance metrics, and delivers weekly digest reports straight to Gmail — all on a fully free stack.
+      </p>
+
+      {/* Agent flow pills */}
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", marginBottom: "28px" }}>
+        {["Scout Agent", "→", "Content Agent", "→", "Tracker Agent", "→", "Report Agent"].map((step, i) => (
+          step === "→"
+            ? <span key={i} style={{ color: "rgba(167,139,250,0.5)", fontSize: "0.8rem" }}>→</span>
+            : <span key={i} style={{ padding: "6px 14px", borderRadius: "8px", fontSize: "0.75rem", fontWeight: 600, background: "rgba(167,139,250,0.12)", color: "rgba(255,255,255,0.85)", border: "1px solid rgba(167,139,250,0.2)" }}>{step}</span>
+        ))}
+      </div>
+
+      {/* Footer note */}
+      <p style={{ fontSize: "0.75rem", color: "rgba(167,139,250,0.6)", display: "flex", alignItems: "center", gap: "6px" }}>
+        <span>🖥️</span> Local build · N8N self-hosted · No cloud deployment
+      </p>
+    </motion.div>
+  );
+}
 
 // ── Book card — cinematic, no dark overlay ───────────────────────────────────
 function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
+  const data = FEATURED_DATA[p.id];
+  const hasGithub = data?.github;
+  const hasDemo = data?.demo;
+
   return (
     <Link
       href={`/projects/${p.id}`}
@@ -96,19 +165,26 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
           ))}
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
-          <a href={FEATURED_DATA[p.id]?.github ?? "#"} target="_blank" rel="noreferrer"
-            onClick={e => e.stopPropagation()}
-            style={{ padding: "7px 16px", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 500, textDecoration: "none", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "white", display: "inline-flex", alignItems: "center", gap: "5px" }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            Code
-          </a>
-          {FEATURED_DATA[p.id]?.demo && (
-            <a href={FEATURED_DATA[p.id]?.demo} target="_blank" rel="noreferrer"
+          {hasGithub && (
+            <a href={data.github} target="_blank" rel="noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{ padding: "7px 16px", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 500, textDecoration: "none", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "white", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              Code
+            </a>
+          )}
+          {hasDemo && (
+            <a href={data.demo} target="_blank" rel="noreferrer"
               onClick={e => e.stopPropagation()}
               style={{ padding: "7px 16px", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 600, textDecoration: "none", background: `linear-gradient(135deg, ${p.accent}, ${p.accent}bb)`, border: "none", color: "#0e0a07", display: "inline-flex", alignItems: "center", gap: "5px" }}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               Live Demo
             </a>
+          )}
+          {!hasGithub && !hasDemo && (
+            <span style={{ padding: "7px 16px", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 500, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.45)", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+              🖥️ Local Build
+            </span>
           )}
         </div>
       </div>
@@ -158,6 +234,13 @@ export default function HomePage() {
     },
     {
       number: "04",
+      title: "Latest Build",
+      subtitle: "What I shipped most recently ✦",
+      color: "#a78bfa",
+      children: <KomisoSpotlight />,
+    },
+    {
+      number: "05",
       title: "Featured Projects",
       subtitle: "Hover to preview · Click to explore ✨",
       color: "#fcd34d",
@@ -191,7 +274,7 @@ export default function HomePage() {
       ),
     },
     {
-      number: "05",
+      number: "06",
       title: "Coding Activity",
       subtitle: "Proof that I actually show up",
       color: "#f43f5e",

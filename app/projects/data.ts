@@ -114,6 +114,7 @@ export const PROJECTS: Project[] = [
     year: "2025",
     status: "Completed",
   },
+  
   {
     id: "zig-playground",
     title: "Zig Playground",
@@ -125,5 +126,20 @@ export const PROJECTS: Project[] = [
     cover: "/projects/zig-cover.jpg",
     year: "2025",
     status: "In Progress",
-  },
+  },   
+  {
+  id: "komiso",
+  title: "Komiso",
+  tagline: "Set it, forget it — let the agents do the hustle.",
+  desc: "Multi-agent affiliate automation system built in N8N that autonomously scouts affiliate programs, generates AI-written content, tracks performance metrics, and delivers weekly digest reports straight to Gmail.",
+  details: "Built on a fully free stack using Groq LLaMA 3.3 for AI content generation, SerpAPI for scouting affiliate programs, and Google Sheets for performance tracking. Four chained agents handle the full pipeline end-to-end — Scout, Content, Tracker, and Report — running locally via N8N self-hosted.",
+  tags: ["N8N", "Groq LLaMA 3.3", "SerpAPI", "Google Sheets"],
+  github: "",
+  cover: "/projects/komiso-cover.jpg",
+  year: "2025",
+  status: "Completed",
+},
+
+  
+
 ];

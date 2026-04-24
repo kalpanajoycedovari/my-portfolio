@@ -65,6 +65,13 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       "Zig's comptime system and how it differs from generics in other languages",
       "How to actually read compiler errors instead of just being afraid of them",
     ],
+    "komiso": [
+      "How to chain multiple N8N agents so each one's output feeds cleanly into the next without breaking the flow",
+      "SerpAPI returns a lot of noise — learning to filter and score affiliate program results took more prompt engineering than expected",
+      "Groq's LLaMA 3.3 is surprisingly good at structured content generation when you give it tight output schemas",
+      "Google Sheets as a lightweight database actually works well for solo automation projects — no overhead, instantly readable",
+      "Building a fully free, locally hosted automation stack is completely viable — the constraint forces creative problem solving",
+    ],
   };
 
   const projectLearned = learned[project.id] ?? [
@@ -101,31 +108,49 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      {/* Action buttons */}
-      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "40px" }}>
-        <a href={project.github} target="_blank" rel="noreferrer" style={{
-          display: "inline-flex", alignItems: "center", gap: "8px",
-          padding: "10px 22px", borderRadius: "999px",
-          border: "1px solid var(--border)", background: "var(--bg-card)",
-          color: "var(--text-primary)", fontSize: "0.9rem", fontWeight: 500,
-          textDecoration: "none",
-        }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-          </svg>
-          View Code
-        </a>
-        {project.demo && (
-          <a href={project.demo} target="_blank" rel="noreferrer" className="btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              <polyline points="15 3 21 3 21 9" />
-              <line x1="10" y1="14" x2="21" y2="3" />
-            </svg>
-            Live Demo
-          </a>
-        )}
-      </div>
+      {/* Action buttons — only render if links exist */}
+      {(project.github || project.demo) && (
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "40px" }}>
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noreferrer" style={{
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              padding: "10px 22px", borderRadius: "999px",
+              border: "1px solid var(--border)", background: "var(--bg-card)",
+              color: "var(--text-primary)", fontSize: "0.9rem", fontWeight: 500,
+              textDecoration: "none",
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+              </svg>
+              View Code
+            </a>
+          )}
+          {project.demo && (
+            <a href={project.demo} target="_blank" rel="noreferrer" className="btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              Live Demo
+            </a>
+          )}
+        </div>
+      )}
+
+      {/* Local build badge — shown when no github or demo */}
+      {!project.github && !project.demo && (
+        <div style={{ marginBottom: "40px" }}>
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: "8px",
+            padding: "10px 22px", borderRadius: "999px",
+            border: "1px solid rgba(167,139,250,0.3)", background: "rgba(167,139,250,0.08)",
+            color: "rgba(167,139,250,0.7)", fontSize: "0.9rem", fontWeight: 500,
+          }}>
+            🖥️ Local Build · No public repo
+          </span>
+        </div>
+      )}
 
       {/* About */}
       <div className="glass-card" style={{ padding: "28px 32px", marginBottom: "20px" }}>

@@ -65,6 +65,13 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       "Zig's comptime system and how it differs from generics in other languages",
       "How to actually read compiler errors instead of just being afraid of them",
     ],
+    "solene": [
+      "How to use Three.js to create an atmospheric geometric hero that feels editorial rather than just technical",
+      "Cormorant Garamond at large sizes behaves differently from body copy — kerning and line height need careful tuning",
+      "Building a multi-page static site with a consistent luxury brand identity across every page",
+      "How restraint in colour (ivory, gold, one accent) creates more impact than a complex palette",
+      "CSS transitions and scroll-triggered reveals can replace heavy JS frameworks for simple storytelling sites",
+    ],
     "komiso": [
       "How to chain multiple N8N agents so each one's output feeds cleanly into the next without breaking the flow",
       "SerpAPI returns a lot of noise — learning to filter and score affiliate program results took more prompt engineering than expected",

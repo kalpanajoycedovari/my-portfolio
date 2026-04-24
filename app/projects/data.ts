@@ -139,7 +139,18 @@ export const PROJECTS: Project[] = [
   year: "2025",
   status: "Completed",
 },
-
-  
+{
+  id: "solene",
+  title: "SOLÈNE",
+  tagline: "This is just a mock-up, soon to be before the world",
+  desc: "A luxury fashion editorial website built as a complete brand experience — shop, about, and designer submission pages unified under an ivory and gold visual identity.",
+  details: "Built with vanilla HTML, CSS, and JavaScript with a Three.js geometric hero animation. Typography-led design using Cormorant Garamond and Raleway, hosted on GitHub Pages. Every page was crafted to feel like flipping through a high-fashion magazine.",
+  tags: ["Three.js", "HTML/CSS", "JavaScript", "GitHub Pages"],
+  github: "https://github.com/kalpanajoycedovari/solene-fashion",
+  demo: "https://kalpanajoycedovari.github.io/solene-fashion/",
+  cover: "/projects/solene-cover.jpg",
+  year: "2026",
+  status: "Completed",
+}, 
 
 ];

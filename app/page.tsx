@@ -21,6 +21,7 @@ const FEATURED = [
   { title: "ScamCheck Agent", tagline: "Because 'it looked legit' is not a fraud prevention strategy.", desc: "Intelligent scam detection on Cloudflare's edge. Paste a URL — it runs page analysis, Reddit scan, and Llama 3.1 AI verdict in parallel.", tags: ["Cloudflare Workers", "Llama 3.1", "WebSockets"], id: "scamcheck-agent", cover: "/projects/scamcheck-cover.jpg", accent: "#34d399" },
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
   { title: "Komiso", tagline: "Set it, forget it — let the agents do the hustle.", desc: "Multi-agent affiliate automation in N8N that autonomously scouts programs, generates AI content, tracks performance metrics, and delivers weekly reports via Gmail. Built on a fully free stack: Groq LLaMA 3.3, SerpAPI, and Google Sheets.", tags: ["N8N", "Groq LLaMA 3.3", "SerpAPI", "Google Sheets"], id: "komiso", cover: "/projects/komiso-cover.jpg", accent: "#a78bfa" },
+  { title: "SOLÈNE", tagline: "Where fabric meets philosophy.", desc: "A luxury fashion editorial website with a Three.js geometric hero, ivory and gold palette, and Cormorant Garamond typography. Built as a complete brand experience with shop, about, and submission pages.", tags: ["Three.js", "HTML/CSS", "JavaScript", "GitHub Pages"], id: "solene", cover: "/projects/solene-cover.jpg", accent: "#d4a853" },
 ];
 
 const FEATURED_DATA: Record<string, { github?: string; demo?: string }> = {
@@ -32,6 +33,7 @@ const FEATURED_DATA: Record<string, { github?: string; demo?: string }> = {
   "scamscan":           { github: "https://github.com/kalpanajoycedovari/scamscan" },
   "uk-job-market":      { github: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard", demo: "https://public.tableau.com/app/profile/kalpana.joyce.dovari/viz/UKJobMarketDashboard/UKJobMarketDashboard?publish=yes" },
   "komiso":             {},
+  "solene":             { github: "https://github.com/kalpanajoycedovari/solene-fashion", demo: "https://kalpanajoycedovari.github.io/solene-fashion/" },
 };
 
 // ── Komiso highlight card for homepage ──────────────────────────────────────

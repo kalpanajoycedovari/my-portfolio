@@ -22,6 +22,7 @@ const FEATURED = [
   { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
   { title: "Komiso", tagline: "Set it, forget it — let the agents do the hustle.", desc: "Multi-agent affiliate automation in N8N that autonomously scouts programs, generates AI content, tracks performance metrics, and delivers weekly reports via Gmail. Built on a fully free stack: Groq LLaMA 3.3, SerpAPI, and Google Sheets.", tags: ["N8N", "Groq LLaMA 3.3", "SerpAPI", "Google Sheets"], id: "komiso", cover: "/projects/komiso-cover.jpg", accent: "#a78bfa" },
   { title: "SOLÈNE", tagline: "Where fabric meets philosophy.", desc: "A luxury fashion editorial website with a Three.js geometric hero, ivory and gold palette, and Cormorant Garamond typography. Built as a complete brand experience with shop, about, and submission pages.", tags: ["Three.js", "HTML/CSS", "JavaScript", "GitHub Pages"], id: "solene", cover: "/projects/solene-cover.jpg", accent: "#d4a853" },
+  { title: "TikTok A/B Testing", tagline: "Because 'ship it' should be a data-driven decision.", desc: "Simulates a real-world A/B experimentation suite across 4 concurrent TikTok product tests — Welch's T-Test, Chi-Square, Cohen's d, and an executive Streamlit dashboard.", tags: ["Python", "Streamlit", "SciPy", "Pandas"], id: "tiktok-ab-testing", cover: "/projects/tiktok-ab-cover.jpg", accent: "#fe2c55" },
 ];
 
 const FEATURED_DATA: Record<string, { github?: string; demo?: string }> = {
@@ -34,6 +35,7 @@ const FEATURED_DATA: Record<string, { github?: string; demo?: string }> = {
   "uk-job-market":      { github: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard", demo: "https://public.tableau.com/app/profile/kalpana.joyce.dovari/viz/UKJobMarketDashboard/UKJobMarketDashboard?publish=yes" },
   "komiso":             {},
   "solene":             { github: "https://github.com/kalpanajoycedovari/solene-fashion", demo: "https://kalpanajoycedovari.github.io/solene-fashion/" },
+  "tiktok-ab-testing": { github: "https://github.com/kalpanajoycedovari/tiktok-ab-testing-analysis", demo: "https://tiktok-ab-testing-analysis.streamlit.app" },
 };
 
 // ── Komiso highlight card for homepage ──────────────────────────────────────

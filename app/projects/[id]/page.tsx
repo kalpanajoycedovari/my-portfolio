@@ -6,8 +6,9 @@ export function generateStaticParams() {
   return PROJECTS.map(p => ({ id: p.id }));
 }
 
-export default function ProjectDetailPage({ params }: { params: { id: string } }) {
-  const project = PROJECTS.find(p => p.id === params.id);
+export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const project = PROJECTS.find(p => p.id === id);
   if (!project) notFound();
 
   const statusColors: Record<string, { bg: string; border: string; color: string }> = {
@@ -101,24 +102,17 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         ← Back to Projects
       </Link>
 
-      {/* Cover image */}
-      <div style={{ position: "relative", height: "280px", borderRadius: "16px", overflow: "hidden", marginBottom: "36px" }}>
-        <img src={project.cover} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(14,10,7,0.9) 0%, transparent 60%)" }} />
-        <div style={{ position: "absolute", bottom: "24px", left: "28px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px", flexWrap: "wrap" }}>
-            <span style={{ padding: "4px 12px", borderRadius: "999px", fontSize: "0.75rem", fontWeight: 500, background: s.bg, border: `1px solid ${s.border}`, color: s.color }}>
-              {project.status}
-            </span>
-            <span style={{ color: "var(--text-secondary)", fontSize: "0.82rem" }}>{project.year}</span>
-          </div>
-          <h1 style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.2rem)", lineHeight: 1.2, color: "white" }}>
-            {project.title}
-          </h1>
-          <p style={{ color: "#f59e0b", fontSize: "0.9rem", fontStyle: "italic", marginTop: "4px" }}>
-            "{project.tagline}"
-          </p>
+      {/* Header */}
+      <div style={{ marginBottom: "36px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px", flexWrap: "wrap" }}>
+          <span style={{ padding: "4px 14px", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 500, background: s.bg, border: `1px solid ${s.border}`, color: s.color }}>
+            {project.status}
+          </span>
+          <span style={{ color: "var(--text-secondary)", fontSize: "0.82rem" }}>{project.year}</span>
         </div>
+        <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", lineHeight: 1.2, color: "var(--accent-amber)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+          {project.title}
+        </h1>
       </div>
 
       {/* Action buttons */}

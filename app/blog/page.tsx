@@ -122,6 +122,25 @@ Mistake 5: Starting at midnight. All of these mistakes happened between midnight
 
 And yet — there is something about Zig that is pulling me in. It forces you to think about what the computer is actually doing. Where is this memory? Who owns it? When does it get freed? These are questions I've been ignoring my whole programming life and apparently they matter quite a lot. I'm learning. Slowly. At unreasonable hours. With the git commit messages to prove it.`,
   },
+  {
+    id: "1744000007",
+    title: "Day One: NDA Signed, Name Forgotten, Absolutely Thriving",
+    tag: "Life",
+    date: "2025-04-10T09:00:00.000Z",
+    content: `I don't know what I expected my first day as a Data Analyst intern to feel like. Something cinematic, maybe. Walking in with purpose. Knowing things.
+
+What actually happened: I stood outside the Levitica Technologies office for a full two minutes before walking in because I wasn't sure if I was supposed to knock.
+
+The morning was a blur of introductions. I shook hands with people whose names I immediately lost. I smiled and nodded and said "yeah, really looking forward to it" approximately eleven times. My manager sat me down for a one-on-one that was warm and professional and I retained maybe 60% of it because 40% of my brain was busy reminding me to maintain eye contact but not too much eye contact.
+
+Then came the NDAs. Plural. I signed documents promising not to discuss data I hadn't even seen yet. Which felt both very serious and slightly funny — like being sworn to secrecy about a secret you're not allowed to know yet.
+
+Because that was the other thing: clearance. The actual data documents, the dashboards, the pipelines — all pending access approval. So my first day as a Data Analyst involved no data. I sat with my new laptop, met the two other interns (both lovely, both equally lost), and waited.
+
+There's a specific kind of excitement that lives right next to fear and you can't always tell them apart. That's what day one felt like. I was absolutely terrified and completely thrilled and I had nowhere to put either feeling so I just kept smiling and drinking the office coffee like a person who had everything under control.
+
+I did not have everything under control. But I showed up. And apparently that's most of it.`,
+  },
 ];
 
 const TAG_COLORS: Record<string, { bg: string; border: string; color: string }> = {

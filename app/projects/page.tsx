@@ -32,19 +32,20 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* Title panel — slides left on hover */}
+      {/* Title panel — always full width, shrinks on hover */}
       <div style={{
         position: "absolute",
         top: 0, left: 0, bottom: 0,
-        width: open ? "38%" : "100%",
+        width: open ? "36%" : "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "flex-start",
-        padding: "28px 24px",
+        padding: "24px 20px",
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 2,
         background: "#0a0a0a",
+        overflow: "hidden",
       }}>
         <span style={{
           display: "inline-block",
@@ -64,13 +65,14 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
           {p.status}
         </span>
         <h3 style={{
-          fontSize: "0.92rem",
+          fontSize: "0.88rem",
           fontFamily: "'Inter', sans-serif",
           fontWeight: 700,
           lineHeight: 1.4,
           color: "var(--accent-amber)",
           letterSpacing: "0.08em",
           textTransform: "uppercase",
+          wordBreak: "break-word",
         }}>
           {p.title}
         </h3>
@@ -85,110 +87,100 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         </p>
       </div>
 
-      {/* Divider line */}
+      {/* Divider */}
       <div style={{
         position: "absolute",
         top: 0, bottom: 0,
-        left: open ? "38%" : "100%",
+        left: open ? "36%" : "100%",
         width: "1px",
         background: "rgba(245,158,11,0.25)",
         transition: "left 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 4,
       }} />
 
-      {/* Description panel — slides in from right */}
+      {/* Description panel — always rendered at 64%, revealed by opacity */}
       <div style={{
         position: "absolute",
         top: 0, right: 0, bottom: 0,
-        width: open ? "62%" : "0%",
-        overflow: "hidden",
+        width: "64%",
         background: "#0f0f0f",
-        transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 3,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: open ? "24px 20px 24px 20px" : "24px 0",
+        padding: "20px 18px 20px 16px",
+        opacity: open ? 1 : 0,
+        transform: open ? "translateX(0)" : "translateX(12px)",
+        transition: "opacity 0.35s ease, transform 0.35s ease",
+        pointerEvents: open ? "auto" : "none",
       }}>
-        <div style={{
-          opacity: open ? 1 : 0,
-          transform: open ? "translateX(0)" : "translateX(16px)",
-          transition: "opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s",
-          minWidth: "180px",
-          maxWidth: "100%",
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
+        <p style={{
+          color: "var(--accent-amber)",
+          fontSize: "0.65rem",
+          fontWeight: 600,
+          letterSpacing: "0.12em",
+          marginBottom: "8px",
+          textTransform: "uppercase",
         }}>
-          <p style={{
-            color: "var(--accent-amber)",
-            fontSize: "0.65rem",
-            fontWeight: 600,
-            letterSpacing: "0.12em",
-            marginBottom: "8px",
-            textTransform: "uppercase",
-          }}>
-            About
-          </p>
-          <p style={{
-            color: "rgba(255,255,255,0.65)",
-            fontSize: "0.82rem",
-            lineHeight: 1.7,
-            marginBottom: "12px",
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            wordBreak: "break-word",
-            paddingRight: "8px",
-          }}>
-            {p.desc}
-          </p>
-          <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "14px", paddingRight: "8px" }}>
-            {p.tags.map(t => (
-              <span key={t} className="badge" style={{ fontSize: "0.65rem", padding: "2px 8px" }}>{t}</span>
-            ))}
-          </div>
-          {/* Action buttons */}
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", paddingRight: "8px" }}>
-            {p.github && (
-              <a
-                href={p.github}
-                target="_blank"
-                rel="noreferrer"
-                onClick={e => e.stopPropagation()}
-                style={{
-                  padding: "5px 12px", borderRadius: "999px", fontSize: "0.7rem",
-                  fontWeight: 500, textDecoration: "none",
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  color: "rgba(255,255,255,0.8)",
-                  display: "inline-flex", alignItems: "center", gap: "4px",
-                }}
-              >
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                Code
-              </a>
-            )}
-            {p.demo && (
-              <a
-                href={p.demo}
-                target="_blank"
-                rel="noreferrer"
-                onClick={e => e.stopPropagation()}
-                style={{
-                  padding: "5px 12px", borderRadius: "999px", fontSize: "0.7rem",
-                  fontWeight: 500, textDecoration: "none",
-                  background: "linear-gradient(135deg, var(--accent-amber), var(--accent-orange))",
-                  border: "none", color: "#0a0a0a",
-                  display: "inline-flex", alignItems: "center", gap: "4px",
-                }}
-              >
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Live Demo
-              </a>
-            )}
-          </div>
+          About
+        </p>
+        <p style={{
+          color: "rgba(255,255,255,0.65)",
+          fontSize: "0.8rem",
+          lineHeight: 1.65,
+          marginBottom: "10px",
+          display: "-webkit-box",
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        }}>
+          {p.desc}
+        </p>
+        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", marginBottom: "12px" }}>
+          {p.tags.map(t => (
+            <span key={t} className="badge" style={{ fontSize: "0.62rem", padding: "2px 7px" }}>{t}</span>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          {p.github && (
+            <a
+              href={p.github}
+              target="_blank"
+              rel="noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{
+                padding: "5px 12px", borderRadius: "999px", fontSize: "0.7rem",
+                fontWeight: 500, textDecoration: "none",
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                color: "rgba(255,255,255,0.8)",
+                display: "inline-flex", alignItems: "center", gap: "4px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              Code
+            </a>
+          )}
+          {p.demo && (
+            <a
+              href={p.demo}
+              target="_blank"
+              rel="noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{
+                padding: "5px 12px", borderRadius: "999px", fontSize: "0.7rem",
+                fontWeight: 500, textDecoration: "none",
+                background: "linear-gradient(135deg, var(--accent-amber), var(--accent-orange))",
+                border: "none", color: "#0a0a0a",
+                display: "inline-flex", alignItems: "center", gap: "4px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Live Demo
+            </a>
+          )}
         </div>
       </div>
     </Link>

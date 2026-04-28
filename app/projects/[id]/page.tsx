@@ -86,6 +86,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       "Streamlit's HTML sanitiser blocks inline SVG — components.html() is the workaround for custom hero sections",
       "Groq's speed makes a real difference in agentic loops where you're calling the model multiple times per user request",
     ],
+    "nexus-edu": [
+      "Multi-agent n8n workflows require careful handoff design — each agent needs clean input/output contracts to avoid cascading failures",
+      "OpenRouter makes it easy to swap LLMs without rewriting pipeline logic — huge advantage in a hackathon where you're iterating fast",
+      "Personalising content by grade level is harder than it sounds — the prompt engineering to hit the right reading complexity took most of our time",
+      "Supabase is genuinely fast to set up for session memory — we had persistent student profiles working within an hour",
+      "Hackathons teach you that a working demo with one feature beats a broken demo with ten",
+    ],
   };
 
   const projectLearned = learned[project.id] ?? [
@@ -109,6 +116,19 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             {project.status}
           </span>
           <span style={{ color: "var(--text-secondary)", fontSize: "0.82rem" }}>{project.year}</span>
+          {project.collab && (
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "0.78rem", color: "var(--text-secondary)" }}>
+              · Built with{" "}
+              <a
+                href={project.collab.url}
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "var(--accent-amber)", textDecoration: "none", fontWeight: 500 }}
+              >
+                {project.collab.name} ↗
+              </a>
+            </span>
+          )}
         </div>
         <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", lineHeight: 1.2, color: "var(--accent-amber)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
           {project.title}

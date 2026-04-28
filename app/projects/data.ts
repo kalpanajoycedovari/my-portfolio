@@ -10,6 +10,7 @@ export type Project = {
   cover: string;
   year: string;
   status: string;
+  collab?: { name: string; url: string };
 };
 
 export const PROJECTS: Project[] = [
@@ -163,5 +164,21 @@ export const PROJECTS: Project[] = [
     cover: "/projects/miarmoire-cover.jpg",
     year: "2026",
     status: "Live",
+  },
+  {
+    id: "nexus-edu",
+    title: "NexusEdu",
+    tagline: "Learning that adapts to you, not the other way around.",
+    desc: "Hackathon-built AI tutoring system with multi-agent workflows that adapt learning paths by grade level and style.",
+    details: "Built as part of a group hackathon for our MSc course module. NexusEdu uses n8n multi-agent workflows to generate personalised learning paths, with OpenRouter routing to Llama for LLM-powered content generation tailored by grade level. Supabase handles persistent student data and session memory. Self-hosted, no public deployment.",
+    tags: ["n8n", "OpenRouter", "Llama", "Supabase"],
+    github: "",
+    cover: "/projects/nexusedu-cover.jpg",
+    year: "2026",
+    status: "Completed",
+    collab: {
+      name: "Ramya Sri Muthuluri",
+      url: "https://ramya-portfolio-ten.vercel.app/",
+    },
   },
 ];

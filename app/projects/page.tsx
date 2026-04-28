@@ -25,30 +25,14 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         aspectRatio: "1 / 1",
         color: "inherit",
         textDecoration: "none",
-        background: "var(--bg-card)",
+        background: "#0a0a0a",
+        border: `1px solid ${open ? "rgba(245,158,11,0.35)" : "rgba(245,158,11,0.12)"}`,
+        transition: "border-color 0.3s ease",
       }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* Cover image */}
-      <img
-        src={p.cover}
-        alt={p.title}
-        style={{
-          position: "absolute", inset: 0,
-          width: "100%", height: "100%",
-          objectFit: "cover",
-          opacity: open ? 0.35 : 0.85,
-          transition: "opacity 0.4s ease",
-        }}
-      />
-      {/* Dark overlay */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "linear-gradient(to top, rgba(13,15,26,0.92) 0%, rgba(13,15,26,0.2) 50%, transparent 100%)",
-      }} />
-
-      {/* Title panel — slides left */}
+      {/* Title panel — slides left on hover */}
       <div style={{
         position: "absolute",
         top: 0, left: 0, bottom: 0,
@@ -56,10 +40,11 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: "24px",
+        alignItems: "flex-start",
+        padding: "28px 24px",
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 2,
-        background: open ? "rgba(13,15,26,0.85)" : "transparent",
+        background: "#0a0a0a",
       }}>
         <span style={{
           display: "inline-block",
@@ -67,44 +52,34 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
           borderRadius: "999px",
           fontSize: "0.7rem",
           fontWeight: 500,
-          marginBottom: "12px",
+          marginBottom: "16px",
           width: "fit-content",
           background: s.bg,
           border: `1px solid ${s.border}`,
           color: s.color,
           opacity: open ? 0 : 1,
-          transition: "opacity 0.2s ease",
+          transition: "opacity 0.15s ease",
           whiteSpace: "nowrap",
         }}>
           {p.status}
         </span>
         <h3 style={{
-          fontSize: "1rem",
+          fontSize: "0.92rem",
           fontFamily: "'Inter', sans-serif",
           fontWeight: 700,
-          lineHeight: 1.3,
-          marginBottom: "8px",
-          color: "var(--text-primary)",
+          lineHeight: 1.4,
+          color: "var(--accent-amber)",
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
         }}>
           {p.title}
         </h3>
         <p style={{
-          color: "var(--accent-rose)",
-          fontSize: "0.78rem",
-          fontStyle: "italic",
-          lineHeight: 1.5,
-          opacity: open ? 0 : 1,
-          transition: "opacity 0.2s ease",
-        }}>
-          "{p.tagline}"
-        </p>
-        <p style={{
-          color: "var(--text-secondary)",
+          color: "rgba(255,255,255,0.25)",
           fontSize: "0.72rem",
           marginTop: "auto",
-          paddingTop: "8px",
           opacity: open ? 0 : 1,
-          transition: "opacity 0.2s ease",
+          transition: "opacity 0.15s ease",
         }}>
           {p.year}
         </p>
@@ -116,7 +91,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         top: 0, bottom: 0,
         left: open ? "38%" : "100%",
         width: "1px",
-        background: "rgba(192,132,252,0.3)",
+        background: "rgba(245,158,11,0.25)",
         transition: "left 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 4,
       }} />
@@ -127,8 +102,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         top: 0, right: 0, bottom: 0,
         width: open ? "62%" : "0%",
         overflow: "hidden",
-        background: "rgba(13,15,26,0.96)",
-        backdropFilter: "blur(12px)",
+        background: "#0f0f0f",
         transition: "width 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 3,
         display: "flex",
@@ -144,22 +118,35 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
           display: "flex",
           flexDirection: "column",
         }}>
-          <p style={{ color: "var(--accent-lavender)", fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "8px" }}>
-            ABOUT
+          <p style={{
+            color: "var(--accent-amber)",
+            fontSize: "0.65rem",
+            fontWeight: 600,
+            letterSpacing: "0.12em",
+            marginBottom: "8px",
+            textTransform: "uppercase",
+          }}>
+            About
           </p>
           <p style={{
-            color: "var(--text-secondary)", fontSize: "0.82rem", lineHeight: 1.7, marginBottom: "12px",
-            display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden",
+            color: "rgba(255,255,255,0.65)",
+            fontSize: "0.82rem",
+            lineHeight: 1.7,
+            marginBottom: "12px",
+            display: "-webkit-box",
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
           }}>
             {p.desc}
           </p>
-          <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "12px" }}>
+          <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "14px" }}>
             {p.tags.map(t => (
-              <span key={t} className="badge" style={{ fontSize: "0.68rem", padding: "2px 8px" }}>{t}</span>
+              <span key={t} className="badge" style={{ fontSize: "0.65rem", padding: "2px 8px" }}>{t}</span>
             ))}
           </div>
           {/* Action buttons */}
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "8px" }}>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
             {p.github && (
               <a
                 href={p.github}
@@ -171,7 +158,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
                   fontWeight: 500, textDecoration: "none",
                   background: "rgba(255,255,255,0.06)",
                   border: "1px solid rgba(255,255,255,0.12)",
-                  color: "var(--text-primary)",
+                  color: "rgba(255,255,255,0.8)",
                   display: "inline-flex", alignItems: "center", gap: "4px",
                 }}
               >
@@ -189,7 +176,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
                   padding: "5px 12px", borderRadius: "999px", fontSize: "0.7rem",
                   fontWeight: 500, textDecoration: "none",
                   background: "linear-gradient(135deg, var(--accent-amber), var(--accent-orange))",
-                  border: "none", color: "#0e0a07",
+                  border: "none", color: "#0a0a0a",
                   display: "inline-flex", alignItems: "center", gap: "4px",
                 }}
               >

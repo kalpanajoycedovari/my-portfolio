@@ -141,11 +141,16 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
           transform: open ? "translateX(0)" : "translateX(16px)",
           transition: "opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s",
           minWidth: "180px",
+          display: "flex",
+          flexDirection: "column",
         }}>
           <p style={{ color: "var(--accent-lavender)", fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.1em", marginBottom: "8px" }}>
             ABOUT
           </p>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.82rem", lineHeight: 1.7, marginBottom: "12px" }}>
+          <p style={{
+            color: "var(--text-secondary)", fontSize: "0.82rem", lineHeight: 1.7, marginBottom: "12px",
+            display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden",
+          }}>
             {p.desc}
           </p>
           <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "12px" }}>
@@ -154,7 +159,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
             ))}
           </div>
           {/* Action buttons */}
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "auto" }}>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginTop: "8px" }}>
             {p.github && (
               <a
                 href={p.github}

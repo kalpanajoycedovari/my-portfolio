@@ -17,7 +17,6 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
   };
   const s = statusColors[project.status] ?? statusColors["Completed"];
 
-  // What I learned — per project
   const learned: Record<string, string[]> = {
     "scamcheck-agent": [
       "Cloudflare Durable Objects give you persistent session memory across WebSocket connections — genuinely different from stateless Workers",
@@ -79,6 +78,13 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       "Google Sheets as a lightweight database actually works well for solo automation projects — no overhead, instantly readable",
       "Building a fully free, locally hosted automation stack is completely viable — the constraint forces creative problem solving",
     ],
+    "mi-armoire": [
+      "LangGraph's node-based architecture makes multi-step AI pipelines genuinely maintainable — each node has one job and hands off cleanly",
+      "HuggingFace's Inference Router replaced direct SDXL calls after deprecation — always pin your model IDs or your image generation silently breaks",
+      "FLUX.1-schnell produces fashion-quality images when you write body-aware, specific prompts — vague prompts get vague results",
+      "Streamlit's HTML sanitiser blocks inline SVG — components.html() is the workaround for custom hero sections",
+      "Groq's speed makes a real difference in agentic loops where you're calling the model multiple times per user request",
+    ],
   };
 
   const projectLearned = learned[project.id] ?? [
@@ -115,7 +121,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      {/* Action buttons — only render if links exist */}
+      {/* Action buttons */}
       {(project.github || project.demo) && (
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "40px" }}>
           {project.github && (
@@ -145,7 +151,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </div>
       )}
 
-      {/* Local build badge — shown when no github or demo */}
+      {/* Local build badge */}
       {!project.github && !project.demo && (
         <div style={{ marginBottom: "40px" }}>
           <span style={{
@@ -193,7 +199,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      {/* Live demo embed — only if demo exists and is a web app */}
+      {/* Live demo embed */}
       {project.demo && !project.demo.includes("tableau") && !project.demo.includes("github.io") && (
         <div style={{ marginBottom: "40px" }}>
           <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginBottom: "12px", letterSpacing: "0.08em" }}>LIVE PREVIEW</p>

@@ -108,13 +108,15 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: open ? "24px 20px" : "24px 0",
+        padding: open ? "24px 20px 24px 20px" : "24px 0",
       }}>
         <div style={{
           opacity: open ? 1 : 0,
           transform: open ? "translateX(0)" : "translateX(16px)",
           transition: "opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s",
           minWidth: "180px",
+          maxWidth: "100%",
+          overflow: "hidden",
           display: "flex",
           flexDirection: "column",
         }}>
@@ -137,16 +139,18 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
+            wordBreak: "break-word",
+            paddingRight: "8px",
           }}>
             {p.desc}
           </p>
-          <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "14px" }}>
+          <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginBottom: "14px", paddingRight: "8px" }}>
             {p.tags.map(t => (
               <span key={t} className="badge" style={{ fontSize: "0.65rem", padding: "2px 8px" }}>{t}</span>
             ))}
           </div>
           {/* Action buttons */}
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", paddingRight: "8px" }}>
             {p.github && (
               <a
                 href={p.github}

@@ -336,7 +336,7 @@ export default function HomePage() {
               />
             </div>
             <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.8, maxWidth: "480px" }}>
-              Building intelligent systems that solve real-world problems. I turn data into decisions and ideas into deployed applications.
+              "My first real task at work wasn't a problem set with a right answer — it was just 'how did we perform last week?' I sat there for ten minutes, everything I'd studied suddenly feeling very far away. That moment taught me more than any lecture did. Now I build from the question first, the query second."
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "4px" }}>

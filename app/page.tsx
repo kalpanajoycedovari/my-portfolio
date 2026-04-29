@@ -340,7 +340,7 @@ export default function HomePage() {
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "4px" }}>
-            {["Based in London 🇬🇧", "Currently — MSc AI", "Available from Summer 2025"].map(t => (
+            {["Based in London 🇬🇧", "Currently — MSc AI", "Available to work and internships from Summer 2026(May)"].map(t => (
               <span key={t} style={{ fontSize: "0.78rem", color: "var(--text-secondary)", display: "flex", alignItems: "center", gap: "8px" }}>
                 <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--accent-amber)", flexShrink: 0 }} />
                 {t}

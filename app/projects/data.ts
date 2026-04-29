@@ -15,6 +15,32 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "tiktok-retention",
+    title: "TikTok Retention Dashboard",
+    tagline: "Acquiring a user is the easy part. Keeping them is where it gets interesting.",
+    desc: "End-to-end analytics project analysing user retention, churn behaviour, and feature impact across a synthetic TikTok EMEA user base of 50,000 users spanning January to December 2024.",
+    details: "User segments are modelled with weighted sampling (Casual 40%, Lurker 25%, Creator 20%, Power User 15%), churn timing via geometric distribution, and session counts via Poisson. Features a cohort retention heatmap, Kaplan-Meier-style survival curves per segment, logistic regression churn predictor with ROC curve, and a Streamlit dashboard with KPI cards, feature impact analysis, and sidebar filters.",
+    tags: ["Python", "Streamlit", "Plotly", "Matplotlib", "Seaborn", "scikit-learn", "Pandas", "NumPy"],
+    github: "https://github.com/kalpanajoycedovari/tiktok-retention-dashboard",
+    demo: "https://tiktok-retention-dashboard.streamlit.app/",
+    cover: "/projects/tiktok-retention-cover.jpg",
+    year: "2026",
+    status: "Live",
+  },
+  {
+    id: "tiktok-ab-testing",
+    title: "TikTok A/B Testing Suite",
+    tagline: "Because 'ship it' should be a data-driven decision.",
+    desc: "Simulates a real-world A/B experimentation suite across 4 concurrent TikTok product tests — with rigorous statistical analysis and an executive-grade Streamlit dashboard.",
+    details: "Covers Welch's T-Test for continuous metrics, Chi-Square for conversion rates, Cohen's d for effect sizes, and power analysis for sample sizing. The Streamlit dashboard is designed to read like an internal TikTok product review doc — black header, gold accents, Playfair Display, and green/red verdict cards for instant decision clarity.",
+    tags: ["Python", "Streamlit", "SciPy", "Pandas", "NumPy", "Plotly"],
+    github: "https://github.com/kalpanajoycedovari/tiktok-ab-testing-analysis",
+    demo: "https://tiktok-ab-testing-analysis.streamlit.app/",
+    cover: "/projects/tiktok-ab-cover.jpg",
+    year: "2026",
+    status: "Live",
+  },
+  {
     id: "jobo",
     title: "JoBo (Journalising Book)",
     tagline: "Written in these pages are the stories that you have penned down!",

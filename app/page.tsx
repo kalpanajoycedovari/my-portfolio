@@ -14,18 +14,21 @@ import CaseStudies from "./components/CaseStudies";
 
 // ── Featured projects data ───────────────────────────────────────────────────
 const FEATURED = [
-  { title: "JoBo (Journalising Book)", tagline: "Written in these pages are the stories that you have penned down!", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", cover: "/projects/jobo-cover.jpg", accent: "#f59e0b" },
-  { title: "Solite's Corner", tagline: "A cozy safe space on the internet, for you....& just YOU!", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", cover: "/projects/solite-cover.jpg", accent: "#fb923c" },
-  { title: "Speech Recognition Pipeline", tagline: "Teaching machines to listen.", desc: "Lightweight pipeline around Wav2Vec 2.0 — clean, accurate speech-to-text that actually works.", tags: ["Wav2Vec", "PyTorch", "NumPy"], id: "speech-recognition", cover: "/projects/speech-cover.jpg", accent: "#fcd34d" },
-  { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", cover: "/projects/resume-cover.jpg", accent: "#f43f5e" },
-  { title: "ScamCheck Agent", tagline: "Because 'it looked legit' is not a fraud prevention strategy.", desc: "Intelligent scam detection on Cloudflare's edge. Paste a URL — it runs page analysis, Reddit scan, and Llama 3.1 AI verdict in parallel.", tags: ["Cloudflare Workers", "Llama 3.1", "WebSockets"], id: "scamcheck-agent", cover: "/projects/scamcheck-cover.jpg", accent: "#34d399" },
-  { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", cover: "/projects/scamscan-cover.jpg", accent: "#f59e0b" },
-  { title: "Komiso", tagline: "Set it, forget it — let the agents do the hustle.", desc: "Multi-agent affiliate automation in N8N that autonomously scouts programs, generates AI content, tracks performance metrics, and delivers weekly reports via Gmail. Built on a fully free stack: Groq LLaMA 3.3, SerpAPI, and Google Sheets.", tags: ["N8N", "Groq LLaMA 3.3", "SerpAPI", "Google Sheets"], id: "komiso", cover: "/projects/komiso-cover.jpg", accent: "#a78bfa" },
-  { title: "SOLÈNE", tagline: "Where fabric meets philosophy.", desc: "A luxury fashion editorial website with a Three.js geometric hero, ivory and gold palette, and Cormorant Garamond typography. Built as a complete brand experience with shop, about, and submission pages.", tags: ["Three.js", "HTML/CSS", "JavaScript", "GitHub Pages"], id: "solene", cover: "/projects/solene-cover.jpg", accent: "#d4a853" },
-  { title: "TikTok A/B Testing", tagline: "Because 'ship it' should be a data-driven decision.", desc: "Simulates a real-world A/B experimentation suite across 4 concurrent TikTok product tests — Welch's T-Test, Chi-Square, Cohen's d, and an executive Streamlit dashboard.", tags: ["Python", "Streamlit", "SciPy", "Pandas"], id: "tiktok-ab-testing", cover: "/projects/tiktok-ab-cover.jpg", accent: "#fe2c55" },
+  { title: "TikTok Retention Dashboard", tagline: "Acquiring a user is the easy part. Keeping them is where it gets interesting.", desc: "End-to-end analytics project analysing user retention, churn behaviour, and feature impact across a synthetic TikTok EMEA user base of 50,000 users — cohort heatmaps, survival curves, and a logistic regression churn predictor.", tags: ["Python", "Streamlit", "Plotly", "scikit-learn", "Pandas"], id: "tiktok-retention", accent: "#fe2c55" },
+  { title: "TikTok A/B Testing", tagline: "Because 'ship it' should be a data-driven decision.", desc: "Simulates a real-world A/B experimentation suite across 4 concurrent TikTok product tests — Welch's T-Test, Chi-Square, Cohen's d, and an executive Streamlit dashboard.", tags: ["Python", "Streamlit", "SciPy", "Pandas"], id: "tiktok-ab-testing", accent: "#ff6b6b" },
+  { title: "JoBo (Journalising Book)", tagline: "Written in these pages are the stories that you have penned down!", desc: "Uses OCR to pull text from photos of journals — turning handwriting into searchable digital entries.", tags: ["Python", "OpenCV", "Tesseract OCR"], id: "jobo", accent: "#f59e0b" },
+  { title: "Solite's Corner", tagline: "A cozy safe space on the internet, for you....& just YOU!", desc: "Full email login and Firebase-backed storage — hosted on GitHub Pages, engineered to feel like home.", tags: ["Firebase", "GitHub Pages", "JavaScript"], id: "solites-corner", accent: "#fb923c" },
+  { title: "Speech Recognition Pipeline", tagline: "Teaching machines to listen.", desc: "Lightweight pipeline around Wav2Vec 2.0 — clean, accurate speech-to-text that actually works.", tags: ["Wav2Vec", "PyTorch", "NumPy"], id: "speech-recognition", accent: "#fcd34d" },
+  { title: "AI Resume Analyzer", tagline: "Your resume, but smarter.", desc: "NLP-powered tool reading your resume like a recruiter — giving actionable feedback, not silence.", tags: ["NLP", "Python", "spaCy"], id: "ai-resume-analyzer", accent: "#f43f5e" },
+  { title: "ScamCheck Agent", tagline: "Because 'it looked legit' is not a fraud prevention strategy.", desc: "Intelligent scam detection on Cloudflare's edge. Paste a URL — it runs page analysis, Reddit scan, and Llama 3.1 AI verdict in parallel.", tags: ["Cloudflare Workers", "Llama 3.1", "WebSockets"], id: "scamcheck-agent", accent: "#34d399" },
+  { title: "ScamScan", tagline: "Not everything with 5 stars deserves your money.", desc: "Scrapes 6,000+ Reddit posts, detects scam signals using NLP and scores trust on a 0–100 scale.", tags: ["Python", "TextBlob", "Streamlit"], id: "scamscan", accent: "#f59e0b" },
+  { title: "Komiso", tagline: "Set it, forget it — let the agents do the hustle.", desc: "Multi-agent affiliate automation in N8N that autonomously scouts programs, generates AI content, tracks performance metrics, and delivers weekly reports via Gmail. Built on a fully free stack: Groq LLaMA 3.3, SerpAPI, and Google Sheets.", tags: ["N8N", "Groq LLaMA 3.3", "SerpAPI", "Google Sheets"], id: "komiso", accent: "#a78bfa" },
+  { title: "SOLÈNE", tagline: "Where fabric meets philosophy.", desc: "A luxury fashion editorial website with a Three.js geometric hero, ivory and gold palette, and Cormorant Garamond typography. Built as a complete brand experience with shop, about, and submission pages.", tags: ["Three.js", "HTML/CSS", "JavaScript", "GitHub Pages"], id: "solene", accent: "#d4a853" },
 ];
 
 const FEATURED_DATA: Record<string, { github?: string; demo?: string }> = {
+  "tiktok-retention":   { github: "https://github.com/kalpanajoycedovari/tiktok-retention-dashboard", demo: "https://tiktok-retention-dashboard.streamlit.app/" },
+  "tiktok-ab-testing":  { github: "https://github.com/kalpanajoycedovari/tiktok-ab-testing-analysis", demo: "https://tiktok-ab-testing-analysis.streamlit.app/" },
   "scamcheck-agent":    { github: "https://github.com/kalpanajoycedovari/cf_ai_scamcheck_agent", demo: "https://cf-ai-scamcheck-agent.dovarikalpanajoyce.workers.dev/" },
   "jobo":               { github: "https://github.com/kalpanajoycedovari/JoBo-OCR-digital-journal" },
   "solites-corner":     { github: "https://github.com/kalpanajoycedovari/My-Website", demo: "https://kalpanajoycedovari.github.io/My-Website/" },
@@ -35,7 +38,6 @@ const FEATURED_DATA: Record<string, { github?: string; demo?: string }> = {
   "uk-job-market":      { github: "https://github.com/kalpanajoycedovari/uk-job-market-dashboard", demo: "https://public.tableau.com/app/profile/kalpana.joyce.dovari/viz/UKJobMarketDashboard/UKJobMarketDashboard?publish=yes" },
   "komiso":             {},
   "solene":             { github: "https://github.com/kalpanajoycedovari/solene-fashion", demo: "https://kalpanajoycedovari.github.io/solene-fashion/" },
-  "tiktok-ab-testing": { github: "https://github.com/kalpanajoycedovari/tiktok-ab-testing-analysis", demo: "https://tiktok-ab-testing-analysis.streamlit.app" },
 };
 
 // ── Komiso highlight card for homepage ──────────────────────────────────────
@@ -101,7 +103,7 @@ function KomisoSpotlight() {
   );
 }
 
-// ── Book card — cinematic, no dark overlay ───────────────────────────────────
+// ── Book card — no cover image, gradient background ──────────────────────────
 function BookCard({ p }: { p: typeof FEATURED[0] }) {
   const [open, setOpen] = useState(false);
   const data = FEATURED_DATA[p.id];
@@ -114,32 +116,24 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
       style={{
         display: "block", overflow: "hidden", position: "relative",
         aspectRatio: "4/3", color: "inherit", textDecoration: "none",
-        borderRadius: "16px", border: `1px solid ${p.accent}22`,
+        borderRadius: "16px",
+        border: `1px solid ${p.accent}22`,
+        background: `linear-gradient(135deg, ${p.accent}10 0%, #0e0a0700 60%, ${p.accent}08 100%)`,
       }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* Full image — zooms on hover */}
-      <img
-        src={p.cover} alt={p.title}
-        style={{
-          position: "absolute", inset: 0, width: "100%", height: "100%",
-          objectFit: "cover",
-          transform: open ? "scale(1.06)" : "scale(1)",
-          transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)",
-        }}
-      />
-
-      {/* Gradient — only at bottom, for text legibility */}
+      {/* Subtle background glow */}
       <div style={{
         position: "absolute", inset: 0,
         background: open
-          ? "rgba(14,10,7,0.72)"
-          : "linear-gradient(to top, rgba(14,10,7,0.88) 0%, rgba(14,10,7,0.2) 45%, transparent 100%)",
+          ? `radial-gradient(ellipse at 60% 40%, ${p.accent}18 0%, transparent 65%)`
+          : `radial-gradient(ellipse at 30% 70%, ${p.accent}0d 0%, transparent 60%)`,
         transition: "background 0.5s ease",
+        pointerEvents: "none",
       }} />
 
-      {/* Title — bottom, fades out on hover */}
+      {/* Title — visible when not hovered */}
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0,
         padding: "22px 24px", zIndex: 2,
@@ -152,7 +146,18 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
         <p style={{ color: p.accent, fontSize: "0.75rem", fontStyle: "italic", opacity: 0.9 }}>"{p.tagline}"</p>
       </div>
 
-      {/* Hover content — fades in over the image */}
+      {/* Top-left accent dot when not hovered */}
+      <div style={{
+        position: "absolute", top: "20px", left: "24px", zIndex: 2,
+        opacity: open ? 0 : 1,
+        transition: "opacity 0.2s ease",
+        display: "flex", gap: "6px", alignItems: "center",
+      }}>
+        <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: p.accent, display: "block" }} />
+        <span style={{ fontSize: "0.6rem", color: p.accent, fontWeight: 600, letterSpacing: "0.1em", opacity: 0.7 }}>PROJECT</span>
+      </div>
+
+      {/* Hover content */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 3,
         padding: "28px",

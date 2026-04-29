@@ -19,6 +19,20 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   const s = statusColors[project.status] ?? statusColors["Completed"];
 
   const learned: Record<string, string[]> = {
+    "tiktok-retention": [
+  "Geometric distribution is the right model for churn timing — each day is a Bernoulli trial, and the math produces survival curves that actually match how real platform users behave",
+  "Poisson distribution for session counts felt obvious in hindsight, but getting the segment-conditional parameters right (so Power Users and Lurkers felt genuinely different) took more iteration than expected",
+  "Cohort heatmaps tell a story that line charts can't — seeing retention decay visually across 12 monthly cohorts makes the seasonal patterns immediately obvious",
+  "Logistic regression as a churn predictor is underrated for explainability — the feature coefficients directly answer 'which product features actually matter for retention?'",
+  "Building synthetic data that's statistically believable is harder than it sounds — if the distributions don't reflect real platform behaviour, the analysis conclusions mean nothing",
+],
+"tiktok-ab-testing": [
+  "Welch's T-Test over Student's T-Test is almost always the right default — assuming equal variance between control and treatment groups is rarely justified in real product experiments",
+  "Cohen's d made effect sizes legible to non-statisticians — a p-value alone doesn't tell you if a result is worth shipping, but 'medium effect' does",
+  "Running 4 concurrent tests exposed the multiple comparisons problem — Bonferroni correction feels conservative but it's the honest approach when you're testing several hypotheses at once",
+  "Dashboard design for stakeholders is a different skill from analysis — the black header, gold accents, and green/red verdict cards weren't aesthetic choices, they were communication choices",
+  "Power analysis before running a test is the step most people skip — it's the only way to know if your sample size is actually large enough to detect the effect you care about",
+],
     "scamcheck-agent": [
       "Cloudflare Durable Objects give you persistent session memory across WebSocket connections — genuinely different from stateless Workers",
       "Workers AI in local dev mode lies to you. Deploy first, debug second — the free tier rate limits hit hard locally but work fine on actual infrastructure",

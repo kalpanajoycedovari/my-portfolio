@@ -15,6 +15,18 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "uk-job-market-pipeline",
+    title: "UK Job Market Data Pipeline",
+    tagline: "Real Azure. Real restrictions. Real pipeline anyway.",
+    desc: "An end-to-end Azure data engineering pipeline that ingests, transforms, and visualises live UK job market data from three sources — Reed API, Adzuna API, and a Kaggle CSV — fully automated via GitHub Actions.",
+    details: "Architected a star schema in ADLS Gen2, transformed data with Databricks Serverless (pandas over PySpark — the right call for 648 rows), queried via Synapse Analytics external tables, and visualised in a 5-page Power BI dashboard. Hit real Azure policy restrictions along the way: VM quota blocks, Azure Functions deprecation, and tenant-level storage denials — and solved each one with a defensible alternative. Total cloud spend: £1.81.",
+    tags: ["Azure Data Lake Gen2", "Azure Databricks", "Azure Synapse Analytics", "Azure Data Factory", "Python", "Pandas", "Power BI", "GitHub Actions"],
+    github: "https://github.com/kalpanajoycedovari/uk-job-market-pipeline",
+    cover: "/projects/pipeline-cover.jpg",
+    year: "2025",
+    status: "Live",
+  },
+  {
     id: "tiktok-retention",
     title: "TikTok Retention Dashboard",
     tagline: "Acquiring a user is the easy part. Keeping them is where it gets interesting.",

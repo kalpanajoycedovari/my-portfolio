@@ -19,6 +19,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   const s = statusColors[project.status] ?? statusColors["Completed"];
 
   const learned: Record<string, string[]> = {
+    "uk-job-market-pipeline": [
+      "Azure's free trial has hidden VM quota restrictions — Databricks clusters silently fail to provision, and the fix isn't in the docs, it's in the subscription settings",
+      "Databricks Serverless starts instantly but blocks standard PySpark auth methods — reading ADLS Gen2 via HTTP requests with a SAS token is a perfectly valid workaround for small datasets",
+      "GitHub Actions is a better scheduled ingestion trigger than Azure Functions for student subscriptions — free, reliable, and the 40-second runtime proved it",
+      "Synapse Analytics external tables over ADLS Gen2 work cleanly once you use credential-based data sources — the BLOB_STORAGE shortcut isn't always supported",
+      "The honest story of a project (quota errors, policy blocks, £1.81 in cloud spend) is more impressive to engineers than a clean run — real pipelines always involve workarounds",
+    ],
     "tiktok-retention": [
   "Geometric distribution is the right model for churn timing — each day is a Bernoulli trial, and the math produces survival curves that actually match how real platform users behave",
   "Poisson distribution for session counts felt obvious in hindsight, but getting the segment-conditional parameters right (so Power Users and Lurkers felt genuinely different) took more iteration than expected",

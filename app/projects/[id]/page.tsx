@@ -19,6 +19,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   const s = statusColors[project.status] ?? statusColors["Completed"];
 
   const learned: Record<string, string[]> = {
+    "finsentiment-mlops": [
+      "MLflow experiment tracking changes how you think about model development — every run is logged, every metric is comparable, and you stop guessing which version was best",
+      "A quality gate in CI/CD (blocking deployment if F1 drops below threshold) is what separates a pipeline from a toy — the model has to earn its deploy",
+      "pytest for ML isn't just unit testing — testing prediction schema, response time, and edge case inputs catches production failures before they happen",
+      "Docker makes the 'it works on my machine' problem disappear, but writing a clean multi-stage Dockerfile for a Python ML app takes more thought than expected",
+      "Azure Container Apps auto-scaling is deceptively simple to configure and genuinely impressive to watch — zero-to-replica in seconds under load",
+    ],
     "uk-job-market-pipeline": [
       "Azure's free trial has hidden VM quota restrictions — Databricks clusters silently fail to provision, and the fix isn't in the docs, it's in the subscription settings",
       "Databricks Serverless starts instantly but blocks standard PySpark auth methods — reading ADLS Gen2 via HTTP requests with a SAS token is a perfectly valid workaround for small datasets",

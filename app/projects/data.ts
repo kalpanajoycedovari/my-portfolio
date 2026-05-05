@@ -15,6 +15,19 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "finsentiment-mlops",
+    title: "FinSentiment MLOps Pipeline",
+    tagline: "A Data Scientist's prototype, made production-grade.",
+    desc: "End-to-end MLOps pipeline for financial news sentiment classification — trained, versioned, tested, containerised, and deployed to Azure with a full CI/CD pipeline.",
+    details: "Classifies financial headlines as positive, neutral, or negative using scikit-learn (90% accuracy, 0.90 weighted F1). MLflow handles experiment tracking and model versioning. FastAPI serves predictions via REST API with 9 automated pytest tests and a quality gate that blocks bad models from shipping. Containerised with Docker, pushed to Azure Container Registry, and deployed to Azure Container Apps in UK South — auto-scaling 1–3 replicas. CI/CD via GitHub Actions runs in under 4 minutes. Streamlit UI for interactive inference.",
+    tags: ["Python", "scikit-learn", "MLflow", "FastAPI", "pytest", "Docker", "GitHub Actions", "Azure Container Registry", "Azure Container Apps", "Streamlit"],
+    github: "https://github.com/kalpanajoycedovari/finsentiment-mlops",
+    demo: "https://finsentiment-api.calmmoss-828614b8.uksouth.azurecontainerapps.io/docs",
+    cover: "/projects/finsentiment-cover.jpg",
+    year: "2026",
+    status: "Live",
+  },
+  {
     id: "uk-job-market-pipeline",
     title: "UK Job Market Data Pipeline",
     tagline: "Real Azure. Real restrictions. Real pipeline anyway.",

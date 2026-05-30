@@ -2,12 +2,27 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { PROJECTS } from "./data";
+import { PROJECTS, CATEGORIES, type Category } from "./data";
 
 const STATUS_STYLES: Record<string, { bg: string; border: string; color: string }> = {
   "Completed":   { bg: "rgba(52,211,153,0.1)",  border: "rgba(52,211,153,0.3)",  color: "#34d399" },
   "Live":        { bg: "rgba(192,132,252,0.1)", border: "rgba(192,132,252,0.3)", color: "var(--accent-lavender)" },
   "In Progress": { bg: "rgba(244,114,182,0.1)", border: "rgba(244,114,182,0.3)", color: "var(--accent-rose)" },
+};
+
+const CATEGORY_META: Record<string, { icon: string; description: string }> = {
+  "AI & Machine Learning": {
+    icon: "⚡",
+    description: "End-to-end ML systems — trained, versioned, tested, and deployed.",
+  },
+  "Data Analytics": {
+    icon: "📊",
+    description: "Pipelines, dashboards, and statistical analysis on real datasets.",
+  },
+  "AI Agents & Automation": {
+    icon: "🤖",
+    description: "Multi-agent workflows, edge AI, and automation systems.",
+  },
 };
 
 function BookCard({ p }: { p: typeof PROJECTS[0] }) {
@@ -32,7 +47,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* Title panel — always full width, shrinks on hover */}
+      {/* Title panel */}
       <div style={{
         position: "absolute",
         top: 0, left: 0, bottom: 0,
@@ -98,7 +113,7 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
         zIndex: 4,
       }} />
 
-      {/* Description panel — always rendered at 64%, revealed by opacity */}
+      {/* Description panel */}
       <div style={{
         position: "absolute",
         top: 0, right: 0, bottom: 0,
@@ -187,10 +202,81 @@ function BookCard({ p }: { p: typeof PROJECTS[0] }) {
   );
 }
 
+function CategorySection({ category, projects }: { category: string; projects: typeof PROJECTS }) {
+  const meta = CATEGORY_META[category];
+  return (
+    <div style={{ marginBottom: "56px" }}>
+      {/* Section header */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+        marginBottom: "8px",
+      }}>
+        <span style={{ fontSize: "1.1rem" }}>{meta.icon}</span>
+        <h2 style={{
+          fontSize: "0.78rem",
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: 700,
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          color: "var(--accent-amber)",
+        }}>
+          {category}
+        </h2>
+        <div style={{
+          flex: 1,
+          height: "1px",
+          background: "rgba(245,158,11,0.15)",
+        }} />
+        <span style={{
+          fontSize: "0.72rem",
+          color: "rgba(255,255,255,0.2)",
+          fontVariantNumeric: "tabular-nums",
+        }}>
+          {projects.length} {projects.length === 1 ? "project" : "projects"}
+        </span>
+      </div>
+
+      <p style={{
+        color: "rgba(255,255,255,0.3)",
+        fontSize: "0.8rem",
+        marginBottom: "20px",
+        paddingLeft: "28px",
+      }}>
+        {meta.description}
+      </p>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "16px",
+      }}>
+        {projects.map(p => <BookCard key={p.id} p={p} />)}
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectsPage() {
+  const [activeFilter, setActiveFilter] = useState<Category>("All");
+
+  const categories = CATEGORIES.filter(c => c !== "All") as string[];
+
+  const filteredProjects = activeFilter === "All"
+    ? PROJECTS
+    : PROJECTS.filter(p => p.category === activeFilter);
+
+  const groupedByCategory = categories.reduce((acc, cat) => {
+    const projects = filteredProjects.filter(p => p.category === cat);
+    if (projects.length > 0) acc[cat] = projects;
+    return acc;
+  }, {} as Record<string, typeof PROJECTS>);
+
   return (
     <div className="section">
-      <div style={{ marginBottom: "52px" }}>
+      {/* Header */}
+      <div style={{ marginBottom: "44px" }}>
         <p style={{ color: "var(--accent-lavender)", fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "8px" }}>
           MY WORK
         </p>
@@ -200,13 +286,63 @@ export default function ProjectsPage() {
         </p>
       </div>
 
+      {/* Filter tabs */}
       <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "16px",
+        display: "flex",
+        gap: "8px",
+        flexWrap: "wrap",
+        marginBottom: "48px",
       }}>
-        {PROJECTS.map(p => <BookCard key={p.title} p={p} />)}
+        {CATEGORIES.map(cat => {
+          const isActive = activeFilter === cat;
+          const count = cat === "All"
+            ? PROJECTS.length
+            : PROJECTS.filter(p => p.category === cat).length;
+
+          return (
+            <button
+              key={cat}
+              onClick={() => setActiveFilter(cat)}
+              style={{
+                padding: "8px 18px",
+                borderRadius: "999px",
+                fontSize: "0.8rem",
+                fontWeight: 500,
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                border: isActive
+                  ? "1px solid rgba(245,158,11,0.6)"
+                  : "1px solid rgba(255,255,255,0.1)",
+                background: isActive
+                  ? "rgba(245,158,11,0.12)"
+                  : "transparent",
+                color: isActive
+                  ? "var(--accent-amber)"
+                  : "rgba(255,255,255,0.4)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+            >
+              {cat === "All" ? "✦" : CATEGORY_META[cat].icon} {cat}
+              <span style={{
+                fontSize: "0.68rem",
+                padding: "1px 6px",
+                borderRadius: "999px",
+                background: isActive ? "rgba(245,158,11,0.2)" : "rgba(255,255,255,0.06)",
+                color: isActive ? "var(--accent-amber)" : "rgba(255,255,255,0.3)",
+              }}>
+                {count}
+              </span>
+            </button>
+          );
+        })}
       </div>
+
+      {/* Projects — grouped by category */}
+      {Object.entries(groupedByCategory).map(([cat, projects]) => (
+        <CategorySection key={cat} category={cat} projects={projects} />
+      ))}
     </div>
   );
 }

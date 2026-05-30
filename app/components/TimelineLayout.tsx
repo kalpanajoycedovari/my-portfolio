@@ -26,8 +26,8 @@ function TimelineNode({ color }: { color: string; number: string }) {
       />
       <div style={{
         width: "16px", height: "16px", borderRadius: "50%",
-        background: color, border: "3px solid #0e0a07",
-        boxShadow: `0 0 10px ${color}66`,
+        background: color, border: "3px solid #faf7f2",
+        boxShadow: `0 0 10px ${color}44`,
         zIndex: 2, flexShrink: 0,
       }} />
     </div>
@@ -56,7 +56,6 @@ export function TimelineSection({ section }: { section: Section }) {
 
   return (
     <div ref={ref} style={{ display: "flex", gap: "0", alignItems: "flex-start", marginBottom: "80px" }}>
-      {/* Left: spine node + branch */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "4px", flexShrink: 0 }}>
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
@@ -68,10 +67,8 @@ export function TimelineSection({ section }: { section: Section }) {
         </motion.div>
       </div>
 
-      {/* Branch line */}
       <BranchLine color={section.color} />
 
-      {/* Content */}
       <motion.div
         initial={{ opacity: 0, x: 30 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -79,7 +76,6 @@ export function TimelineSection({ section }: { section: Section }) {
         transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
         style={{ flex: 1, paddingTop: "0" }}
       >
-        {/* Section header */}
         <div style={{ marginBottom: "24px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
             <span style={{ fontSize: "0.72rem", color: section.color, fontWeight: 600, letterSpacing: "0.15em" }}>
@@ -87,7 +83,7 @@ export function TimelineSection({ section }: { section: Section }) {
             </span>
             <div style={{ height: "1px", width: "24px", background: `${section.color}44` }} />
           </div>
-          <h2 style={{ fontSize: "2rem", marginBottom: "4px" }}>{section.title}</h2>
+          <h2 style={{ fontSize: "2rem", marginBottom: "4px", color: "#1a1a1a" }}>{section.title}</h2>
           <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>{section.subtitle}</p>
         </div>
 
@@ -104,16 +100,14 @@ export function TimelineSpine({ sections }: { sections: Section[] }) {
 
   return (
     <div ref={ref} style={{ position: "absolute", left: "8px", top: "24px", bottom: "24px", width: "2px" }}>
-      {/* Background track */}
-      <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,0.04)", borderRadius: "999px" }} />
-      {/* Animated fill */}
+      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.06)", borderRadius: "999px" }} />
       <motion.div
         style={{
           position: "absolute", top: 0, left: 0, right: 0,
-          background: "linear-gradient(to bottom, #f59e0b, #fb923c, #f43f5e)",
+          background: "linear-gradient(to bottom, #38a8d8, #1e8fbe)",
           borderRadius: "999px",
           scaleY, transformOrigin: "top",
-          boxShadow: "0 0 8px rgba(245,158,11,0.4)",
+          boxShadow: "0 0 8px rgba(56,168,216,0.3)",
         }}
       />
     </div>

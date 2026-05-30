@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import TiltCard from "./components/TiltCard";
 import TechStack from "./components/TechStack";
-import StatsAndBuilding from "./components/StatsAndBuilding";
 import GitHubGraph from "./components/GitHubGraph";
 import TimelineLayout from "./components/TimelineLayout";
 import CaseStudies from "./components/CaseStudies";
@@ -203,11 +202,10 @@ export default function HomePage() {
   }, []);
 
   const SECTIONS = [
-    { number: "01", title: "At a Glance",       subtitle: "Numbers, momentum, and what's keeping me busy right now", color: A, children: <StatsAndBuilding /> },
-    { number: "02", title: "Tech Stack",         subtitle: "Everything I work with — click a category to filter",    color: A, children: <TechStack /> },
-    { number: "03", title: "Case Studies",       subtitle: "UX/UI research and redesign — click a card to flip it",  color: A, children: <CaseStudies /> },
+    { number: "01", title: "Tech Stack",         subtitle: "Everything I work with — click a category to filter",    color: A, children: <TechStack /> },
+    { number: "02", title: "Case Studies",       subtitle: "UX/UI research and redesign — click a card to flip it",  color: A, children: <CaseStudies /> },
     {
-      number: "04", title: "Featured Projects", subtitle: "Hover to preview — click to explore", color: A,
+      number: "03", title: "Featured Projects", subtitle: "Hover to preview — click to explore", color: A,
       children: (
         <div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
@@ -225,7 +223,7 @@ export default function HomePage() {
         </div>
       ),
     },
-    { number: "05", title: "Coding Activity", subtitle: "Proof that I actually show up", color: A, children: <GitHubGraph /> },
+    { number: "04", title: "Coding Activity", subtitle: "Proof that I actually show up", color: A, children: <GitHubGraph /> },
   ];
 
   return (

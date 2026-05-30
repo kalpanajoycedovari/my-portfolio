@@ -17,9 +17,8 @@ const CASE_STUDIES = [
       { value: "<1%", label: "Reach fluency" },
       { value: "8/8", label: "Users preferred redesign" },
     ],
-    accent: "#f59e0b",
-    gradient: "linear-gradient(135deg, #1a1000, #2a1800)",
-    emoji: "🦉",
+    accent: "#38a8d8",
+    gradient: "linear-gradient(135deg, #e0f2fe, #bae6fd)",
     docx: "/case-studies/duolingo-case-study.docx",
     pptx: "/case-studies/duolingo-case-study.pptx",
   },
@@ -36,9 +35,8 @@ const CASE_STUDIES = [
       { value: "61%", label: "Can't tell AI from real" },
       { value: "6/6", label: "Understood mode system" },
     ],
-    accent: "#c084fc",
-    gradient: "linear-gradient(135deg, #0e0018, #1a0030)",
-    emoji: "📌",
+    accent: "#1e8fbe",
+    gradient: "linear-gradient(135deg, #e0f2fe, #bae6fd)",
     docx: "/case-studies/pinterest-case-study.docx",
     pptx: "/case-studies/pinterest-case-study.pptx",
   },
@@ -57,7 +55,7 @@ function CaseStudyCard({ cs }: { cs: typeof CASE_STUDIES[0] }) {
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         style={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}
       >
-        {/* ── Front ── */}
+        {/* Front */}
         <div style={{
           position: "absolute", inset: 0,
           backfaceVisibility: "hidden",
@@ -70,26 +68,22 @@ function CaseStudyCard({ cs }: { cs: typeof CASE_STUDIES[0] }) {
           flexDirection: "column",
           overflow: "hidden",
         }}>
-          {/* Glow */}
-          <div style={{ position: "absolute", top: -40, right: -40, width: "180px", height: "180px", borderRadius: "50%", background: `radial-gradient(circle, ${cs.accent}18, transparent 70%)`, pointerEvents: "none" }} />
-
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
-            <span style={{ fontSize: "2.2rem" }}>{cs.emoji}</span>
-            <div style={{ textAlign: "right" }}>
-              <span style={{ fontSize: "0.7rem", padding: "3px 10px", borderRadius: "999px", background: `${cs.accent}18`, border: `1px solid ${cs.accent}33`, color: cs.accent, fontWeight: 500 }}>
+            <div style={{ textAlign: "right", marginLeft: "auto" }}>
+              <span style={{ fontSize: "0.7rem", padding: "3px 10px", borderRadius: "999px", background: "rgba(255,255,255,0.6)", border: `1px solid ${cs.accent}33`, color: cs.accent, fontWeight: 500 }}>
                 {cs.domain}
               </span>
-              <p style={{ fontSize: "0.68rem", color: "var(--text-secondary)", marginTop: "6px" }}>{cs.timeline} · {cs.tools.join(", ")}</p>
+              <p style={{ fontSize: "0.68rem", color: "#6b7280", marginTop: "6px" }}>{cs.timeline} · {cs.tools.join(", ")}</p>
             </div>
           </div>
 
-          <h3 style={{ fontSize: "1.4rem", fontFamily: "'Playfair Display', serif", marginBottom: "6px", color: "var(--text-primary)" }}>
+          <h3 style={{ fontSize: "1.4rem", fontFamily: "'Playfair Display', serif", marginBottom: "6px", color: "#1a1a1a" }}>
             {cs.title}
           </h3>
           <p style={{ fontSize: "0.82rem", color: cs.accent, fontStyle: "italic", marginBottom: "16px" }}>
             "{cs.subtitle}"
           </p>
-          <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.7, flex: 1 }}>
+          <p style={{ fontSize: "0.85rem", color: "#4b5563", lineHeight: 1.7, flex: 1 }}>
             {cs.problem}
           </p>
 
@@ -98,19 +92,18 @@ function CaseStudyCard({ cs }: { cs: typeof CASE_STUDIES[0] }) {
             {cs.stats.map(s => (
               <div key={s.label} style={{ flex: 1, textAlign: "center" }}>
                 <p style={{ fontSize: "1.1rem", fontWeight: 700, color: cs.accent, lineHeight: 1 }}>{s.value}</p>
-                <p style={{ fontSize: "0.65rem", color: "var(--text-secondary)", marginTop: "3px" }}>{s.label}</p>
+                <p style={{ fontSize: "0.65rem", color: "#6b7280", marginTop: "3px" }}>{s.label}</p>
               </div>
             ))}
           </div>
 
-          {/* Flip hint */}
-          <div style={{ position: "absolute", bottom: "12px", right: "16px", fontSize: "0.65rem", color: "var(--text-secondary)", opacity: 0.5, display: "flex", alignItems: "center", gap: "4px" }}>
+          <div style={{ position: "absolute", bottom: "12px", right: "16px", fontSize: "0.65rem", color: "#6b7280", opacity: 0.6, display: "flex", alignItems: "center", gap: "4px" }}>
             <motion.span animate={{ rotateY: [0, 180, 0] }} transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}>⟳</motion.span>
             click to flip
           </div>
         </div>
 
-        {/* ── Back ── */}
+        {/* Back */}
         <div style={{
           position: "absolute", inset: 0,
           backfaceVisibility: "hidden",
@@ -127,13 +120,9 @@ function CaseStudyCard({ cs }: { cs: typeof CASE_STUDIES[0] }) {
           gap: "24px",
           overflow: "hidden",
         }}>
-          {/* Glow */}
-          <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 50% 50%, ${cs.accent}12, transparent 70%)`, pointerEvents: "none" }} />
-
-          <span style={{ fontSize: "2.8rem" }}>{cs.emoji}</span>
           <div style={{ textAlign: "center" }}>
-            <h3 style={{ fontSize: "1.3rem", fontFamily: "'Playfair Display', serif", marginBottom: "6px" }}>{cs.title}</h3>
-            <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>View the full case study</p>
+            <h3 style={{ fontSize: "1.3rem", fontFamily: "'Playfair Display', serif", marginBottom: "6px", color: "#1a1a1a" }}>{cs.title}</h3>
+            <p style={{ fontSize: "0.82rem", color: "#6b7280" }}>View the full case study</p>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: "260px" }}>
@@ -144,9 +133,8 @@ function CaseStudyCard({ cs }: { cs: typeof CASE_STUDIES[0] }) {
               style={{
                 display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
                 padding: "14px 24px", borderRadius: "12px", textDecoration: "none",
-                background: `${cs.accent}18`, border: `1px solid ${cs.accent}44`,
+                background: "rgba(255,255,255,0.7)", border: `1px solid ${cs.accent}44`,
                 color: cs.accent, fontWeight: 600, fontSize: "0.9rem",
-                transition: "all 0.2s ease",
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -164,9 +152,8 @@ function CaseStudyCard({ cs }: { cs: typeof CASE_STUDIES[0] }) {
               style={{
                 display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
                 padding: "14px 24px", borderRadius: "12px", textDecoration: "none",
-                background: "linear-gradient(135deg, #f59e0b, #fb923c)",
-                border: "none", color: "#0e0a07", fontWeight: 700, fontSize: "0.9rem",
-                transition: "all 0.2s ease",
+                background: `linear-gradient(135deg, #38a8d8, #1e8fbe)`,
+                border: "none", color: "#ffffff", fontWeight: 700, fontSize: "0.9rem",
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -178,7 +165,7 @@ function CaseStudyCard({ cs }: { cs: typeof CASE_STUDIES[0] }) {
             </a>
           </div>
 
-          <p style={{ fontSize: "0.68rem", color: "var(--text-secondary)", opacity: 0.5 }}>click anywhere to flip back</p>
+          <p style={{ fontSize: "0.68rem", color: "#6b7280", opacity: 0.6 }}>click anywhere to flip back</p>
         </div>
       </motion.div>
     </div>

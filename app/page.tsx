@@ -103,7 +103,7 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
         aspectRatio: "4/3", color: "inherit", textDecoration: "none",
         borderRadius: "16px",
         border: `1px solid ${open ? `${A}55` : `${A}20`}`,
-        background: "rgba(255,255,255,0.6)",
+        background: open ? "rgba(224,242,254,0.95)" : "rgba(224,242,254,0.6)",
         transition: "border-color 0.4s ease, box-shadow 0.4s ease",
         boxShadow: open ? `0 8px 32px ${A}18` : "0 2px 12px rgba(0,0,0,0.06)",
       }}
@@ -122,7 +122,7 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
       {/* Top dot + label */}
       <div style={{
         position: "absolute", top: "20px", left: "24px", zIndex: 2,
-        opacity: open ? 0 : 1, transition: "opacity 0.2s ease",
+        opacity: 0,
         display: "flex", gap: "6px", alignItems: "center",
       }}>
         <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: A }} />
@@ -136,6 +136,8 @@ function BookCard({ p }: { p: typeof FEATURED[0] }) {
         opacity: open ? 0 : 1,
         transform: open ? "translateY(6px)" : "translateY(0)",
         transition: "opacity 0.3s ease, transform 0.3s ease",
+        display: "flex", flexDirection: "column", alignItems: "center",
+        textAlign: "center", top: 0, justifyContent: "center",
       }}>
         <p style={{ color: A, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "4px" }}>FEATURED</p>
         <h3 style={{ fontSize: "1.05rem", fontFamily: "'Inter',sans-serif", fontWeight: 700, lineHeight: 1.3, color: "var(--text-primary)", marginBottom: "3px" }}>{p.title}</h3>

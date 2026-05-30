@@ -29,7 +29,7 @@ export default function Navbar() {
     }}>
       {/* Logo */}
       <Link href="/" style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: "#1a1a1a", fontWeight: 600, textDecoration: "none" }}>
-        Joyce<span style={{ color: "var(--accent-amber)" }}>.</span>
+        Joyce
       </Link>
 
       {/* Desktop links */}

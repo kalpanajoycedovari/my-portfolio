@@ -10,17 +10,14 @@ const STATUS_STYLES: Record<string, { bg: string; border: string; color: string 
   "In Progress": { bg: "rgba(244,114,182,0.1)", border: "rgba(244,114,182,0.3)", color: "var(--accent-rose)" },
 };
 
-const CATEGORY_META: Record<string, { icon: string; description: string }> = {
+const CATEGORY_META: Record<string, { description: string }> = {
   "AI & Machine Learning": {
-    icon: "⚡",
     description: "End-to-end ML systems — trained, versioned, tested, and deployed.",
   },
   "Data Analytics": {
-    icon: "📊",
     description: "Pipelines, dashboards, and statistical analysis on real datasets.",
   },
   "AI Agents & Automation": {
-    icon: "🤖",
     description: "Multi-agent workflows, edge AI, and automation systems.",
   },
 };
@@ -206,14 +203,12 @@ function CategorySection({ category, projects }: { category: string; projects: t
   const meta = CATEGORY_META[category];
   return (
     <div style={{ marginBottom: "56px" }}>
-      {/* Section header */}
       <div style={{
         display: "flex",
         alignItems: "center",
         gap: "12px",
         marginBottom: "8px",
       }}>
-        <span style={{ fontSize: "1.1rem" }}>{meta.icon}</span>
         <h2 style={{
           fontSize: "0.78rem",
           fontFamily: "'Inter', sans-serif",
@@ -221,6 +216,7 @@ function CategorySection({ category, projects }: { category: string; projects: t
           letterSpacing: "0.14em",
           textTransform: "uppercase",
           color: "var(--accent-amber)",
+          whiteSpace: "nowrap",
         }}>
           {category}
         </h2>
@@ -233,6 +229,7 @@ function CategorySection({ category, projects }: { category: string; projects: t
           fontSize: "0.72rem",
           color: "rgba(255,255,255,0.2)",
           fontVariantNumeric: "tabular-nums",
+          whiteSpace: "nowrap",
         }}>
           {projects.length} {projects.length === 1 ? "project" : "projects"}
         </span>
@@ -242,7 +239,6 @@ function CategorySection({ category, projects }: { category: string; projects: t
         color: "rgba(255,255,255,0.3)",
         fontSize: "0.8rem",
         marginBottom: "20px",
-        paddingLeft: "28px",
       }}>
         {meta.description}
       </p>
@@ -275,14 +271,13 @@ export default function ProjectsPage() {
 
   return (
     <div className="section">
-      {/* Header */}
       <div style={{ marginBottom: "44px" }}>
         <p style={{ color: "var(--accent-lavender)", fontSize: "0.85rem", fontWeight: 500, letterSpacing: "0.1em", marginBottom: "8px" }}>
           MY WORK
         </p>
         <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", marginBottom: "12px" }}>Projects</h1>
         <p style={{ color: "var(--text-secondary)", fontSize: "1rem", maxWidth: "520px" }}>
-          Each project started with a problem I couldn't stop thinking about. Hover to open. ✨
+          Each project started with a problem I couldn't stop thinking about. Hover to open.
         </p>
       </div>
 
@@ -324,7 +319,7 @@ export default function ProjectsPage() {
                 gap: "6px",
               }}
             >
-              {cat === "All" ? "✦" : CATEGORY_META[cat].icon} {cat}
+              {cat}
               <span style={{
                 fontSize: "0.68rem",
                 padding: "1px 6px",
@@ -339,7 +334,7 @@ export default function ProjectsPage() {
         })}
       </div>
 
-      {/* Projects — grouped by category */}
+      {/* Projects grouped by category */}
       {Object.entries(groupedByCategory).map(([cat, projects]) => (
         <CategorySection key={cat} category={cat} projects={projects} />
       ))}

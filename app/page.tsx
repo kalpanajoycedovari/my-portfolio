@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import TiltCard from "./components/TiltCard";
 import TechStack from "./components/TechStack";
-import GitHubGraph from "./components/GitHubGraph";
 import TimelineLayout from "./components/TimelineLayout";
 import CaseStudies from "./components/CaseStudies";
 
@@ -223,7 +222,7 @@ export default function HomePage() {
         </div>
       ),
     },
-    { number: "04", title: "Coding Activity", subtitle: "Proof that I actually show up", color: A, children: <GitHubGraph /> },
+
   ];
 
   return (

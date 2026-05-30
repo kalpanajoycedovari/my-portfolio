@@ -7,44 +7,50 @@ const CATEGORIES = [
   {
     label: "Languages",
     icon: "{ }",
-    color: "#f59e0b",
-    items: ["Python", "TypeScript", "JavaScript", "Java", "C++", "Ruby", "Go", "Zig", "SQL"],
+    color: "#38a8d8",
+    items: ["Python", "TypeScript", "JavaScript", "Java", "C++", "SQL"],
   },
   {
     label: "AI / ML",
-    icon: "🤖",
-    color: "#fb923c",
+    icon: "◉",
+    color: "#1e8fbe",
     items: ["PyTorch", "TensorFlow", "scikit-learn", "Keras", "OpenCV", "Wav2Vec", "HuggingFace", "LangChain"],
   },
   {
     label: "AI Agents & LLM Tools",
-    icon: "⚡",
-    color: "#fcd34d",
-    items: ["N8N", "Flowise", "Ollama", "FastAPI", "Streamlit"],
+    icon: "◈",
+    color: "#38a8d8",
+    items: ["LangGraph", "N8N", "Flowise", "Ollama", "FastAPI", "Streamlit", "Groq"],
   },
   {
     label: "Frontend",
-    icon: "◈",
-    color: "#f43f5e",
+    icon: "◎",
+    color: "#1e8fbe",
     items: ["React", "Next.js", "CSS", "Bootstrap"],
   },
   {
     label: "Backend & Database",
     icon: "⬡",
-    color: "#c084fc",
-    items: ["Flask", "Express.js", "Firebase", "MongoDB", "MySQL", "SQLite"],
+    color: "#38a8d8",
+    items: ["Flask", "Express.js", "Firebase", "MongoDB", "MySQL", "SQLite", "PostgreSQL"],
+  },
+  {
+    label: "Cloud",
+    icon: "△",
+    color: "#1e8fbe",
+    items: ["Azure", "AWS", "GCP", "Docker", "GitHub Actions", "Vercel", "Cloudflare Workers"],
   },
   {
     label: "Data & Analytics",
-    icon: "◎",
-    color: "#34d399",
-    items: ["Pandas", "NumPy", "Plotly", "TextBlob", "Web Scraping", "Tableau", "Power BI"],
+    icon: "▦",
+    color: "#38a8d8",
+    items: ["Pandas", "NumPy", "Plotly", "dbt", "Prefect", "Tableau", "Power BI"],
   },
   {
     label: "Tools & Platforms",
     icon: "⚙",
-    color: "#818cf8",
-    items: ["Docker", "Git", "Vercel", "GitHub Pages", "Jupyter", "Google Colab", "VS Code"],
+    color: "#1e8fbe",
+    items: ["Git", "Jupyter", "Google Colab", "VS Code", "MLflow"],
   },
 ];
 
@@ -68,7 +74,7 @@ export default function TechStack() {
 
   return (
     <div>
-      {/* Category filter pills */}
+      {/* Filter pills */}
       <motion.div
         style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "36px" }}
         initial={{ opacity: 0, y: 20 }}
@@ -81,10 +87,10 @@ export default function TechStack() {
           style={{
             padding: "6px 16px", borderRadius: "999px", fontSize: "0.8rem",
             fontWeight: 500, cursor: "pointer", border: "none", outline: "none",
-            background: activeCategory === null ? "var(--accent-amber)" : "rgba(255,255,255,0.04)",
-            color: activeCategory === null ? "#0e0a07" : "var(--text-secondary)",
+            background: activeCategory === null ? "#38a8d8" : "rgba(0,0,0,0.04)",
+            color: activeCategory === null ? "#ffffff" : "#6b7280",
             borderWidth: "1px", borderStyle: "solid",
-            borderColor: activeCategory === null ? "var(--accent-amber)" : "rgba(255,255,255,0.08)",
+            borderColor: activeCategory === null ? "#38a8d8" : "rgba(0,0,0,0.08)",
             transition: "all 0.2s ease",
           }}
         >
@@ -97,10 +103,10 @@ export default function TechStack() {
             style={{
               padding: "6px 16px", borderRadius: "999px", fontSize: "0.8rem",
               fontWeight: 500, cursor: "pointer", border: "none", outline: "none",
-              background: activeCategory === c.label ? `${c.color}22` : "rgba(255,255,255,0.04)",
-              color: activeCategory === c.label ? c.color : "var(--text-secondary)",
+              background: activeCategory === c.label ? "rgba(56,168,216,0.12)" : "rgba(0,0,0,0.04)",
+              color: activeCategory === c.label ? "#38a8d8" : "#6b7280",
               borderWidth: "1px", borderStyle: "solid",
-              borderColor: activeCategory === c.label ? `${c.color}55` : "rgba(255,255,255,0.08)",
+              borderColor: activeCategory === c.label ? "rgba(56,168,216,0.4)" : "rgba(0,0,0,0.08)",
               transition: "all 0.2s ease",
             }}
           >
@@ -125,8 +131,8 @@ export default function TechStack() {
               variants={cardAnim}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: `1px solid ${c.color}22`,
+                background: "rgba(255,255,255,0.75)",
+                border: "1px solid rgba(56,168,216,0.18)",
                 borderRadius: "16px",
                 padding: "24px",
                 backdropFilter: "blur(12px)",
@@ -136,7 +142,7 @@ export default function TechStack() {
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "18px" }}>
                 <div style={{
                   width: "36px", height: "36px", borderRadius: "10px",
-                  background: `${c.color}18`, border: `1px solid ${c.color}33`,
+                  background: "rgba(56,168,216,0.1)", border: "1px solid rgba(56,168,216,0.25)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: "1rem", color: c.color, fontWeight: 700,
                   fontFamily: "monospace",
@@ -144,12 +150,12 @@ export default function TechStack() {
                   {c.icon}
                 </div>
                 <div>
-                  <p style={{ fontSize: "0.72rem", color: `${c.color}99`, letterSpacing: "0.1em", marginBottom: "1px" }}>
+                  <p style={{ fontSize: "0.72rem", color: "rgba(56,168,216,0.7)", letterSpacing: "0.1em", marginBottom: "1px" }}>
                     {c.items.length} SKILLS
                   </p>
                   <h3 style={{
                     fontSize: "0.95rem", fontFamily: "'Inter', sans-serif",
-                    fontWeight: 600, color: "var(--text-primary)",
+                    fontWeight: 600, color: "#1a1a1a",
                   }}>
                     {c.label}
                   </h3>
@@ -157,11 +163,8 @@ export default function TechStack() {
               </div>
 
               {/* Skill badges */}
-              <motion.div
-                variants={container}
-                style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}
-              >
-                {c.items.map((skill, i) => (
+              <motion.div variants={container} style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}>
+                {c.items.map(skill => (
                   <motion.span
                     key={skill}
                     variants={badgeAnim}
@@ -169,9 +172,9 @@ export default function TechStack() {
                     style={{
                       padding: "4px 12px", borderRadius: "999px",
                       fontSize: "0.78rem", fontWeight: 500, cursor: "default",
-                      background: `${c.color}10`,
-                      border: `1px solid ${c.color}30`,
-                      color: c.color,
+                      background: "rgba(56,168,216,0.08)",
+                      border: "1px solid rgba(56,168,216,0.22)",
+                      color: "#38a8d8",
                     }}
                   >
                     {skill}
@@ -182,7 +185,7 @@ export default function TechStack() {
               {/* Bottom accent line */}
               <div style={{
                 height: "2px", marginTop: "20px", borderRadius: "999px",
-                background: `linear-gradient(to right, ${c.color}44, transparent)`,
+                background: "linear-gradient(to right, rgba(56,168,216,0.35), transparent)",
               }} />
             </motion.div>
           ))}

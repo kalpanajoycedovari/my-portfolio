@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { TypeAnimation } from "react-type-animation";
 import TechStack from "./components/TechStack";
 import TimelineLayout from "./components/TimelineLayout";
 import CaseStudies from "./components/CaseStudies";
@@ -27,6 +26,44 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
+  // JoyOS boot sequence
+  const bootLines = [
+    "Booting JoyOS...",
+    "✓ Loading AI Runtime",
+    "✓ Connecting Services",
+    "✓ Initializing Governance Layer",
+    "✓ Loading Vector Memory",
+    "✓ Ready",
+  ];
+  const SYSTEMS = [
+    { name: "Governance Layer", status: "Healthy" },
+    { name: "Policy Engine", status: "Running" },
+    { name: "API Gateway", status: "Online" },
+    { name: "Audit Logs", status: "Streaming" },
+  ];
+  const [booting, setBooting] = useState(true);
+  const [bootStep, setBootStep] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("joyos_booted")) {
+      setBooting(false);
+      return;
+    }
+    let step = 0;
+    const iv = setInterval(() => {
+      step += 1;
+      setBootStep(step);
+      if (step >= bootLines.length) {
+        clearInterval(iv);
+        setTimeout(() => {
+          setBooting(false);
+          if (typeof window !== "undefined") sessionStorage.setItem("joyos_booted", "1");
+        }, 500);
+      }
+    }, 320);
+    return () => clearInterval(iv);
+  }, []);
+
   const SECTIONS = [
     { number: "01", title: "Tech Stack",         subtitle: "Everything I work with — click a category to filter",    color: A, children: <TechStack /> },
     { number: "02", title: "Case Studies",       subtitle: "UX/UI research and redesign — click a card to flip it",  color: A, children: <CaseStudies /> },
@@ -34,7 +71,7 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* HERO */}
+      {/* HERO — JoyOS */}
       <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 32px", maxWidth: "1000px", margin: "0 auto", position: "relative" }}>
 
         {/* Clock */}
@@ -52,53 +89,80 @@ export default function HomePage() {
         </div>
 
         {/* Name */}
-        <motion.div style={{ marginBottom: "32px" }} initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}>
+        <motion.div style={{ marginBottom: "28px" }} initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "7px", marginBottom: "20px", padding: "6px 14px", borderRadius: "999px", background: `${A}12`, border: `1px solid ${A}44` }}>
             <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: A, animation: "pulse-blue 2s infinite" }} />
             <span style={{ fontSize: "0.75rem", color: A, fontWeight: 500 }}>Open to opportunities</span>
           </div>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 400, letterSpacing: "0.2em", marginBottom: "16px", textTransform: "uppercase" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 400, letterSpacing: "0.2em", marginBottom: "14px", textTransform: "uppercase" }}>
             Kalpana Joyce Dovari
           </p>
-          <h1 style={{ fontSize: "clamp(5rem, 14vw, 11rem)", lineHeight: 0.9, fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "-0.03em" }}>
+          <h1 style={{ fontSize: "clamp(4rem, 12vw, 9rem)", lineHeight: 0.9, fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "10px" }}>
             <span className="gradient-text">Joyce</span>
-            <span style={{ display: "block", color: "rgba(0,0,0,0.06)", fontSize: "0.55em", letterSpacing: "0.02em" }}>———</span>
           </h1>
+          <p style={{ fontSize: "1.05rem", color: A, fontWeight: 600, letterSpacing: "0.02em" }}>AI Engineer</p>
+          <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: "440px", marginTop: "12px" }}>
+            Building production AI systems that reason, govern, and automate decisions.
+          </p>
         </motion.div>
 
-        {/* Role + description */}
-        <motion.div style={{ display: "flex", alignItems: "flex-start", gap: "40px", marginBottom: "48px", flexWrap: "wrap" }} initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}>
-          <div style={{ flex: 1, minWidth: "280px" }}>
-            <div style={{ fontSize: "1.15rem", color: A, fontWeight: 600, marginBottom: "12px", minHeight: "1.8rem" }}>
-              <TypeAnimation
-                sequence={["AI/ML Engineer", 2000, "Data Analyst", 2000, "MSc AI Student", 2000, "Problem Solver", 2000, "Builder of Things", 2000]}
-                wrapper="span" speed={50} repeat={Infinity} cursor={true}
-              />
+        {/* JoyOS system panel */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          style={{
+            maxWidth: "540px", marginBottom: "36px",
+            background: "rgba(255,255,255,0.55)", backdropFilter: "blur(10px)",
+            border: `1px solid ${A}33`, borderRadius: "14px", padding: "20px 22px",
+            fontFamily: "'SFMono-Regular', 'Consolas', ui-monospace, monospace",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.06)",
+          }}
+        >
+          {booting ? (
+            <div>
+              {bootLines.slice(0, bootStep).map((line, i) => (
+                <motion.p
+                  key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }}
+                  style={{ fontSize: "0.82rem", color: i === 0 ? A : "var(--text-secondary)", lineHeight: 1.9, letterSpacing: "0.01em" }}
+                >
+                  {line}
+                </motion.p>
+              ))}
             </div>
-            <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.8, maxWidth: "480px" }}>
-              "My first real task at work wasn't a problem set with a right answer — it was just 'how did we perform last week?' I sat there for ten minutes, everything I'd studied suddenly feeling very far away. That moment taught me more than any lecture did. Now I build from the question first, the query second."
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "4px" }}>
-            {["Based in London, UK", "Currently — MSc AI", "Available from Summer 2026"].map(t => (
-              <span key={t} style={{ fontSize: "0.78rem", color: "var(--text-secondary)", display: "flex", alignItems: "center", gap: "8px" }}>
-                <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: A, flexShrink: 0 }} />
-                {t}
-              </span>
-            ))}
-          </div>
+          ) : (
+            <div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
+                <span style={{ fontSize: "0.7rem", letterSpacing: "0.18em", color: "var(--text-secondary)", fontWeight: 600 }}>AI SYSTEM STATUS</span>
+                <span style={{ fontSize: "0.68rem", color: A, display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e", animation: "pulse-dot 1.6s infinite" }} />
+                  ALL SYSTEMS OPERATIONAL
+                </span>
+              </div>
+              {SYSTEMS.map((s, i) => (
+                <motion.div
+                  key={s.name} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.08 }}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "7px 0", borderBottom: i < SYSTEMS.length - 1 ? `1px solid ${A}15` : "none" }}
+                >
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "10px", fontSize: "0.84rem", color: "var(--text-primary)" }}>
+                    <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#22c55e", animation: "pulse-dot 1.8s infinite", flexShrink: 0 }} />
+                    {s.name}
+                  </span>
+                  <span style={{ fontSize: "0.78rem", color: A, fontWeight: 500 }}>{s.status}</span>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         {/* Buttons */}
-        <motion.div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "60px" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}>
-          <Link href="/projects" className="btn-primary">View Projects →</Link>
+        <motion.div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center", marginBottom: "56px" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}>
+          <a href="https://governance-backend.victoriousdesert-a185ae98.swedencentral.azurecontainerapps.io/" target="_blank" rel="noreferrer" className="btn-primary">Live Demo →</a>
           <a href="https://github.com/kalpanajoycedovari" target="_blank" rel="noreferrer" className="btn-ghost" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><GithubIcon /> GitHub</a>
-          <a href="https://linkedin.com/in/kalpanajoycedovari" target="_blank" rel="noreferrer" className="btn-ghost" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}><LinkedInIcon /> LinkedIn</a>
-          <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn-ghost">Resume →</a>
+          <Link href="/projects" className="btn-ghost">Architecture →</Link>
+          <Link href="/projects" className="btn-ghost">View Projects →</Link>
         </motion.div>
 
         {/* Scroll hint */}
-        <motion.div style={{ display: "flex", alignItems: "center", gap: "12px" }} initial={{ opacity: 0 }} animate={{ opacity: 0.4 }} transition={{ duration: 1, delay: 0.8 }}>
+        <motion.div style={{ display: "flex", alignItems: "center", gap: "12px" }} initial={{ opacity: 0 }} animate={{ opacity: 0.4 }} transition={{ duration: 1, delay: 0.9 }}>
           <div style={{ width: "32px", height: "1px", background: A }} />
           <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)", letterSpacing: "0.15em" }}>SCROLL TO EXPLORE</p>
         </motion.div>
@@ -108,6 +172,11 @@ export default function HomePage() {
             0%   { box-shadow: 0 0 0 0 rgba(56,168,216,0.55); }
             70%  { box-shadow: 0 0 0 8px rgba(56,168,216,0); }
             100% { box-shadow: 0 0 0 0 rgba(56,168,216,0); }
+          }
+          @keyframes pulse-dot {
+            0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+            70%  { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+            100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
           }
         `}</style>
       </section>

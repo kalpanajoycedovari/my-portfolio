@@ -16,6 +16,20 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "agent-governance-layer",
+    title: "Agent Governance Layer",
+    tagline: "",
+    desc: "A multi-agent governance system that enforces EU AI Act compliance on autonomous agent outputs — policy checks, risk classification, and full audit logging, deployed live on Azure.",
+    details: "A governance layer that sits between AI agents and their actions, enforcing compliance before anything ships. Built with FastAPI and a multi-agent orchestration flow, it runs policy checks against EU AI Act requirements, classifies risk, and writes a complete audit trail for every decision. Retrieval uses a hybrid RAG setup — Qdrant with BM25 for keyword-plus-semantic search over regulatory text — backed by Postgres for state and Groq for fast inference. Containerised with Docker and deployed to Azure Container Apps in Sweden Central, with a live Fleet Registry dashboard showing system status in real time.",
+    tags: ["FastAPI", "Multi-Agent", "Qdrant", "Hybrid RAG", "BM25", "PostgreSQL", "Groq", "Docker", "Azure Container Apps", "n8n"],
+    github: "https://github.com/kalpanajoycedovari/ai-governance-gateway",
+    demo: "https://governance-backend.victoriousdesert-a185ae98.swedencentral.azurecontainerapps.io/",
+    cover: "",
+    year: "2026",
+    status: "Live",
+    category: "AI Agents & Automation",
+  },
+  {
     id: "finsentiment-mlops",
     title: "FinSentiment MLOps Pipeline",
     tagline: "A Data Scientist's prototype, made production-grade.",
